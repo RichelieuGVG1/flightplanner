@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlySim Planner - Оптимизация маршрутов</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v10.3.1/dist/ol.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-light: #f8fafc;
+            --sidebar-bg: #ffffff;
+            --accent-primary: #0284c7;
+            --accent-soft: rgba(2, 132, 199, 0.1);
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 33vw;
+            height: 100vh;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            z-index: 100;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .header {
+            margin-bottom: 0.75rem;
+        }
+
+        .header h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            line-height: 1.2;
+            margin-bottom: 0.25rem;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            flex-grow: 1;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .input-group label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
+
+        select,
+        input[type="number"],
+        input[type="datetime-local"] {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            width: 100%;
+            transition: border-color 0.2s;
+        }
+
+        select:focus,
+        input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .slider-value {
+            font-weight: 600;
+            color: var(--accent-primary);
+            font-size: 0.75rem;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #0369a1;
+        }
+
+        .copyright {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .map-container {
+            width: 67vw;
+            height: 100vh;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            background: #f1f5f9;
+        }
+
+        .grid-label {
+            background: rgba(255, 255, 255, 0.88);
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 10px;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+            font-weight: 500;
+            font-family: 'Inter', monospace;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .custom-tooltip {
+            background: white;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        /* Playback Controls Styling */
+        .playback-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 18px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            border: 1px solid var(--border-color);
+            transition: opacity 0.3s, transform 0.3s;
+            width: fit-content;
+            min-width: 320px;
+        }
+
+        .playback-controls.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            filter: grayscale(1);
+        }
+
+        .play-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: var(--accent-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            flex-shrink: 0;
+            padding: 0;
+        }
+
+        .play-btn:hover {
+            background: #0369a1;
+            transform: scale(1.05);
+        }
+
+        .play-btn:active {
+            transform: scale(0.95);
+        }
+
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-left: 11px solid white;
+            margin-left: 3px;
+        }
+
+        .pause-icon {
+            display: none;
+            width: 12px;
+            height: 14px;
+            position: relative;
+        }
+
+        .pause-icon::before,
+        .pause-icon::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 14px;
+            background: white;
+            top: 0;
+        }
+
+        .pause-icon::before {
+            left: 0;
+        }
+
+        .pause-icon::after {
+            right: 0;
+        }
+
+        .play-btn.playing .play-icon {
+            display: none;
+        }
+
+        .play-btn.playing .pause-icon {
+            display: block;
+        }
+
+        .timeline-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            flex-grow: 1;
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .timeline-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.1);
+        }
+
+        .time-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-family: 'Inter', monospace;
+            min-width: 40px;
+        }
+
+        .ol-attribution {
+            background: rgba(255, 255, 255, 0.9) !important;
+            border: 1px solid var(--border-color) !important;
+            border-bottom: none !important;
+            border-radius: 4px 4px 0 0 !important;
+            padding: 1px 10px !important;
+            bottom: 0 !important;
+            left: 50% !important;
+            right: auto !important;
+            transform: translateX(-50%) !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 10px !important;
+            color: var(--text-secondary) !important;
+            box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.05) !important;
+            width: fit-content !important;
+            max-width: 90% !important;
+            z-index: 500 !important;
+            margin-left: 80px;
+
+        }
+
+        .ol-attribution button {
+            display: none !important;
+        }
+
+        .ol-attribution ul {
+            margin: 0 !important;
+            padding: 0 !important;
+            list-style: none !important;
+        }
+
+        .ol-attribution a {
+            color: var(--accent-primary) !important;
+            text-decoration: none !important;
+            font-weight: 500 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="header">
+            <h1 id="header-title">Аэрофлот-Оптимайзер</h1>
+            <p id="header-subtitle">Загрузка...</p>
+        </div>
+
+        <div class="form-section">
+            <div class="grid-2">
+                <div class="input-group">
+                    <label>Вылет</label>
+                    <select id="dep-airport"></select>
+                </div>
+                <div class="input-group">
+                    <label>Назначение</label>
+                    <select id="arr-airport"></select>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Воздушное судно</label>
+                <select id="aircraft-type" onchange="updateAircraftConstraints()"></select>
+            </div>
+
+            <div class="slider-container">
+                <div class="slider-header">
+                    <label>Пассажиры</label>
+                    <span class="slider-value" id="pax-value">0 чел.</span>
+                </div>
+                <input type="range" id="pax-slider" min="0" oninput="updatePaxValue()">
+            </div>
+
+            <div class="slider-container">
+                <div class="slider-header">
+                    <label>Багаж (кг)</label>
+                    <span class="slider-value" id="baggage-value">0 кг</span>
+                </div>
+                <input type="range" id="baggage-slider" min="0" max="1000" oninput="updateBaggageValue()">
+                <label class="checkbox-group">
+                    <input type="checkbox" id="full-load" onchange="toggleFullLoad()">
+                    Полная загрузка
+                </label>
+            </div>
+
+            <div class="grid-2">
+                <div class="input-group">
+                    <label>Мин. запас топлива (кг)</label>
+                    <input type="number" id="fuel-reserve" value="2500">
+                </div>
+                <div class="input-group">
+                    <label>Время вылета</label>
+                    <input type="datetime-local" id="departure-time">
+                </div>
+            </div>
+
+            <button class="btn-primary" id="optimize-btn" onclick="optimizeRoute()">Оптимизировать маршрут</button>
+        </div>
+
+        <div class="copyright" id="copyright"></div>
+    </aside>
+
+    <main class="map-container">
+        <div id="map"></div>
+        <div class="playback-controls disabled" id="playback-panel">
+            <button class="play-btn" id="play-pause">
+                <div class="play-icon"></div>
+                <div class="pause-icon"></div>
+            </button>
+            <div class="timeline-container">
+                <span class="time-label">00:00</span>
+                <input type="range" class="timeline-slider" id="timeline" min="0" max="100" value="0">
+                <span class="time-label">10:00</span>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/ol@v10.3.1/dist/ol.js"></script>
+    <script>
+        const appData = {
+            "header": {
+                "title": "Интеллектуальная система оптимизации маршрутов воздушных судов",
+                "subtitle": "Моделирование и динамическая оптимизация траектории полета с учетом погодных, навигационных и эксплуатационных факторов",
+                "copyright": "© 2026 Василий Гурьянов"
+            },
+            "airports": [
+                { "name": "Sheremetyevo", "iata": "SVO", "city": "Москва", "coords": [55.9726, 37.4146] },
+                { "name": "Pulkovo", "iata": "LED", "city": "Санкт-Петербург", "coords": [59.8003, 30.2625] },
+                { "name": "Tolmachevo", "iata": "OVB", "city": "Новосибирск", "coords": [55.0126, 82.6507] },
+                { "name": "Sochi", "iata": "AER", "city": "Сочи", "coords": [43.4499, 39.9566] },
+                { "name": "Kazan", "iata": "KZN", "city": "Казань", "coords": [55.6062, 49.2787] },
+                { "name": "Knevichi", "iata": "VVO", "city": "Владивосток", "coords": [43.3990, 132.1480] },
+                { "name": "Novy", "iata": "KHV", "city": "Хабаровск", "coords": [48.5280, 135.1880] },
+                { "name": "Yelizovo", "iata": "PKC", "city": "Петропавловск-Камчатский", "coords": [53.1679, 158.4539] }
+            ],
+            "aircraft_types": [
+                { "type": "Airbus A320-200", "max_passengers": 180 },
+                { "type": "Boeing 737-800", "max_passengers": 189 },
+                { "type": "Sukhoi Superjet 100-95B", "max_passengers": 98 },
+                { "type": "Airbus A321-200", "max_passengers": 220 },
+                { "type": "Boeing 777-300ER", "max_passengers": 396 }
+            ]
+        };
+
+        function initApp() {
+            document.getElementById('header-title').textContent = appData.header.title;
+            document.getElementById('header-subtitle').textContent = appData.header.subtitle;
+            document.getElementById('copyright').textContent = appData.header.copyright;
+
+            const dep = document.getElementById('dep-airport');
+            const arr = document.getElementById('arr-airport');
+            appData.airports.forEach(a => {
+                dep.add(new Option(`${a.city} (${a.iata})`, a.iata));
+                arr.add(new Option(`${a.city} (${a.iata})`, a.iata));
+            });
+            arr.selectedIndex = 1;
+
+            const ac = document.getElementById('aircraft-type');
+            appData.aircraft_types.forEach(a => ac.add(new Option(a.type, a.type)));
+
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('departure-time').value = now.toISOString().slice(0, 16);
+
+            updateAircraftConstraints();
+        }
+
+        function updateAircraftConstraints() {
+            const selected = document.getElementById('aircraft-type').value;
+            const aircraft = appData.aircraft_types.find(a => a.type === selected);
+            const slider = document.getElementById('pax-slider');
+            slider.max = aircraft.max_passengers;
+            if (parseInt(slider.value) > aircraft.max_passengers) slider.value = aircraft.max_passengers;
+            updatePaxValue();
+        }
+
+        function updatePaxValue() {
+            document.getElementById('pax-value').textContent = `${document.getElementById('pax-slider').value} чел.`;
+        }
+
+        function updateBaggageValue() {
+            document.getElementById('baggage-value').textContent = `${document.getElementById('baggage-slider').value} кг`;
+        }
+
+        function toggleFullLoad() {
+            const cb = document.getElementById('full-load');
+            const slider = document.getElementById('baggage-slider');
+            slider.disabled = cb.checked;
+            if (cb.checked) slider.value = 1000;
+            updateBaggageValue();
+        }
+
+        // --- MAP (OpenLayers) ---
+        const map = new ol.Map({
+            target: 'map',
+            controls: [
+                new ol.control.Attribution({
+                    collapsible: false
+                })
+            ],
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                })
+            ],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([80, 58]),
+                zoom: 3,
+                minZoom: 2,
+                maxZoom: 11
+            })
+        });
+
+        // --- DYNAMIC COORDINATE GRID ---
+        const gridSource = new ol.source.Vector();
+        const gridLayer = new ol.layer.Vector({
+            source: gridSource,
+            style: new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color: '#cbd5e1',
+                    width: 0.5,
+                    lineDash: [3, 7]
+                })
+            })
+        });
+        map.addLayer(gridLayer);
+
+        let gridOverlays = [];
+
+        function getGridStep(zoom) {
+            if (zoom <= 2) return { line: 30, label: 60 };
+            if (zoom <= 3) return { line: 20, label: 40 };
+            if (zoom <= 4) return { line: 15, label: 30 };
+            if (zoom <= 5) return { line: 10, label: 20 };
+            if (zoom <= 6) return { line: 5, label: 10 };
+            if (zoom <= 8) return { line: 2, label: 4 };
+            return { line: 1, label: 2 };
+        }
+
+        function formatCoord(val, isLat) {
+            if (isLat) return val === 0 ? '0°' : (val > 0 ? `${val}°N` : `${Math.abs(val)}°S`);
+            return val === 0 ? '0°' : (val > 0 ? `${val}°E` : `${Math.abs(val)}°W`);
+        }
+
+        function updateGrid() {
+            gridSource.clear();
+            gridOverlays.forEach(o => map.removeOverlay(o));
+            gridOverlays = [];
+
+            const zoom = Math.floor(map.getView().getZoom());
+            const extent = map.getView().calculateExtent(map.getSize());
+            const coords = ol.proj.transformExtent(extent, 'EPSG:3857', 'EPSG:4326');
+            const west = coords[0], south = coords[1], east = coords[2], north = coords[3];
+
+            const { line: step } = getGridStep(zoom);
+
+            const latMin = Math.floor(Math.max(south, -85) / step) * step;
+            const latMax = Math.ceil(Math.min(north, 85) / step) * step;
+            const lngMin = Math.floor(Math.max(west, -180) / step) * step;
+            const lngMax = Math.ceil(Math.min(east, 180) / step) * step;
+
+            // Latitudes
+            for (let lat = latMin; lat <= latMax; lat += step) {
+                const line = new ol.Feature(new ol.geom.LineString([
+                    ol.proj.fromLonLat([-180, lat]),
+                    ol.proj.fromLonLat([180, lat])
+                ]));
+                gridSource.addFeature(line);
+
+                const labelLng = Math.max(west + (east - west) * 0.01, -179);
+                const el = document.createElement('div');
+                el.className = 'grid-label';
+                el.textContent = formatCoord(lat, true);
+
+                const overlay = new ol.Overlay({
+                    position: ol.proj.fromLonLat([labelLng, lat]),
+                    element: el,
+                    offset: [0, -9],
+                    positioning: 'center-left'
+                });
+                map.addOverlay(overlay);
+                gridOverlays.push(overlay);
+            }
+
+            // Longitudes
+            for (let lng = lngMin; lng <= lngMax; lng += step) {
+                const line = new ol.Feature(new ol.geom.LineString([
+                    ol.proj.fromLonLat([lng, -85]),
+                    ol.proj.fromLonLat([lng, 85])
+                ]));
+                gridSource.addFeature(line);
+
+                const labelLat = Math.max(south + (north - south) * 0.01, -84);
+                const el = document.createElement('div');
+                el.className = 'grid-label';
+                el.textContent = formatCoord(lng, false);
+
+                const overlay = new ol.Overlay({
+                    position: ol.proj.fromLonLat([lng, labelLat]),
+                    element: el,
+                    offset: [0, 9],
+                    positioning: 'top-center'
+                });
+                map.addOverlay(overlay);
+                gridOverlays.push(overlay);
+            }
+        }
+
+        map.getView().on('change:resolution', updateGrid);
+        map.getView().on('change:center', updateGrid);
+        updateGrid();
+
+        // --- AIRPORTS ---
+        appData.airports.forEach(a => {
+            const pos = ol.proj.fromLonLat([a.coords[1], a.coords[0]]);
+
+            // Marker circle featuer
+            const marker = new ol.Feature(new ol.geom.Point(pos));
+            marker.setStyle(new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: 5,
+                    fill: new ol.style.Fill({ color: '#0284c7' }),
+                    stroke: new ol.style.Stroke({ color: '#fff', width: 2 })
+                })
+            }));
+
+            const markerLayer = new ol.layer.Vector({
+                source: new ol.source.Vector({ features: [marker] })
+            });
+            map.addLayer(markerLayer);
+
+            // Tooltip Overlay
+            const tip = document.createElement('div');
+            tip.className = 'custom-tooltip';
+            tip.textContent = a.city;
+            const overlay = new ol.Overlay({
+                position: pos,
+                element: tip,
+                offset: [0, -12],
+                positioning: 'bottom-center'
+            });
+            map.addOverlay(overlay);
+        });
+
+        // --- ROUTE VISUALIZATION ---
+        const routeSource = new ol.source.Vector();
+        const routeLayer = new ol.layer.Vector({
+            source: routeSource,
+            style: function (feature) {
+                const type = feature.get('type');
+                if (type === 'line') {
+                    return new ol.style.Style({
+                        stroke: new ol.style.Stroke({
+                            color: '#f97316',
+                            width: 3
+                        })
+                    });
+                } else if (type === 'point') {
+                    return new ol.style.Style({
+                        image: new ol.style.Circle({
+                            radius: 4,
+                            fill: new ol.style.Fill({ color: '#f97316' }),
+                            stroke: new ol.style.Stroke({ color: '#fff', width: 1.5 })
+                        }),
+                        text: new ol.style.Text({
+                            text: feature.get('index'),
+                            font: 'bold 10px Inter',
+                            fill: new ol.style.Fill({ color: '#c2410c' }),
+                            offsetY: -10
+                        })
+                    });
+                }
+            }
+        });
+        map.addLayer(routeLayer);
+
+        // --- PLANE SIMULATION ---
+        const planeSource = new ol.source.Vector();
+        const planeLayer = new ol.layer.Vector({
+            source: planeSource,
+            zIndex: 999
+        });
+        map.addLayer(planeLayer);
+
+        // Plane Icon (Simple SVG Data URI)
+        const planeSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23dc2626" width="48px" height="48px"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>`;
+        const planeIconUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(planeSvg.replace('%23dc2626', '#e11d48'));
+
+        const planeStyle = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: planeIconUrl,
+                scale: 1.5,
+                anchor: [0.5, 0.5],
+                rotation: 0,
+                rotateWithView: true
+            })
+        });
+
+        let currentRoutePoints = [];
+        let planeFeature = null;
+        let animationInterval = null;
+        let isPlaying = false;
+
+        async function optimizeRoute() {
+            const btn = document.getElementById('optimize-btn');
+            const originalText = btn.textContent;
+
+            try {
+                btn.textContent = 'Оптимизация...';
+                btn.disabled = true; // Prevents double submission
+
+                const response = await fetch('/api/optimize', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Ошибка сервера');
+                }
+
+                drawRouteOnMap(data);
+
+                document.getElementById('playback-panel').classList.remove('disabled');
+                btn.textContent = 'Маршрут оптимизирован';
+                btn.style.background = '#059669';
+
+            } catch (error) {
+                console.error('Optimization failed:', error);
+                alert('Ошибка оптимизации: ' + error.message);
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        function drawRouteOnMap(data) {
+            routeSource.clear();
+            planeSource.clear();
+            currentRoutePoints = data.approximated_20;
+
+            if (!currentRoutePoints || currentRoutePoints.length === 0) return;
+
+            const coords = currentRoutePoints.map(p => ol.proj.fromLonLat([p.lon, p.lat]));
+
+            // Draw line
+            const routeLine = new ol.Feature({
+                geometry: new ol.geom.LineString(coords),
+                type: 'line'
+            });
+            routeSource.addFeature(routeLine);
+
+            // Draw points
+            currentRoutePoints.forEach((p, i) => {
+                const feature = new ol.Feature({
+                    geometry: new ol.geom.Point(ol.proj.fromLonLat([p.lon, p.lat])),
+                    type: 'point',
+                    index: (i + 1).toString()
+                });
+                routeSource.addFeature(feature);
+            });
+
+            // Initialize Plane at Start
+            const startCoords = ol.proj.fromLonLat([currentRoutePoints[0].lon, currentRoutePoints[0].lat]);
+            planeFeature = new ol.Feature({
+                geometry: new ol.geom.Point(startCoords)
+            });
+            planeFeature.setStyle(planeStyle);
+            planeSource.addFeature(planeFeature);
+
+            // Setup Slider
+            const timeline = document.getElementById('timeline');
+            timeline.min = 0;
+            timeline.max = currentRoutePoints.length - 1;
+            timeline.value = 0;
+
+            // Rotation for initial position
+            if (currentRoutePoints.length > 1) {
+                updatePlaneRotation(0);
+            }
+
+            // Zoom to route
+            map.getView().fit(routeSource.getExtent(), {
+                padding: [50, 50, 50, 50],
+                duration: 1000
+            });
+        }
+
+        function updatePlanePosition(index) {
+            index = parseInt(index);
+            if (!planeFeature || !currentRoutePoints[index]) return;
+
+            const point = currentRoutePoints[index];
+            const coords = ol.proj.fromLonLat([point.lon, point.lat]);
+
+            planeFeature.getGeometry().setCoordinates(coords);
+            updatePlaneRotation(index);
+        }
+
+        function updatePlaneRotation(index) {
+            if (index < currentRoutePoints.length - 1) {
+                const current = currentRoutePoints[index];
+                const next = currentRoutePoints[index + 1];
+
+                const c1 = ol.proj.fromLonLat([current.lon, current.lat]);
+                const c2 = ol.proj.fromLonLat([next.lon, next.lat]);
+                const dxProj = c2[0] - c1[0];
+                const dyProj = c2[1] - c1[1];
+
+                // standard atan2(y, x) gives angle from East (0) counter-clockwise (usually).
+                // OpenLayers rotation is radians clockwise.
+                // We want 0 to be North (Up).
+                // If we use atan2(dx, dy), we get angle from North, clockwise.
+                // Example: East (dx=1, dy=0) -> atan2(1, 0) = PI/2 (90 deg). Correct.
+                // South (dx=0, dy=-1) -> atan2(0, -1) = PI (180 deg). Correct.
+                const rotation = Math.atan2(dxProj, dyProj);
+
+                const newStyle = new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: planeIconUrl,
+                        scale: 1.5,
+                        anchor: [0.5, 0.5],
+                        rotation: rotation,
+                        rotateWithView: true
+                    })
+                });
+                planeFeature.setStyle(newStyle);
+            }
+        }
+
+        // --- PLAYBACK CONTROLS ---
+        const playBtn = document.getElementById('play-pause');
+        const timeline = document.getElementById('timeline');
+
+        playBtn.addEventListener('click', togglePlay);
+
+        timeline.addEventListener('input', (e) => {
+            if (isPlaying) togglePlay(); // Pause on manual interaction
+            updatePlanePosition(e.target.value);
+        });
+
+        function togglePlay() {
+            if (!currentRoutePoints || currentRoutePoints.length === 0) return;
+
+            isPlaying = !isPlaying;
+            playBtn.classList.toggle('playing', isPlaying);
+
+            if (isPlaying) {
+                if (parseInt(timeline.value) >= parseInt(timeline.max)) {
+                    timeline.value = 0; // Restart from beginning
+                    updatePlanePosition(0);
+                }
+
+                animationInterval = setInterval(() => {
+                    let val = parseInt(timeline.value);
+                    if (val < parseInt(timeline.max)) {
+                        val++;
+                        timeline.value = val;
+                        updatePlanePosition(val);
+                    } else {
+                        // Stop at end
+                        togglePlay();
+                    }
+                }, 500);
+            } else {
+                clearInterval(animationInterval);
+                animationInterval = null;
+            }
+        }
+
+        initApp();
+    </script>
+</body>
+
+</html>
