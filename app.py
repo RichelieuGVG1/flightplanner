@@ -152,7 +152,7 @@ def optimize():
     try:
         # В будущем здесь можно принимать параметры от фронтенда (аэропорты и т.д.)
         # Пока вызываем базовую симуляцию
-        result = simulate()
+        result, _all_waypoints = simulate()
         return jsonify(result)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
