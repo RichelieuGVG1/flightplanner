@@ -1,4 +1,5 @@
 """
+weather_gen.py
 Генерирует погодные данные для навигационных точек и строит интерактивную карту.
 """
 
@@ -334,43 +335,13 @@ def generate(waypoints_path=WAYPOINTS_FILE, output_path=OUTPUT_FILE):
 
 
 # ── Визуализация (чистый HTML+JS, без Plotly frames) ─────────────────────────
-def draw_weather(records: list, output_html="weather_map.html"):
+def draw_weather(output_html="weather_map.html", data_file="weather_data.json"):
     """
-    Строит интерактивную карту через Plotly JS напрямую.
-    Все данные предрасчитаны в Python и встроены в HTML как JSON.
-    Переключение эшелона/времени/параметра — через JS без перерисовки фигуры целиком.
+    Строит интерактивную HTML-карту.
+    Данные НЕ встраиваются в HTML — страница загружает weather_data.json через fetch().
+    HTML и JSON должны лежать рядом (или быть доступны по тому же origin).
     """
     import plotly.graph_objects as go
-
-    LEVEL_NAMES = {1:"FL100", 2:"FL200", 3:"FL300", 4:"FL350", 5:"FL400"}
-    N_T = max(r["t"] for r in records)
-    N_Z = max(r["z"] for r in records)
-
-    # Индекс: data[z][t] = list of records
-    idx: dict = {}
-    for r in records:
-        idx.setdefault(r["z"], {}).setdefault(r["t"], []).append(r)
-
-    # Предрасчёт компактного payload для JS
-    # Структура: payload[z][t] = {lats, lons, names, wsp, wdir, sp, sdir, turb, ice}
-    payload = {}
-    for z in range(1, N_Z+1):
-        payload[z] = {}
-        for t in range(1, N_T+1):
-            rows = idx.get(z, {}).get(t, [])
-            payload[z][t] = {
-                "la": [r["lat"]         for r in rows],
-                "lo": [r["lon"]         for r in rows],
-                "nm": [r["name"]        for r in rows],
-                "ws": [r["wind_speed"]  for r in rows],
-                "wd": [r["wind_dir"]    for r in rows],
-                "sp": [r["storm_power"] for r in rows],
-                "sd": [r["storm_dir"]   for r in rows],
-                "tb": [r["turbulence"]  for r in rows],
-                "ic": [r["ice"]         for r in rows],
-            }
-
-    payload_json = json.dumps(payload, separators=(",",":"))
 
     # Базовая пустая фигура — карта
     fig = go.Figure()
@@ -392,9 +363,6 @@ def draw_weather(records: list, output_html="weather_map.html"):
         height=600,
         showlegend=False,
     )
-
-    plotly_div = fig.to_html(full_html=False, include_plotlyjs=False,
-                              div_id="map-div", config={"responsive": True})
 
     html = f"""<!DOCTYPE html>
 <html lang="ru">
@@ -457,22 +425,21 @@ button.active{{background:#0284c7;color:#fff;border-color:#0284c7}}
   </div>
   <div class="tb-row" id="slider-row">
     <span class="tb-label">Время</span>
-    <input type="range" id="t-slider" min="1" max="{N_T}" value="1" oninput="setT(+this.value)">
+    <input type="range" id="t-slider" min="1" max="100" value="1" oninput="setT(+this.value)">
     <span id="t-label">t = 1</span>
     <button id="play-btn" onclick="togglePlay()">▶ Play</button>
+    <span id="load-status" style="font-size:11px;color:#64748b;margin-left:8px"></span>
   </div>
 </div>
 
 <div id="map-container">
-  {plotly_div}
+  <div id="map-div" style="width:100%;height:100%"></div>
   <div id="legend"></div>
 </div>
 
 <script>
-const DATA = {payload_json};
-const N_T  = {N_T};
-const N_Z  = {N_Z};
-
+let DATA = null;
+let N_T = 100, N_Z = 5;
 let curZ = 3, curT = 1;
 function getActiveLayers(){{
   return [...document.querySelectorAll('#layer-checks input:checked')].map(el=>el.value);
@@ -655,6 +622,7 @@ function buildTraces(z, t, params){{
 
 // ── Обновление карты ─────────────────────────────────────────────────────────
 function updateMap(){{
+  if(!DATA) return;
   const traces = buildTraces(curZ, curT, getActiveLayers());
   Plotly.react('map-div', traces, document.getElementById('map-div').layout || {{}});
   updateLegend();
@@ -724,7 +692,7 @@ function togglePlay(){{
 
 // ── Старт ─────────────────────────────────────────────────────────────────────
 window.onload = () => {{
-  // Инициализируем карту с правильным geo layout
+  // Сначала загружаем карту-подложку
   Plotly.react('map-div', [], {{
     geo:{{
       scope:'asia', projection_type:'mercator',
@@ -739,7 +707,39 @@ window.onload = () => {{
     paper_bgcolor:'#fff',
     margin:{{l:0,r:0,t:0,b:0}},
     showlegend:false
-  }}).then(() => {{ document.getElementById('layer-checks').addEventListener('change', updateMap); updateMap(); }});
+  }});
+
+  document.getElementById('layer-checks').addEventListener('change', updateMap);
+
+  // Загружаем weather_data.json и индексируем в DATA[z][t]
+  const status = document.getElementById('load-status');
+  status.textContent = 'Загрузка weather_data.json...';
+  fetch('weather_data.json')
+    .then(r => {{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }})
+    .then(records => {{
+      // Индексируем: DATA[z][t] = {{la,lo,nm,ws,wd,sp,sd,tb,ic}}
+      DATA = {{}};
+      for(const r of records) {{
+        const z = r.z, t = r.t;
+        if(!DATA[z]) DATA[z] = {{}};
+        if(!DATA[z][t]) DATA[z][t] = {{la:[],lo:[],nm:[],ws:[],wd:[],sp:[],sd:[],tb:[],ic:[]}};
+        const d = DATA[z][t];
+        d.la.push(r.lat); d.lo.push(r.lon); d.nm.push(r.name);
+        d.ws.push(r.wind_speed); d.wd.push(r.wind_dir);
+        d.sp.push(r.storm_power); d.sd.push(r.storm_dir);
+        d.tb.push(r.turbulence); d.ic.push(r.ice);
+      }}
+      // Определяем N_T и N_Z из данных
+      N_Z = Math.max(...Object.keys(DATA).map(Number));
+      N_T = Math.max(...Object.keys(DATA[1]).map(Number));
+      document.getElementById('t-slider').max = N_T;
+      status.textContent = '';
+      updateMap();
+    }})
+    .catch(err => {{
+      status.textContent = 'Ошибка загрузки: ' + err.message + '. Откройте через HTTP-сервер.';
+      status.style.color = '#dc2626';
+    }});
 }};
 </script>
 </body>
@@ -761,4 +761,4 @@ if __name__ == "__main__":
         print(f"  {len(records)} записей")
     else:
         records = generate()
-    draw_weather(records)
+    draw_weather()
