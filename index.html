@@ -942,6 +942,7 @@
         const routeSource = new ol.source.Vector();
         const routeLayer = new ol.layer.Vector({
             source: routeSource,
+            zIndex: 998,
             style: function (feature) {
                 const type = feature.get('type');
                 if (type === 'line') {
@@ -1092,6 +1093,7 @@
             const allFeatures = [];
 
             if (activeWeatherParams.has('wind_speed')) {
+                const AL = 0.85;
                 for (let i = 0; i < n; i++) {
                     const f = new ol.Feature({
                         geometry: new ol.geom.Point(ol.proj.fromLonLat([d.lo[i], d.la[i]]))
@@ -1107,10 +1109,29 @@
                         })
                     }));
                     allFeatures.push(f);
+
+                    // Direction line
+                    const dr = d.wd[i] * Math.PI / 180;
+                    const dl = AL * Math.cos(dr);
+                    const dlo = AL * Math.sin(dr) / Math.max(Math.cos(d.la[i] * Math.PI / 180), 0.05);
+                    const lineF = new ol.Feature({
+                        geometry: new ol.geom.LineString([
+                            ol.proj.fromLonLat([d.lo[i], d.la[i]]),
+                            ol.proj.fromLonLat([d.lo[i] + dlo, d.la[i] + dl])
+                        ])
+                    });
+                    lineF.setStyle(new ol.style.Style({
+                        stroke: new ol.style.Stroke({
+                            color: 'rgba(71,85,105,0.4)',
+                            width: 1.5
+                        })
+                    }));
+                    allFeatures.push(lineF);
                 }
             }
 
             if (activeWeatherParams.has('storm')) {
+                const FA = 1.3;
                 for (let i = 0; i < n; i++) {
                     if (d.sp[i] <= 0.1) continue;
                     const f = new ol.Feature({
@@ -1126,6 +1147,24 @@
                         })
                     }));
                     allFeatures.push(f);
+
+                    // Direction line
+                    const dr = d.sd[i] * Math.PI / 180;
+                    const dl = FA * Math.cos(dr);
+                    const dlo = FA * Math.sin(dr) / Math.max(Math.cos(d.la[i] * Math.PI / 180), 0.05);
+                    const lineF = new ol.Feature({
+                        geometry: new ol.geom.LineString([
+                            ol.proj.fromLonLat([d.lo[i], d.la[i]]),
+                            ol.proj.fromLonLat([d.lo[i] + dlo, d.la[i] + dl])
+                        ])
+                    });
+                    lineF.setStyle(new ol.style.Style({
+                        stroke: new ol.style.Stroke({
+                            color: 'rgba(30,27,75,0.45)',
+                            width: 1.5
+                        })
+                    }));
+                    allFeatures.push(lineF);
                 }
             }
 
