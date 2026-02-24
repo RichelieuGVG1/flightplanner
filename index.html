@@ -530,6 +530,13 @@
                 </div>
             </div>
 
+            <div class="input-group" style="margin-top: 0.5rem; margin-bottom: 0.25rem;">
+                <label class="checkbox-group">
+                    <input type="checkbox" id="refresh-weather">
+                    Получить новые погодные данные
+                </label>
+            </div>
+
             <button class="btn-primary" id="optimize-btn" onclick="optimizeRoute()">Оптимизировать маршрут</button>
         </div>
 
@@ -545,7 +552,7 @@
                     onchange="toggleTrajectoryVisibility()">
                 <div class="legend-toggle"></div>
                 <div class="legend-color-dot"></div>
-                <span class="legend-label">Вторичные самолеты</span>
+                <span class="legend-label">Встречные самолеты</span>
             </label>
         </div>
         <div class="playback-controls disabled" id="playback-panel">
