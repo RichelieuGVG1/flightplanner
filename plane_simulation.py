@@ -186,7 +186,7 @@ def simulate(waypoints_path: str = WAYPOINTS_FILE,
     arr_lat, arr_lon = arr_ap["coords"]
     gc_dist = haversine(dep_lat, dep_lon, arr_lat, arr_lon)
 
-    print(f"\nМаршрут: {dep_ap['name']} → {arr_ap['name']}")
+    print(f"\nМаршрут: {dep_ap['name']} -> {arr_ap['name']}")
     print(f"  Ортодромия: {gc_dist:.0f} км")
 
     # ── Фильтрация коридором ───
@@ -381,7 +381,7 @@ def draw_map(result: Dict, all_waypoints: List[Dict]) -> None:
 
     fig.update_layout(
         title=dict(
-            text=(f"✈  {dep['name']}  →  {arr['name']}   "
+            text=(f"Aircraft: {dep['name']} -> {arr['name']}   "
                   f"<span style='font-size:13px;color:#64748b'>"
                   f"ортодромия {result['gc_distance_km']} км · "
                   f"макс. откл. {result['max_deviation_km']} км</span>"),

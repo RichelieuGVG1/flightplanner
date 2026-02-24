@@ -384,6 +384,94 @@
             text-decoration: none !important;
             font-weight: 500 !important;
         }
+
+        /* Map Legend Styling */
+        .map-legend {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            padding: 12px 16px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border: 1px solid var(--border-color);
+            min-width: 180px;
+            transition: all 0.3s ease;
+        }
+
+        .legend-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            padding: 4px 0;
+        }
+
+        .legend-toggle {
+            position: relative;
+            width: 32px;
+            height: 18px;
+            background: #cbd5e1;
+            border-radius: 10px;
+            transition: background 0.2s;
+        }
+
+        .legend-toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 14px;
+            height: 14px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .legend-checkbox {
+            display: none;
+        }
+
+        .legend-checkbox:checked+.legend-toggle {
+            background: var(--accent-primary);
+        }
+
+        .legend-checkbox:checked+.legend-toggle::after {
+            transform: translateX(14px);
+        }
+
+        .legend-label {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .legend-checkbox:checked~.legend-label {
+            color: var(--text-primary);
+        }
+
+        .legend-color-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #f97316;
+        }
     </style>
 </head>
 
@@ -450,6 +538,16 @@
 
     <main class="map-container">
         <div id="map"></div>
+        <div class="map-legend">
+            <div class="legend-title">Легенда карты</div>
+            <label class="legend-item">
+                <input type="checkbox" id="toggle-trajectory" class="legend-checkbox" checked
+                    onchange="toggleTrajectoryVisibility()">
+                <div class="legend-toggle"></div>
+                <div class="legend-color-dot"></div>
+                <span class="legend-label">Вторичные самолеты</span>
+            </label>
+        </div>
         <div class="playback-controls disabled" id="playback-panel">
             <button class="play-btn" id="play-pause">
                 <div class="play-icon"></div>
@@ -874,6 +972,11 @@
                 });
                 planeFeature.setStyle(newStyle);
             }
+        }
+
+        function toggleTrajectoryVisibility() {
+            const isVisible = document.getElementById('toggle-trajectory').checked;
+            routeLayer.setVisible(isVisible);
         }
 
         // --- PLAYBACK CONTROLS ---
