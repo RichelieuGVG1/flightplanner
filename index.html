@@ -390,15 +390,17 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.93);
             backdrop-filter: blur(8px);
             padding: 12px 16px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             z-index: 1000;
             border: 1px solid var(--border-color);
-            min-width: 180px;
+            min-width: 200px;
+            max-width: 230px;
             transition: all 0.3s ease;
+            font-size: 11px;
         }
 
         .legend-title {
@@ -429,6 +431,7 @@
             background: #cbd5e1;
             border-radius: 10px;
             transition: background 0.2s;
+            flex-shrink: 0;
         }
 
         .legend-toggle::after {
@@ -471,6 +474,124 @@
             height: 8px;
             border-radius: 50%;
             background: #f97316;
+        }
+
+        /* Weather legend section */
+        .weather-legend-section {
+            display: none;
+        }
+
+        .weather-legend-section.visible {
+            display: block;
+        }
+
+        .legend-divider {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 8px 0;
+        }
+
+        .legend-section-title {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #64748b;
+            letter-spacing: 0.04em;
+            margin-bottom: 4px;
+            margin-top: 6px;
+        }
+
+        .legend-swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        .legend-swatch-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .legend-swatch-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 3px;
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        /* Flight level switcher */
+        .fl-switcher {
+            display: none;
+        }
+
+        .fl-switcher.visible {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 6px;
+        }
+
+        .fl-btn {
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            color: #475569;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .15s;
+        }
+
+        .fl-btn:hover {
+            background: #e0f2fe;
+            border-color: #7dd3fc;
+        }
+
+        .fl-btn.active {
+            background: #0284c7;
+            color: #fff;
+            border-color: #0284c7;
+        }
+
+        /* Weather param toggles */
+        .wp-toggle-row {
+            display: none;
+        }
+
+        .wp-toggle-row.visible {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 6px;
+        }
+
+        .wp-btn {
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            color: #475569;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all .15s;
+        }
+
+        .wp-btn:hover {
+            background: #e0f2fe;
+            border-color: #7dd3fc;
+        }
+
+        .wp-btn.active {
+            background: #0ea5e9;
+            color: #fff;
+            border-color: #0ea5e9;
         }
     </style>
 </head>
@@ -554,6 +675,28 @@
                 <div class="legend-color-dot"></div>
                 <span class="legend-label">Встречные самолеты</span>
             </label>
+
+            <!-- Weather section -->
+            <div class="weather-legend-section" id="weather-legend-section">
+                <hr class="legend-divider">
+                <div class="legend-section-title">Эшелон</div>
+                <div class="fl-switcher visible" id="fl-switcher">
+                    <button class="fl-btn" onclick="setFL(1)" id="fl1">FL100</button>
+                    <button class="fl-btn" onclick="setFL(2)" id="fl2">FL200</button>
+                    <button class="fl-btn active" onclick="setFL(3)" id="fl3">FL300</button>
+                    <button class="fl-btn" onclick="setFL(4)" id="fl4">FL350</button>
+                    <button class="fl-btn" onclick="setFL(5)" id="fl5">FL400</button>
+                </div>
+                <div class="legend-section-title">Параметр</div>
+                <div class="wp-toggle-row visible" id="wp-toggle-row">
+                    <button class="wp-btn active" id="wp-wind_speed" onclick="toggleWeatherParam('wind_speed')">Скор.
+                        ветра</button>
+                    <button class="wp-btn" id="wp-storm" onclick="toggleWeatherParam('storm')">Гроза</button>
+                    <button class="wp-btn" id="wp-turbulence" onclick="toggleWeatherParam('turbulence')">Турб.</button>
+                    <button class="wp-btn" id="wp-ice" onclick="toggleWeatherParam('ice')">Обледен.</button>
+                </div>
+                <div id="weather-color-legend"></div>
+            </div>
         </div>
         <div class="playback-controls disabled" id="playback-panel">
             <button class="play-btn" id="play-pause">
@@ -854,13 +997,305 @@
         let animationInterval = null;
         let isPlaying = false;
 
+        // ── WEATHER DATA ─────────────────────────────────────────────────────────
+        let WEATHER_DATA = null;  // indexed as WEATHER_DATA[z][t]
+        let weatherLayers = [];   // ol.layer.Vector instances for weather
+        let curFL = 3;            // current flight level (1–5)
+        let curWT = 1;            // current weather time step
+        let activeWeatherParams = new Set(['wind_speed']); // active params
+        let weatherTKeys = [];    // sorted time-step keys available in WEATHER_DATA, limited to trajectory length
+
+        const FL_LABELS = { 1: 'FL100', 2: 'FL200', 3: 'FL300', 4: 'FL350', 5: 'FL400' };
+
+        // Color helpers (same as weather_map.html)
+        function lerpColor(c1, c2, t) {
+            const h = s => parseInt(s.slice(1), 16);
+            const r1 = h(c1) >> 16, g1 = (h(c1) >> 8) & 255, b1 = h(c1) & 255;
+            const r2 = h(c2) >> 16, g2 = (h(c2) >> 8) & 255, b2 = h(c2) & 255;
+            const r = Math.round(r1 + t * (r2 - r1)), g = Math.round(g1 + t * (g2 - g1)), b = Math.round(b1 + t * (b2 - b1));
+            return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+        }
+        function windColor(v) {
+            const stops = [[0, '#7dd3fc'], [10, '#4ade80'], [18, '#facc15'], [26, '#f97316'], [35, '#dc2626']];
+            v = Math.max(0, Math.min(35, v));
+            for (let i = 1; i < stops.length; i++) {
+                if (v <= stops[i][0]) {
+                    const tt = (v - stops[i - 1][0]) / (stops[i][0] - stops[i - 1][0]);
+                    return lerpColor(stops[i - 1][1], stops[i][1], tt);
+                }
+            }
+            return stops[stops.length - 1][1];
+        }
+        function stormColor(v) {
+            const stops = [[0, '#e0f2fe'], [1, '#93c5fd'], [2.5, '#6b7baa'], [4, '#3b5bbd'], [5, '#1e1b4b']];
+            v = Math.max(0, Math.min(5, v));
+            for (let i = 1; i < stops.length; i++) {
+                if (v <= stops[i][0]) {
+                    const tt = (v - stops[i - 1][0]) / (stops[i][0] - stops[i - 1][0]);
+                    return lerpColor(stops[i - 1][1], stops[i][1], tt);
+                }
+            }
+            return stops[stops.length - 1][1];
+        }
+        function turbColor(lvl) {
+            return ['#f8fafc', '#cbd5e1', '#64748b', '#0f172a'][lvl - 1];
+        }
+        function hexToRgba(hex, alpha) {
+            const h = parseInt(hex.slice(1), 16);
+            const r = (h >> 16) & 255, g = (h >> 8) & 255, b = h & 255;
+            return `rgba(${r},${g},${b},${alpha})`;
+        }
+
+        function setFL(z) {
+            curFL = z;
+            document.querySelectorAll('.fl-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('fl' + z).classList.add('active');
+            // Re-sync tKeys from new FL, keep current slider position
+            if (WEATHER_DATA && WEATHER_DATA[z]) {
+                const allKeys = Object.keys(WEATHER_DATA[z]).map(Number).sort((a, b) => a - b);
+                weatherTKeys = allKeys; // already filtered to N during load
+                // keep curWT if it exists in new FL, else pick first
+                if (!weatherTKeys.includes(curWT)) curWT = weatherTKeys[0] || 1;
+            }
+            renderWeatherLayer();
+        }
+
+        function toggleWeatherParam(param) {
+            if (activeWeatherParams.has(param)) {
+                activeWeatherParams.delete(param);
+                document.getElementById('wp-' + param).classList.remove('active');
+            } else {
+                activeWeatherParams.add(param);
+                document.getElementById('wp-' + param).classList.add('active');
+            }
+            renderWeatherLayer();
+            updateWeatherColorLegend();
+        }
+
+        function clearWeatherLayers() {
+            weatherLayers.forEach(l => map.removeLayer(l));
+            weatherLayers = [];
+        }
+
+        function renderWeatherLayer() {
+            if (!WEATHER_DATA) return;
+            clearWeatherLayers();
+
+            const zKey = curFL;
+            const tKey = curWT;
+            if (!WEATHER_DATA[zKey] || !WEATHER_DATA[zKey][tKey]) return;
+
+            const d = WEATHER_DATA[zKey][tKey];
+            const n = d.la.length;
+
+            // Build features for each active param
+            const allFeatures = [];
+
+            if (activeWeatherParams.has('wind_speed')) {
+                for (let i = 0; i < n; i++) {
+                    const f = new ol.Feature({
+                        geometry: new ol.geom.Point(ol.proj.fromLonLat([d.lo[i], d.la[i]]))
+                    });
+                    const color = windColor(d.ws[i]);
+                    f.setStyle(new ol.style.Style({
+                        image: new ol.style.RegularShape({
+                            fill: new ol.style.Fill({ color: hexToRgba(color, 0.78) }),
+                            stroke: new ol.style.Stroke({ color: hexToRgba(color, 0.4), width: 0.5 }),
+                            points: 4,
+                            radius: 9,
+                            angle: Math.PI / 4
+                        })
+                    }));
+                    allFeatures.push(f);
+                }
+            }
+
+            if (activeWeatherParams.has('storm')) {
+                for (let i = 0; i < n; i++) {
+                    if (d.sp[i] <= 0.1) continue;
+                    const f = new ol.Feature({
+                        geometry: new ol.geom.Point(ol.proj.fromLonLat([d.lo[i], d.la[i]]))
+                    });
+                    const color = stormColor(d.sp[i]);
+                    const r = 5 + d.sp[i] * 3.5;
+                    f.setStyle(new ol.style.Style({
+                        image: new ol.style.Circle({
+                            radius: r,
+                            fill: new ol.style.Fill({ color: hexToRgba(color, 0.76) }),
+                            stroke: new ol.style.Stroke({ color: 'rgba(30,27,75,0.3)', width: 0.6 })
+                        })
+                    }));
+                    allFeatures.push(f);
+                }
+            }
+
+            if (activeWeatherParams.has('turbulence')) {
+                const labels = ['Норма', 'Умеренная', 'Сильная', 'Экстремальная'];
+                for (let i = 0; i < n; i++) {
+                    const lvl = d.tb[i];
+                    if (!lvl) continue;
+                    const f = new ol.Feature({
+                        geometry: new ol.geom.Point(ol.proj.fromLonLat([d.lo[i], d.la[i]]))
+                    });
+                    const color = turbColor(lvl);
+                    f.setStyle(new ol.style.Style({
+                        image: new ol.style.RegularShape({
+                            fill: new ol.style.Fill({ color: hexToRgba(color, 0.82) }),
+                            stroke: new ol.style.Stroke({ color: 'rgba(51,65,85,0.4)', width: 0.5 }),
+                            points: 3,
+                            radius: 9,
+                            angle: 0
+                        })
+                    }));
+                    allFeatures.push(f);
+                }
+            }
+
+            if (activeWeatherParams.has('ice')) {
+                for (let i = 0; i < n; i++) {
+                    const f = new ol.Feature({
+                        geometry: new ol.geom.Point(ol.proj.fromLonLat([d.lo[i], d.la[i]]))
+                    });
+                    if (d.ic[i]) {
+                        // Icing: star shape, light blue
+                        f.setStyle(new ol.style.Style({
+                            image: new ol.style.RegularShape({
+                                fill: new ol.style.Fill({ color: 'rgba(186,230,253,0.9)' }),
+                                stroke: new ol.style.Stroke({ color: '#0284c7', width: 1 }),
+                                points: 6,
+                                radius: 8,
+                                radius2: 4,
+                                angle: 0
+                            })
+                        }));
+                    } else {
+                        f.setStyle(new ol.style.Style({
+                            image: new ol.style.RegularShape({
+                                fill: new ol.style.Fill({ color: 'rgba(226,232,240,0.45)' }),
+                                stroke: new ol.style.Stroke({ color: 'rgba(148,163,184,0.3)', width: 0.5 }),
+                                points: 4,
+                                radius: 6,
+                                angle: Math.PI / 4
+                            })
+                        }));
+                    }
+                    allFeatures.push(f);
+                }
+            }
+
+            if (allFeatures.length > 0) {
+                const wSource = new ol.source.Vector({ features: allFeatures });
+                const wLayer = new ol.layer.Vector({
+                    source: wSource,
+                    zIndex: 10  // below trajectory (zIndex 999)
+                });
+                map.addLayer(wLayer);
+                weatherLayers.push(wLayer);
+            }
+
+            updateWeatherColorLegend();
+        }
+
+        function updateWeatherColorLegend() {
+            const el = document.getElementById('weather-color-legend');
+            if (!el) return;
+            let html = '';
+            if (activeWeatherParams.has('wind_speed')) {
+                html += '<div class="legend-section-title">Ветер (м/с)</div>';
+                [['#7dd3fc', '0–10'], ['#4ade80', '10–18'], ['#facc15', '18–26'], ['#f97316', '26–35'], ['#dc2626', '35+']].forEach(([c, l]) => {
+                    html += `<div class="legend-swatch-row"><div class="legend-swatch" style="background:${c}"></div><span>${l}</span></div>`;
+                });
+            }
+            if (activeWeatherParams.has('storm')) {
+                html += '<div class="legend-section-title">Гроза (0–5)</div>';
+                [['#e0f2fe', '0–1'], ['#93c5fd', '1–2.5'], ['#6b7baa', '2.5–4'], ['#1e1b4b', '4–5']].forEach(([c, l]) => {
+                    html += `<div class="legend-swatch-row"><div class="legend-swatch-dot" style="background:${c};border:1px solid #94a3b8"></div><span>${l}</span></div>`;
+                });
+            }
+            if (activeWeatherParams.has('turbulence')) {
+                html += '<div class="legend-section-title">Турбулентность</div>';
+                [['#f8fafc', '1-Норма'], ['#cbd5e1', '2-Умеренная'], ['#64748b', '3-Сильная'], ['#0f172a', '4-Экстрем.']].forEach(([c, l]) => {
+                    html += `<div class="legend-swatch-row"><div class="legend-swatch-dot" style="background:${c};border:1px solid #94a3b8"></div><span>${l}</span></div>`;
+                });
+            }
+            if (activeWeatherParams.has('ice')) {
+                html += '<div class="legend-section-title">Обледенение</div>';
+                html += '<div class="legend-swatch-row"><div class="legend-swatch" style="background:#e2e8f0"></div><span>Нет</span></div>';
+                html += '<div class="legend-swatch-row"><div class="legend-swatch-dot" style="background:#bae6fd;border:1px solid #0284c7"></div><span>Есть ❄</span></div>';
+            }
+            el.innerHTML = html;
+        }
+
+        // Load weather_data.json and index only t = 1..N records (N = trajectory length)
+        async function loadWeatherData(N) {
+            if (WEATHER_DATA) {
+                // Already loaded — just sync to new trajectory length and re-render
+                syncWeatherToTrajectory(N);
+                return;
+            }
+            try {
+                const resp = await fetch('/weather/weather_data.json');
+                if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                const records = await resp.json();
+                WEATHER_DATA = {};
+                for (const r of records) {
+                    const z = r.z, t = r.t;
+                    // Pre-filter: only keep time steps up to N
+                    if (t < 1 || t > N) continue;
+                    if (!WEATHER_DATA[z]) WEATHER_DATA[z] = {};
+                    if (!WEATHER_DATA[z][t]) WEATHER_DATA[z][t] = { la: [], lo: [], nm: [], ws: [], wd: [], sp: [], sd: [], tb: [], ic: [] };
+                    const d = WEATHER_DATA[z][t];
+                    d.la.push(r.lat); d.lo.push(r.lon); d.nm.push(r.name);
+                    d.ws.push(r.wind_speed); d.wd.push(r.wind_dir);
+                    d.sp.push(r.storm_power); d.sd.push(r.storm_dir);
+                    d.tb.push(r.turbulence); d.ic.push(r.ice);
+                }
+                syncWeatherToTrajectory(N);
+            } catch (e) {
+                console.error('Weather load error:', e);
+                alert('Не удалось загрузить weather_data.json: ' + e.message);
+            }
+        }
+
+        // Set up weatherTKeys as sorted array of t values for curFL, length <= N
+        function syncWeatherToTrajectory(N) {
+            if (!WEATHER_DATA || !WEATHER_DATA[curFL]) return;
+            const allKeys = Object.keys(WEATHER_DATA[curFL]).map(Number).sort((a, b) => a - b);
+            // Take first N keys (each key corresponds to one trajectory point)
+            weatherTKeys = allKeys.slice(0, N);
+            // Start at first time step
+            curWT = weatherTKeys[0] || 1;
+            renderWeatherLayer();
+        }
+
+        // Called when slider moves: map slider index → weather time step
+        function updateWeatherForSlider(idx) {
+            if (!WEATHER_DATA || weatherTKeys.length === 0) return;
+            idx = parseInt(idx);
+            // Clamp to available weather keys
+            const clampedIdx = Math.min(idx, weatherTKeys.length - 1);
+            const newWT = weatherTKeys[clampedIdx];
+            if (newWT !== undefined && newWT !== curWT) {
+                curWT = newWT;
+                renderWeatherLayer();
+            }
+        }
+
         async function optimizeRoute() {
             const btn = document.getElementById('optimize-btn');
             const originalText = btn.textContent;
+            const refreshWeather = document.getElementById('refresh-weather').checked;
 
             try {
                 btn.textContent = 'Оптимизация...';
-                btn.disabled = true; // Prevents double submission
+                btn.disabled = true;
+
+                // Load weather data if checkbox is NOT checked (use cached file)
+                // We pass trajectory length after the route is drawn; but we need
+                // to know N first — so we'll call loadWeatherData(N) after drawRouteOnMap.
+                if (!refreshWeather) {
+                    document.getElementById('weather-legend-section').classList.add('visible');
+                }
 
                 const response = await fetch('/api/optimize', {
                     method: 'POST',
@@ -874,6 +1309,12 @@
                 }
 
                 drawRouteOnMap(data);
+
+                // Load weather and sync to trajectory after route is available
+                if (!refreshWeather && data.approximated_20) {
+                    const N = data.approximated_20.length;
+                    await loadWeatherData(N);
+                }
 
                 document.getElementById('playback-panel').classList.remove('disabled');
                 btn.textContent = 'Маршрут оптимизирован';
@@ -995,6 +1436,7 @@
         timeline.addEventListener('input', (e) => {
             if (isPlaying) togglePlay(); // Pause on manual interaction
             updatePlanePosition(e.target.value);
+            updateWeatherForSlider(e.target.value);
         });
 
         function togglePlay() {
@@ -1015,6 +1457,7 @@
                         val++;
                         timeline.value = val;
                         updatePlanePosition(val);
+                        updateWeatherForSlider(val);
                     } else {
                         // Stop at end
                         togglePlay();

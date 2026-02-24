@@ -185,6 +185,49 @@ def get_stats():
         }
     })
 
+@app.route('/weather/<path:filename>')
+def serve_weather(filename):
+    """Отдать файлы из папки weather (weather_data.json и т.д.)"""
+    return send_from_directory('weather', filename)
+
+# Cache for weather data indexed by z level
+_weather_cache = None  # dict: z -> list of records
+
+def _load_weather_cache():
+    global _weather_cache
+    if _weather_cache is not None:
+        return _weather_cache
+    path = os.path.join(os.path.dirname(__file__), 'weather', 'weather_data.json')
+    if not os.path.exists(path):
+        return None
+    with open(path, 'r', encoding='utf-8') as f:
+        records = json.load(f)
+    cache = {}
+    for r in records:
+        z = r['z']
+        if z not in cache:
+            cache[z] = []
+        cache[z].append(r)
+    _weather_cache = cache
+    return cache
+
+@app.route('/api/weather', methods=['GET'])
+def get_weather():
+    """Вернуть погодные данные для заданного эшелона z и шага времени t.
+       z: 1-5 (эшелон), t: 1-100 (шаг времени).
+       Если t не задан — возвращаем все t для данного z."""
+    z = request.args.get('z', type=int)
+    t = request.args.get('t', type=int)
+    cache = _load_weather_cache()
+    if cache is None:
+        return jsonify({'error': 'weather_data.json не найден'}), 404
+    if z is None:
+        return jsonify({'error': 'Параметр z обязателен'}), 400
+    records = cache.get(z, [])
+    if t is not None:
+        records = [r for r in records if r['t'] == t]
+    return jsonify(records)
+
 @app.route('/health', methods=['GET'])
 def health():
     """Проверка состояния API"""
