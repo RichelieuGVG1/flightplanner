@@ -4,6 +4,7 @@ import json
 import os
 from datetime import datetime
 from plane_simulation.plane_simulation import simulate
+from prohibited_zones.prohibited_zones import generate_zones
 
 app = Flask(__name__)
 CORS(app)
@@ -172,6 +173,11 @@ def optimize():
             global _weather_cache
             _weather_cache = None
 
+        zones_path = os.path.join(os.path.dirname(__file__), 'prohibited_zones', 'prohibited_zones.json')
+        
+        if refresh_restricted_areas or not os.path.exists(zones_path):
+            generate_zones()
+
         result_path = os.path.join(os.path.dirname(__file__), 'plane_simulation', 'simulation_result.json')
         
         if refresh_trajectories or not os.path.exists(result_path):
@@ -181,6 +187,11 @@ def optimize():
         else:
             with open(result_path, 'r', encoding='utf-8') as f:
                 result = json.load(f)
+        
+        # Добавляем данные о запретных зонах в результат
+        if os.path.exists(zones_path):
+            with open(zones_path, 'r', encoding='utf-8') as f:
+                result['prohibited_zones'] = json.load(f)
                 
         return jsonify(result)
     except Exception as e:

@@ -563,6 +563,18 @@
             color: var(--text-secondary);
         }
 
+        .legend-swatch-hatch {
+            width: 14px;
+            height: 14px;
+            border: 1px solid #ef4444;
+            border-radius: 2px;
+            background: repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(239, 68, 68, 0.3) 2px,
+                    rgba(239, 68, 68, 0.3) 4px);
+        }
+
         /* Flight level switcher */
         .fl-switcher {
             display: none;
@@ -676,7 +688,7 @@
                 <div class="slider-container">
                     <div class="slider-header">
                         <label>Багаж (кг)</label>
-                        <span class="slider-value" id="baggage-value">0 кг</span>
+                        <span class="slider-value" id="baggage-value">10 кг</span>
                     </div>
                     <input type="range" id="baggage-slider" min="0" max="1000" oninput="updateBaggageValue()">
                     <label class="checkbox-group">
@@ -728,6 +740,13 @@
                 <div class="legend-toggle"></div>
                 <div class="legend-color-dot"></div>
                 <span class="legend-label">Встречные самолеты</span>
+            </label>
+            <label class="legend-item" style="margin-top: 4px;">
+                <input type="checkbox" id="toggle-zones" class="legend-checkbox" checked
+                    onchange="toggleZonesVisibility()">
+                <div class="legend-toggle"></div>
+                <div class="legend-swatch-hatch"></div>
+                <span class="legend-label">Запретные зоны</span>
             </label>
 
             <!-- Weather section -->
@@ -1112,8 +1131,69 @@
         let animationInterval = null;
         let isPlaying = false;
 
+        // ── ЗАПРЕТНЫЕ ЗОНЫ ────────────────────────────────────────────────────────
+        let PROHIBITED_ZONES = [];
+        let zonesLayer = null;
+
+        function getHatchPattern() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 8;
+            canvas.height = 8;
+            const ctx = canvas.getContext('2d');
+
+            ctx.strokeStyle = 'rgba(239, 68, 68, 0.2)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(0, 8);
+            ctx.lineTo(8, 0);
+            ctx.stroke();
+
+            return ctx.createPattern(canvas, 'repeat');
+        }
+
+        // Слой запретных зон (под погодой и траекториями)
+        zonesLayer = new ol.layer.Vector({
+            source: new ol.source.Vector(),
+            zIndex: 997, // Below routeLayer (998)
+            style: function (feature) {
+                return new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: 'rgba(239, 68, 68, 0.4)',
+                        width: 1.5
+                    }),
+                    fill: new ol.style.Fill({
+                        color: getHatchPattern()
+                    })
+                });
+            }
+        });
+        map.addLayer(zonesLayer);
+
+        function renderProhibitedZones() {
+            if (!zonesLayer) return;
+            const source = zonesLayer.getSource();
+            source.clear();
+
+            if (!document.getElementById('toggle-zones').checked) return;
+
+            PROHIBITED_ZONES.forEach(zone => {
+                const coords = zone.points.map(p => ol.proj.fromLonLat([p.lon, p.lat]));
+                coords.push(coords[0]); // замыкаем полигон
+
+                const feature = new ol.Feature({
+                    geometry: new ol.geom.Polygon([coords])
+                });
+                source.addFeature(feature);
+            });
+        }
+
+        function toggleZonesVisibility() {
+            renderProhibitedZones();
+        }
+
         // ── WEATHER DATA ─────────────────────────────────────────────────────────
         let WEATHER_DATA = null;  // indexed as WEATHER_DATA[z][t]
+        let WEATHER_CACHE = {}; // Cache for weather data to avoid re-fetching
         let weatherLayers = [];   // ol.layer.Vector instances for weather
         let curFL = 3;            // current flight level (1–5)
         let curWT = 1;            // current weather time step
@@ -1374,7 +1454,7 @@
             if (activeWeatherParams.has('ice')) {
                 html += '<div class="legend-section-title">Обледенение</div>';
                 html += '<div class="legend-swatch-row"><div class="legend-swatch" style="background:#e2e8f0"></div><span>Нет</span></div>';
-                html += '<div class="legend-swatch-row"><div class="legend-swatch-dot" style="background:#bae6fd;border:1px solid #0284c7"></div><span>Есть ❄</span></div>';
+                html += '<div class="legend-swatch-row"><div class="legend-swatch-dot" style="background:#bae6fd;border:1px solid #0284c7"></div><span>Да</span></div>';
             }
             el.innerHTML = html;
         }
@@ -1459,6 +1539,11 @@
 
                 if (!response.ok) {
                     throw new Error(data.error || 'Ошибка сервера');
+                }
+
+                if (data.prohibited_zones) {
+                    PROHIBITED_ZONES = data.prohibited_zones;
+                    renderProhibitedZones();
                 }
 
                 drawRouteOnMap(data);
