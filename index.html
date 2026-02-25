@@ -706,6 +706,10 @@
                     <input type="checkbox" id="refresh-restricted-areas">
                     Получить новые запретные зоны
                 </label>
+                <label class="checkbox-group" style="margin-top: 0.25rem;">
+                    <input type="checkbox" id="refresh-trajectories">
+                    Получить новые траектории встречных самолетов
+                </label>
             </div>
 
             <button class="btn-primary" id="optimize-btn" onclick="optimizeRoute()">Рассчитать маршрут</button>
@@ -1435,6 +1439,7 @@
             const originalText = btn.textContent;
             const refreshWeather = document.getElementById('refresh-weather').checked;
             const refreshRestrictedAreas = document.getElementById('refresh-restricted-areas').checked;
+            const refreshTrajectories = document.getElementById('refresh-trajectories').checked;
 
             try {
                 btn.textContent = 'Вычисление...';
@@ -1445,7 +1450,8 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         refresh_weather: refreshWeather,
-                        refresh_restricted_areas: refreshRestrictedAreas
+                        refresh_restricted_areas: refreshRestrictedAreas,
+                        refresh_trajectories: refreshTrajectories
                     })
                 });
 

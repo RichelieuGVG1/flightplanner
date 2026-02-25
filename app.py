@@ -3,7 +3,7 @@ from flask_cors import CORS
 import json
 import os
 from datetime import datetime
-from plane_simulation import simulate
+from plane_simulation.plane_simulation import simulate
 
 app = Flask(__name__)
 CORS(app)
@@ -153,6 +153,7 @@ def optimize():
         data = request.json or {}
         refresh_weather = data.get('refresh_weather')
         refresh_restricted_areas = data.get('refresh_restricted_areas')
+        refresh_trajectories = data.get('refresh_trajectories')
         
         if refresh_weather:
             from weather.weather_generator import generate
@@ -171,9 +172,16 @@ def optimize():
             global _weather_cache
             _weather_cache = None
 
-        # В будущем здесь можно принимать параметры от фронтенда (аэропорты и т.д.)
-        # Пока вызываем базовую симуляцию
-        result, _all_waypoints = simulate()
+        result_path = os.path.join(os.path.dirname(__file__), 'plane_simulation', 'simulation_result.json')
+        
+        if refresh_trajectories or not os.path.exists(result_path):
+            import random
+            plane_no = random.randint(100, 999)
+            result, _all_waypoints = simulate(plane_number=plane_no)
+        else:
+            with open(result_path, 'r', encoding='utf-8') as f:
+                result = json.load(f)
+                
         return jsonify(result)
     except Exception as e:
         return jsonify({'error': str(e)}), 500

@@ -16,7 +16,13 @@ AIRPORTS = [
     {"name": "Yelizovo",     "coords": [53.1679, 158.4539]},
 ]
 
-WAYPOINTS_FILE = "russia_waypoints.json"
+import os
+
+# Пути относительно этого файла
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+WAYPOINTS_FILE = os.path.join(os.path.dirname(BASE_DIR), "russia_waypoints.json")
+RESULT_FILE = os.path.join(BASE_DIR, "simulation_result.json")
+
 CORRIDOR_KM    = 800   # макс. поперечное отклонение waypoint от ортодромии
 pos_num        = 50
 
@@ -175,7 +181,8 @@ def approximate_route(route_coords: List[Tuple[float, float]],
 # ── Основная логика ───────────────────────────────────────────────────────────
 def simulate(waypoints_path: str = WAYPOINTS_FILE,
              k_neighbors: int = 8,
-             corridor_km: float = CORRIDOR_KM) -> Tuple[Dict, List[Dict]]:
+             corridor_km: float = CORRIDOR_KM,
+             plane_number: int = 1) -> Tuple[Dict, List[Dict]]:
 
     print("Загрузка waypoints...")
     all_waypoints = load_waypoints(waypoints_path)
@@ -249,6 +256,7 @@ def simulate(waypoints_path: str = WAYPOINTS_FILE,
     approx_list = [{"lat": lat, "lon": lon} for lat, lon in approx]
 
     result = {
+        "plane_number":     plane_number,
         "departure":        {"name": dep_ap["name"], "lat": dep_lat, "lon": dep_lon},
         "arrival":          {"name": arr_ap["name"], "lat": arr_lat, "lon": arr_lon},
         "gc_distance_km":   round(gc_dist, 1),
@@ -258,9 +266,9 @@ def simulate(waypoints_path: str = WAYPOINTS_FILE,
         "approximated_20":  approx_list,
     }
 
-    with open("simulation_result.json", "w", encoding="utf-8") as f:
+    with open(RESULT_FILE, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
-    print("\nРезультат сохранён: simulation_result.json")
+    print(f"\nРезультат сохранён: {RESULT_FILE}")
 
     print(f"\n=== АППРОКСИМИРОВАННЫЕ {pos_num} ПОЗИЦИЙ САМОЛЁТА ===")
     for i, pt in enumerate(approx_list):
