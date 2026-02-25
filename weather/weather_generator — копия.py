@@ -3,27 +3,24 @@ weather_gen.py
 Генерирует погодные данные для навигационных точек и строит интерактивную карту.
 """
 
-import json, math, random, os
+import json, math, random
 import numpy as np
 from typing import List, Dict, Tuple
 from pathlib import Path
 
-# Использование системного времени для рандомизации
-rng = np.random.default_rng()
-# random.seed() без аргументов использует системное время по умолчанию
-
-# Пути относительно этого файла
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-WAYPOINTS_FILE = os.path.join(os.path.dirname(BASE_DIR), "russia_waypoints.json")
-OUTPUT_FILE    = os.path.join(BASE_DIR, "weather_data.json")
+WAYPOINTS_FILE = "russia_waypoints.json"
+OUTPUT_FILE    = "weather_data.json"
 
 N_TIMES  = 100
-N_LEVELS = 5 #число эшелонов
-# Количество фронтов теперь варьируется от 3 до 7
-N_FRONTS = rng.integers(3, 8)
+N_LEVELS = 5
+N_FRONTS = 4
 
 LAT_MIN, LAT_MAX = 41.0, 77.0
 LON_MIN, LON_MAX = 26.0, 170.0
+
+SEED = 42
+rng  = np.random.default_rng(SEED)
+random.seed(SEED)
 
 
 # ── Шум Перлина ───────────────────────────────────────────────────────────────
@@ -73,13 +70,9 @@ class WindField:
             50, 110, 90, 140,
             155, 35, 70
         ], dtype=float)
-        
-        # Добавляем случайный сдвиг к базовым координатам центров
-        self.clat0 += rng.uniform(-4.0, 4.0, self.n_large)
-        self.clon0 += rng.uniform(-6.0, 6.0, self.n_large)
         self.cstr  = rng.uniform(1.2, 3.5, self.n_large)
-        # Знаки теперь полностью случайны
-        self.csign = rng.choice([-1, 1], self.n_large).astype(float)
+        # Знаки чередуются случайно, но с достаточным количеством обоих
+        self.csign = np.array([1,-1,1,-1,-1,1,-1,1,1,-1,1,-1], dtype=float)
         self.dlat  = rng.uniform(-0.15, 0.15, self.n_large)
         self.dlon  = rng.uniform(-0.10, 0.20, self.n_large)
         self.phase = rng.uniform(0, 2*math.pi, self.n_large)
@@ -104,10 +97,6 @@ class WindField:
         self.pu_dy = rng.uniform(-0.03, 0.03)
         self.pv_dx = rng.uniform(-0.04, 0.01)
         self.pv_dy = rng.uniform( 0.01, 0.05)
-        
-        # Добавляем случайный сдвиг фазы шума
-        self.offset_u = rng.uniform(0, 100)
-        self.offset_v = rng.uniform(0, 100)
 
     def _px(self, lat, lon): return (lon-LON_MIN)/(LON_MAX-LON_MIN)*14
     def _py(self, lat, lon): return (lat-LAT_MIN)/(LAT_MAX-LAT_MIN)*14
@@ -153,10 +142,10 @@ class WindField:
         # u и v дрейфуют в разные стороны → поле медленно «вращается»
         px = self._px(lat, lon)
         py = self._py(lat, lon)
-        pxu = (px + self.pu_dx*t + self.offset_u) % 14
-        pyu = (py + self.pu_dy*t + self.offset_u) % 14
-        pxv = (px + self.pv_dx*t + self.offset_v) % 14
-        pyv = (py + self.pv_dy*t + self.offset_v) % 14
+        pxu = (px + self.pu_dx*t) % 14
+        pyu = (py + self.pu_dy*t) % 14
+        pxv = (px + self.pv_dx*t) % 14
+        pyv = (py + self.pv_dy*t) % 14
         # Амплитуды u и v равны и пульсируют независимо
         amp_u = 10.0 + 5.0*math.sin(t*0.05 + 0.3)
         amp_v = 10.0 + 5.0*math.cos(t*0.07 + 2.0)
@@ -176,12 +165,12 @@ class StormFront:
     """
     def __init__(self, fid, wind_field: WindField):
         self.wf          = wind_field
-        self.lat0        = rng.uniform(43, 75)   # Шире диапазон
-        self.lon0        = rng.uniform(30, 160)  # Шире диапазон
-        self.semi_lat0   = rng.uniform(2.5, 10.0)
-        self.semi_lon0   = rng.uniform(5.0, 20.0)
-        self.max_power   = rng.uniform(2.0, 6.0)
-        self.rotation0   = rng.uniform(-45, 45)
+        self.lat0        = rng.uniform(50, 67)
+        self.lon0        = rng.uniform(45, 125)
+        self.semi_lat0   = rng.uniform(3.5, 8.0)
+        self.semi_lon0   = rng.uniform(7.0, 16.0)
+        self.max_power   = rng.uniform(2.5, 5.0)
+        self.rotation0   = rng.uniform(-30, 30)
         self.base_level  = rng.integers(2, 5)   # пик на этом эшелоне
         # Деформация формы: медленная синусоидальная
         self.deform_freq  = rng.uniform(0.03, 0.07)
@@ -206,8 +195,8 @@ class StormFront:
         DT_H = 2.0
 
         # Собственная инерция фронта (отклонение от ветра)
-        own_u = float(rng.uniform(-8.0, 8.0))
-        own_v = float(rng.uniform(-8.0, 8.0))
+        own_u = float(rng.uniform(-4.0, 4.0))
+        own_v = float(rng.uniform(-4.0, 4.0))
 
         for t in range(1, N_TIMES+1):
             u_wind, v_wind = self.wf.uv(lat, lon, self.base_level, t)
