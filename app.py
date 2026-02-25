@@ -150,6 +150,24 @@ def filter_points():
 def optimize():
     """Оптимизировать маршрут и вернуть 20 точек"""
     try:
+        data = request.json or {}
+        if data.get('refresh_weather'):
+            from weather.weather_generator import generate
+            
+            base_dir = os.path.dirname(__file__)
+            wp_path = os.path.join(base_dir, 'weather', 'russia_waypoints.json')
+            
+            # Если файл russia_waypoints.json лежит в корне, а не в weather/ (на всякий случай)
+            if not os.path.exists(wp_path):
+                wp_path = os.path.join(base_dir, 'russia_waypoints.json')
+                
+            out_path = os.path.join(base_dir, 'weather', 'weather_data.json')
+            
+            generate(waypoints_path=wp_path, output_path=out_path)
+            
+            global _weather_cache
+            _weather_cache = None
+
         # В будущем здесь можно принимать параметры от фронтенда (аэропорты и т.д.)
         # Пока вызываем базовую симуляцию
         result, _all_waypoints = simulate()

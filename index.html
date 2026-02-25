@@ -1273,7 +1273,7 @@
                 return;
             }
             try {
-                const resp = await fetch('/weather/weather_data.json');
+                const resp = await fetch('/weather/weather_data.json?t=' + Date.now());
                 if (!resp.ok) throw new Error('HTTP ' + resp.status);
                 const records = await resp.json();
                 WEATHER_DATA = {};
@@ -1329,16 +1329,12 @@
                 btn.textContent = 'Оптимизация...';
                 btn.disabled = true;
 
-                // Load weather data if checkbox is NOT checked (use cached file)
-                // We pass trajectory length after the route is drawn; but we need
-                // to know N first — so we'll call loadWeatherData(N) after drawRouteOnMap.
-                if (!refreshWeather) {
-                    document.getElementById('weather-legend-section').classList.add('visible');
-                }
+                document.getElementById('weather-legend-section').classList.add('visible');
 
                 const response = await fetch('/api/optimize', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ refresh_weather: refreshWeather })
                 });
 
                 const data = await response.json();
@@ -1349,8 +1345,12 @@
 
                 drawRouteOnMap(data);
 
+                if (refreshWeather) {
+                    WEATHER_DATA = null;
+                }
+
                 // Load weather and sync to trajectory after route is available
-                if (!refreshWeather && data.approximated_20) {
+                if (data.approximated_20) {
                     const N = data.approximated_20.length;
                     await loadWeatherData(N);
                 }
