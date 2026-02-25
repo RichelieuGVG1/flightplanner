@@ -176,6 +176,45 @@
             background: #0369a1;
         }
 
+        .flight-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.2rem;
+            background: #f1f5f9;
+            padding: 0.25rem;
+            border-radius: 8px;
+        }
+
+        .flight-tab {
+            flex: 1;
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .flight-tab.active {
+            background: #fff;
+            color: var(--accent-primary);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .flight-data-block {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            padding: 0.85rem;
+            background: #fdfdfd;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
         .copyright {
             font-size: 0.7rem;
             color: var(--text-secondary);
@@ -604,50 +643,57 @@
         </div>
 
         <div class="form-section">
-            <div class="grid-2">
-                <div class="input-group">
-                    <label>Вылет</label>
-                    <select id="dep-airport"></select>
-                </div>
-                <div class="input-group">
-                    <label>Назначение</label>
-                    <select id="arr-airport"></select>
-                </div>
+            <div class="flight-tabs">
+                <button class="flight-tab active" onclick="switchFlight(1)">Рейс №1</button>
+                <button class="flight-tab" onclick="switchFlight(2)">Рейс №2</button>
             </div>
 
-            <div class="input-group">
-                <label>Воздушное судно</label>
-                <select id="aircraft-type" onchange="updateAircraftConstraints()"></select>
-            </div>
-
-            <div class="slider-container">
-                <div class="slider-header">
-                    <label>Пассажиры</label>
-                    <span class="slider-value" id="pax-value">0 чел.</span>
+            <div class="flight-data-block">
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label>Вылет</label>
+                        <select id="dep-airport"></select>
+                    </div>
+                    <div class="input-group">
+                        <label>Назначение</label>
+                        <select id="arr-airport"></select>
+                    </div>
                 </div>
-                <input type="range" id="pax-slider" min="0" oninput="updatePaxValue()">
-            </div>
 
-            <div class="slider-container">
-                <div class="slider-header">
-                    <label>Багаж (кг)</label>
-                    <span class="slider-value" id="baggage-value">0 кг</span>
-                </div>
-                <input type="range" id="baggage-slider" min="0" max="1000" oninput="updateBaggageValue()">
-                <label class="checkbox-group">
-                    <input type="checkbox" id="full-load" onchange="toggleFullLoad()">
-                    Полная загрузка
-                </label>
-            </div>
-
-            <div class="grid-2">
                 <div class="input-group">
-                    <label>Мин. запас топлива (кг)</label>
-                    <input type="number" id="fuel-reserve" value="2500">
+                    <label>Воздушное судно</label>
+                    <select id="aircraft-type" onchange="updateAircraftConstraints()"></select>
                 </div>
-                <div class="input-group">
-                    <label>Время вылета</label>
-                    <input type="datetime-local" id="departure-time">
+
+                <div class="slider-container">
+                    <div class="slider-header">
+                        <label>Пассажиры</label>
+                        <span class="slider-value" id="pax-value">0 чел.</span>
+                    </div>
+                    <input type="range" id="pax-slider" min="0" oninput="updatePaxValue()">
+                </div>
+
+                <div class="slider-container">
+                    <div class="slider-header">
+                        <label>Багаж (кг)</label>
+                        <span class="slider-value" id="baggage-value">0 кг</span>
+                    </div>
+                    <input type="range" id="baggage-slider" min="0" max="1000" oninput="updateBaggageValue()">
+                    <label class="checkbox-group">
+                        <input type="checkbox" id="full-load" onchange="toggleFullLoad()">
+                        Полная загрузка
+                    </label>
+                </div>
+
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label>Мин. запас топлива (кг)</label>
+                        <input type="number" id="fuel-reserve" value="2500">
+                    </div>
+                    <div class="input-group">
+                        <label>Время вылета</label>
+                        <input type="datetime-local" id="departure-time">
+                    </div>
                 </div>
             </div>
 
@@ -655,6 +701,10 @@
                 <label class="checkbox-group">
                     <input type="checkbox" id="refresh-weather">
                     Получить новые погодные данные
+                </label>
+                <label class="checkbox-group" style="margin-top: 0.25rem;">
+                    <input type="checkbox" id="refresh-restricted-areas">
+                    Получить новые запретные зоны
                 </label>
             </div>
 
@@ -759,6 +809,66 @@
             document.getElementById('departure-time').value = now.toISOString().slice(0, 16);
 
             updateAircraftConstraints();
+
+            // Сохраняем начальные состояния для обоих рейсов
+            saveCurrentFlightData();
+            flightsData[2] = JSON.parse(JSON.stringify(flightsData[1]));
+        }
+
+        const flightsData = {
+            1: null,
+            2: null
+        };
+        let currentFlight = 1;
+
+        function saveCurrentFlightData() {
+            flightsData[currentFlight] = {
+                dep: document.getElementById('dep-airport').value,
+                arr: document.getElementById('arr-airport').value,
+                aircraft: document.getElementById('aircraft-type').value,
+                pax: document.getElementById('pax-slider').value,
+                baggage: document.getElementById('baggage-slider').value,
+                fullLoad: document.getElementById('full-load').checked,
+                fuel: document.getElementById('fuel-reserve').value,
+                depTime: document.getElementById('departure-time').value
+            };
+        }
+
+        function loadFlightData(flightNo) {
+            const data = flightsData[flightNo];
+            if (!data) return;
+
+            document.getElementById('dep-airport').value = data.dep;
+            document.getElementById('arr-airport').value = data.arr;
+            document.getElementById('aircraft-type').value = data.aircraft;
+
+            const aircraft = appData.aircraft_types.find(a => a.type === data.aircraft);
+            const paxSlider = document.getElementById('pax-slider');
+            paxSlider.max = aircraft.max_passengers;
+            paxSlider.value = data.pax;
+
+            const bagSlider = document.getElementById('baggage-slider');
+            bagSlider.value = data.baggage;
+
+            const fullLoadCb = document.getElementById('full-load');
+            fullLoadCb.checked = data.fullLoad;
+            bagSlider.disabled = data.fullLoad;
+
+            document.getElementById('fuel-reserve').value = data.fuel;
+            document.getElementById('departure-time').value = data.depTime;
+
+            updatePaxValue();
+            updateBaggageValue();
+        }
+
+        function switchFlight(flightNo) {
+            if (flightNo === currentFlight) return;
+            saveCurrentFlightData();
+            currentFlight = flightNo;
+            loadFlightData(flightNo);
+
+            document.querySelectorAll('.flight-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector(`.flight-tab[onclick="switchFlight(${flightNo})"]`).classList.add('active');
         }
 
         function updateAircraftConstraints() {
@@ -1324,6 +1434,7 @@
             const btn = document.getElementById('optimize-btn');
             const originalText = btn.textContent;
             const refreshWeather = document.getElementById('refresh-weather').checked;
+            const refreshRestrictedAreas = document.getElementById('refresh-restricted-areas').checked;
 
             try {
                 btn.textContent = 'Вычисление...';
@@ -1332,7 +1443,10 @@
                 const response = await fetch('/api/optimize', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ refresh_weather: refreshWeather })
+                    body: JSON.stringify({
+                        refresh_weather: refreshWeather,
+                        refresh_restricted_areas: refreshRestrictedAreas
+                    })
                 });
 
                 const data = await response.json();

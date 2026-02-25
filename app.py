@@ -151,7 +151,10 @@ def optimize():
     """Оптимизировать маршрут и вернуть 20 точек"""
     try:
         data = request.json or {}
-        if data.get('refresh_weather'):
+        refresh_weather = data.get('refresh_weather')
+        refresh_restricted_areas = data.get('refresh_restricted_areas')
+        
+        if refresh_weather:
             from weather.weather_generator import generate
             
             base_dir = os.path.dirname(__file__)
