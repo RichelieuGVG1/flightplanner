@@ -657,7 +657,7 @@
                 </label>
             </div>
 
-            <button class="btn-primary" id="optimize-btn" onclick="optimizeRoute()">Оптимизировать маршрут</button>
+            <button class="btn-primary" id="optimize-btn" onclick="optimizeRoute()">Рассчитать маршрут</button>
         </div>
 
         <div class="copyright" id="copyright"></div>
@@ -1325,7 +1325,7 @@
             const refreshWeather = document.getElementById('refresh-weather').checked;
 
             try {
-                btn.textContent = 'Оптимизация...';
+                btn.textContent = 'Вычисление...';
                 btn.disabled = true;
 
                 const response = await fetch('/api/optimize', {
@@ -1354,12 +1354,12 @@
 
                 document.getElementById('playback-panel').classList.remove('disabled');
                 document.getElementById('map-legend').classList.remove('disabled');
-                btn.textContent = 'Маршрут оптимизирован';
+                btn.textContent = 'Маршрут рассчитан';
                 btn.style.background = '#059669';
 
             } catch (error) {
                 console.error('Optimization failed:', error);
-                alert('Ошибка оптимизации: ' + error.message);
+                alert('Ошибка расчета: ' + error.message);
                 btn.textContent = originalText;
                 btn.disabled = false;
             }
