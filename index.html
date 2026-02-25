@@ -460,7 +460,7 @@
         }
 
         .legend-label {
-            font-size: 0.8125rem;
+            font-size: 0.75rem;
             color: var(--text-secondary);
             font-weight: 500;
         }
@@ -477,12 +477,11 @@
         }
 
         /* Weather legend section */
-        .weather-legend-section {
-            display: none;
-        }
-
-        .weather-legend-section.visible {
-            display: block;
+        .map-legend.disabled .legend-item,
+        .map-legend.disabled .weather-legend-section {
+            opacity: 0.4;
+            pointer-events: none;
+            filter: grayscale(1);
         }
 
         .legend-divider {
@@ -666,7 +665,7 @@
 
     <main class="map-container">
         <div id="map"></div>
-        <div class="map-legend">
+        <div class="map-legend disabled" id="map-legend">
             <div class="legend-title">Легенда карты</div>
             <label class="legend-item">
                 <input type="checkbox" id="toggle-trajectory" class="legend-checkbox" checked
@@ -1329,8 +1328,6 @@
                 btn.textContent = 'Оптимизация...';
                 btn.disabled = true;
 
-                document.getElementById('weather-legend-section').classList.add('visible');
-
                 const response = await fetch('/api/optimize', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1356,6 +1353,7 @@
                 }
 
                 document.getElementById('playback-panel').classList.remove('disabled');
+                document.getElementById('map-legend').classList.remove('disabled');
                 btn.textContent = 'Маршрут оптимизирован';
                 btn.style.background = '#059669';
 
