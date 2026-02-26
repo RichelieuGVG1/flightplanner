@@ -98,28 +98,34 @@
         <div id="map"></div>
         <div class="map-legend disabled" id="map-legend">
             <div class="legend-title">Легенда карты</div>
-            <label class="legend-item" style="margin-top: 4px;">
+            <label class="legend-item">
                 <input type="checkbox" id="toggle-waypoints" class="legend-checkbox"
                     onchange="toggleWaypointsVisibility()">
                 <div class="legend-toggle"></div>
-                <div class="legend-swatch-dot" style="background: #4b5563; border: 1px solid #fff;"></div>
+                <div class="legend-icon-wrapper">
+                    <div class="legend-swatch-dot" style="background: #4b5563; border: 1px solid #fff;"></div>
+                </div>
                 <span class="legend-label">Waypoints</span>
             </label>
             <label class="legend-item">
                 <input type="checkbox" id="toggle-trajectory" class="legend-checkbox" checked
                     onchange="toggleTrajectoryVisibility()">
                 <div class="legend-toggle"></div>
-                <div class="legend-color-dot"></div>
-                <span class="legend-label">Встречные самолеты</span>
+                <div class="legend-icon-wrapper">
+                    <div class="legend-color-dot" style="margin-left: 3px;"></div>
+                </div>
+                <span class="legend-label">Встречные&nbsp;самолеты</span>
             </label>
 
 
 
-            <label class="legend-item" style="margin-top: 4px;">
+            <label class="legend-item">
                 <input type="checkbox" id="toggle-zones" class="legend-checkbox" checked
                     onchange="toggleZonesVisibility()">
                 <div class="legend-toggle"></div>
-                <div class="legend-swatch-hatch"></div>
+                <div class="legend-icon-wrapper">
+                    <div class="legend-swatch-hatch"></div>
+                </div>
                 <span class="legend-label">Запретные зоны</span>
             </label>
 

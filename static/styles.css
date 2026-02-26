@@ -445,12 +445,13 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .legend-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: 32px 17px 1fr;
     align-items: center;
-    gap: 10px;
+    column-gap: 12px;
     cursor: pointer;
     user-select: none;
-    padding: 4px 0;
+    padding: 6px 0;
 }
 
 .legend-toggle {
@@ -496,6 +497,13 @@ input[type="range"]::-webkit-slider-thumb {
 
 .legend-checkbox:checked~.legend-label {
     color: var(--text-primary);
+}
+
+.legend-icon-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .legend-color-dot {
