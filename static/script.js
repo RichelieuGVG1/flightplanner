@@ -252,6 +252,13 @@ map.getView().on('change:center', updateGrid);
 updateGrid();
 
 // --- AIRPORTS ---
+const mainAirportSource = new ol.source.Vector();
+const mainAirportLayer = new ol.layer.Vector({
+    source: mainAirportSource,
+    zIndex: 2000 // Topmost layer
+});
+map.addLayer(mainAirportLayer);
+
 appData.airports.forEach(a => {
     const pos = ol.proj.fromLonLat([a.coords[1], a.coords[0]]);
 
@@ -264,11 +271,7 @@ appData.airports.forEach(a => {
             stroke: new ol.style.Stroke({ color: '#fff', width: 2 })
         })
     }));
-
-    const markerLayer = new ol.layer.Vector({
-        source: new ol.source.Vector({ features: [marker] })
-    });
-    map.addLayer(markerLayer);
+    mainAirportSource.addFeature(marker);
 
     // Tooltip Overlay
     const tip = document.createElement('div');
@@ -325,8 +328,8 @@ const planeLayer = new ol.layer.Vector({
 map.addLayer(planeLayer);
 
 // Plane Icon (Simple SVG Data URI)
-const planeSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23dc2626" width="48px" height="48px"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>`;
-const planeIconUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(planeSvg.replace('%23dc2626', '#e11d48'));
+const planeSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2338bdf8" width="48px" height="48px"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>`;
+const planeIconUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(planeSvg.replace('%2338bdf8', '#0ea5e9'));
 
 const planeStyle = new ol.style.Style({
     image: new ol.style.Icon({
