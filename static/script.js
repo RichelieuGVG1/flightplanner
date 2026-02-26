@@ -339,7 +339,7 @@ const planeIconUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(pl
 const planeStyle = new ol.style.Style({
     image: new ol.style.Icon({
         src: planeIconUrl,
-        scale: 1.5,
+        scale: 1.0,
         anchor: [0.5, 0.5],
         rotation: 0,
         rotateWithView: true
@@ -1069,7 +1069,7 @@ function updatePlanePosition(globalT) {
         feature.setStyle(new ol.style.Style({
             image: new ol.style.Icon({
                 src: planeIconUrl,
-                scale: 1.5,
+                scale: 1.0,
                 anchor: [0.5, 0.5],
                 rotation: rotation,
                 rotateWithView: true
