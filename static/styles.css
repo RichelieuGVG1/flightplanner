@@ -572,6 +572,13 @@ input[type="range"]::-webkit-slider-thumb {
             rgba(239, 68, 68, 0.3) 4px);
 }
 
+.legend-icon-circle {
+    width: 10px;
+    height: 10px;
+    background: #fbbf24;
+    border-radius: 50%;
+}
+
 /* Flight level switcher */
 .fl-switcher {
     display: none;

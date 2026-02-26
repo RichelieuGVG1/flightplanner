@@ -467,14 +467,30 @@ map.on('pointermove', function (evt) {
     }
 
     const pixel = map.getEventPixel(evt.originalEvent);
-    const feature = map.forEachFeatureAtPixel(pixel, f => f, {
+
+    // Check airports first (higher zIndex/importance)
+    const airportFeature = map.forEachFeatureAtPixel(pixel, f => f, {
+        layerFilter: l => l === airportLayer
+    });
+
+    if (airportFeature) {
+        const name = airportFeature.get('name');
+        const runway = airportFeature.get('runway');
+        mapTooltipEl.innerHTML = `<strong>${name}</strong><br>Полоса: ${runway} м`;
+        mapTooltipEl.style.display = 'block';
+        waypointTooltipOverlay.setPosition(evt.coordinate);
+        map.getTargetElement().style.cursor = 'pointer';
+        return;
+    }
+
+    const waypointFeature = map.forEachFeatureAtPixel(pixel, f => f, {
         layerFilter: l => l === waypointLayer
     });
 
-    if (feature) {
-        const name = feature.get('name');
-        const lat = feature.get('lat').toFixed(2);
-        const lon = feature.get('lon').toFixed(2);
+    if (waypointFeature) {
+        const name = waypointFeature.get('name');
+        const lat = waypointFeature.get('lat').toFixed(2);
+        const lon = waypointFeature.get('lon').toFixed(2);
         mapTooltipEl.innerHTML = `${name}<br><span style="font-size: 9px; color: #64748b;">${lat}, ${lon}</span>`;
         mapTooltipEl.style.display = 'block';
         waypointTooltipOverlay.setPosition(evt.coordinate);
@@ -484,6 +500,49 @@ map.on('pointermove', function (evt) {
         map.getTargetElement().style.cursor = '';
     }
 });
+
+// ── АЭРОПОРТЫ ─────────────────────────────────────────────────────────────
+const airportSource = new ol.source.Vector();
+const airportLayer = new ol.layer.Vector({
+    source: airportSource,
+    zIndex: 6, // Above waypoints (5)
+    visible: false,
+    style: function (feature) {
+        const isLong = feature.get('class') === 'Long';
+        return new ol.style.Style({
+            image: new ol.style.Circle({
+                fill: new ol.style.Fill({ color: isLong ? '#fbbf24' : '#ef4444' }), // Yellow / Red
+                radius: isLong ? 6 : 4
+            })
+        });
+    }
+});
+map.addLayer(airportLayer);
+
+async function loadAirports() {
+    try {
+        const resp = await fetch('/airports/russian_civil_airports.json');
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const data = await resp.json();
+
+        const features = data.map(ap => {
+            return new ol.Feature({
+                geometry: new ol.geom.Point(ol.proj.fromLonLat([ap.lon, ap.lat])),
+                name: ap.name,
+                runway: ap.max_runway_m,
+                class: ap.class
+            });
+        });
+        airportSource.addFeatures(features);
+    } catch (e) {
+        console.error('Airports load error:', e);
+    }
+}
+loadAirports();
+
+function toggleAirportsVisibility() {
+    airportLayer.setVisible(document.getElementById('toggle-airports').checked);
+}
 
 // ── WEATHER DATA ─────────────────────────────────────────────────────────
 let WEATHER_DATA = null;  // indexed as WEATHER_DATA[z][t]

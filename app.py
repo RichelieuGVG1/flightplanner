@@ -230,6 +230,11 @@ def serve_weather(filename):
     """Отдать файлы из папки weather (weather_data.json и т.д.)"""
     return send_from_directory('weather', filename)
 
+@app.route('/airports/<path:filename>')
+def serve_airports(filename):
+    """Отдать файлы из папки airports (russian_civil_airports.json и т.д.)"""
+    return send_from_directory('airports', filename)
+
 # Cache for weather data indexed by z level
 _weather_cache = None  # dict: z -> list of records
 

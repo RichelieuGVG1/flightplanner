@@ -27,6 +27,11 @@ def index():
     """Главная страница приложения"""
     return send_from_directory('.', 'index.html')
 
+@app.route('/airports/<path:filename>')
+def serve_airports(filename):
+    """Отдать файлы из папки airports (russian_civil_airports.json и т.д.)"""
+    return send_from_directory('airports', filename)
+
 @app.route('/api/points', methods=['GET'])
 def get_points():
     """Получить все точки"""
