@@ -323,7 +323,7 @@ map.addLayer(routeLayer);
 const planeSource = new ol.source.Vector();
 const planeLayer = new ol.layer.Vector({
     source: planeSource,
-    zIndex: 999
+    zIndex: 3000
 });
 map.addLayer(planeLayer);
 

@@ -575,7 +575,7 @@ input[type="range"]::-webkit-slider-thumb {
 .legend-icon-circle {
     width: 10px;
     height: 10px;
-    background: #fbbf24;
+    background: linear-gradient(90deg, #fbbf24 50%, #ef4444 50%);
     border-radius: 50%;
 }
 

@@ -177,6 +177,8 @@ def optimize():
         
         if refresh_restricted_areas or not os.path.exists(zones_path):
             generate_zones()
+            from prohibited_zones.filter_waypoints import filter_waypoints
+            filter_waypoints()
 
         result_path = os.path.join(os.path.dirname(__file__), 'plane_simulation', 'simulation_result.json')
         
