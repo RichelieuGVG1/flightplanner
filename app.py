@@ -182,20 +182,28 @@ def optimize():
 
         result_path = os.path.join(os.path.dirname(__file__), 'plane_simulation', 'simulation_result.json')
         
-        if refresh_trajectories or not os.path.exists(result_path):
-            import random
-            plane_no = random.randint(100, 999)
-            result, _all_waypoints = simulate(plane_number=plane_no)
+        if refresh_trajectories:
+            from plane_simulation.plane_generator import generate_planes
+            planes = generate_planes(count=5)
+        elif not os.path.exists(result_path):
+            from plane_simulation.plane_generator import generate_planes
+            planes = generate_planes(count=5)
         else:
             with open(result_path, 'r', encoding='utf-8') as f:
-                result = json.load(f)
+                planes = json.load(f)
+        
+        # Если загружен старый формат (один самолет), превращаем в список
+        if isinstance(planes, dict) and 'planes' not in planes:
+             planes = [planes]
+        
+        response_data = {'planes': planes}
         
         # Добавляем данные о запретных зонах в результат
         if os.path.exists(zones_path):
             with open(zones_path, 'r', encoding='utf-8') as f:
-                result['prohibited_zones'] = json.load(f)
+                response_data['prohibited_zones'] = json.load(f)
                 
-        return jsonify(result)
+        return jsonify(response_data)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

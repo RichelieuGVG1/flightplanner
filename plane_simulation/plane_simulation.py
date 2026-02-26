@@ -237,11 +237,25 @@ def simulate(waypoints_path: str = WAYPOINTS_FILE,
         for i in path_indices
     ]
 
-    route_coords: List[Tuple[float, float]] = (
-        [(dep_lat, dep_lon)]
-        + [(wp["lat"], wp["lon"]) for wp in route_waypoints]
-        + [(arr_lat, arr_lon)]
-    )
+    # ── Добавление времени t (теперь на каждый waypoint + DEP/ARR по одному шагу) ──
+    start_t = random.randint(1, 10)
+    
+    # Собираем полный список точек для анимации: DEP + waypoints + ARR
+    full_route_sequence = [
+        {"name": dep_ap["name"], "lat": dep_lat, "lon": dep_lon}
+    ] + route_waypoints + [
+        {"name": arr_ap["name"], "lat": arr_lat, "lon": arr_lon}
+    ]
+
+    route_waypoints_with_t = []
+    for i, wp in enumerate(full_route_sequence):
+        wp_copy = wp.copy()
+        wp_copy["t"] = start_t + i
+        route_waypoints_with_t.append(wp_copy)
+
+    route_coords: List[Tuple[float, float]] = [
+        (wp["lat"], wp["lon"]) for wp in full_route_sequence
+    ]
 
     # Контрольная метрика
     max_dev = max(
@@ -262,14 +276,16 @@ def simulate(waypoints_path: str = WAYPOINTS_FILE,
         "gc_distance_km":   round(gc_dist, 1),
         "max_deviation_km": round(max_dev, 1),
         "corridor_km":      corridor_km,
-        "route_waypoints":  route_waypoints,
+        "route_waypoints":  route_waypoints_with_t,
         "approximated_20":  approx_list,
+        "start_t":          start_t
     }
 
     with open(RESULT_FILE, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
-    print(f"\nРезультат сохранён: {RESULT_FILE}")
+    print(f"\nРезультат сохранён: {RESULT_FILE}\n")
 
+    return result, all_waypoints
     print(f"\n=== АППРОКСИМИРОВАННЫЕ {pos_num} ПОЗИЦИЙ САМОЛЁТА ===")
     for i, pt in enumerate(approx_list):
         print(f"  [{i+1:2d}]  lat={pt['lat']:.5f}  lon={pt['lon']:.5f}")

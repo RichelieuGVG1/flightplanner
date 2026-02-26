@@ -12,7 +12,12 @@ const appData = {
         { "name": "Kazan", "iata": "KZN", "city": "Казань", "coords": [55.6062, 49.2787] },
         { "name": "Knevichi", "iata": "VVO", "city": "Владивосток", "coords": [43.3990, 132.1480] },
         { "name": "Novy", "iata": "KHV", "city": "Хабаровск", "coords": [48.5280, 135.1880] },
-        { "name": "Yelizovo", "iata": "PKC", "city": "Петропавловск-Камчатский", "coords": [53.1679, 158.4539] }
+        { "name": "Yelizovo", "iata": "PKC", "city": "Петропавловск-Камчатский", "coords": [53.1679, 158.4539] },
+        { "name": "Ufa", "iata": "UFA", "city": "Уфа", "coords": [54.5654, 55.8845] },
+        { "name": "Koltsovo", "iata": "SVX", "city": "Екатеринбург", "coords": [56.7431, 60.8027] },
+        { "name": "Platov", "iata": "ROV", "city": "Ростов-на-Дону", "coords": [47.4938, 39.9247] },
+        { "name": "Yemelyanovo", "iata": "KJA", "city": "Красноярск", "coords": [56.1729, 92.4933] },
+        { "name": "Kurumoch", "iata": "KUF", "city": "Самара", "coords": [53.5050, 50.1642] }
     ],
     "aircraft_types": [
         { "type": "Airbus A320-200", "max_passengers": 180 },
@@ -858,15 +863,21 @@ function syncWeatherToTrajectory(N) {
 }
 
 // Called when slider moves: map slider index → weather time step
-function updateWeatherForSlider(idx) {
-    if (!WEATHER_DATA || weatherTKeys.length === 0) return;
-    idx = parseInt(idx);
-    // Clamp to available weather keys
-    const clampedIdx = Math.min(idx, weatherTKeys.length - 1);
-    const newWT = weatherTKeys[clampedIdx];
-    if (newWT !== undefined && newWT !== curWT) {
-        curWT = newWT;
+function updateWeatherForSlider(t) {
+    if (!WEATHER_DATA) return;
+    t = Math.round(parseFloat(t));
+
+    // Clamp to available weather keys (usually 1..100)
+    // curWT is already handled in renderWeatherLayer using curWT
+    if (t !== curWT) {
+        curWT = t;
         renderWeatherLayer();
+
+        // Обновляем метки времени в интерфейсе (если есть)
+        const timeLabel = document.querySelector('.time-label');
+        if (timeLabel) {
+            timeLabel.textContent = `T = ${t}`;
+        }
     }
 }
 
@@ -902,17 +913,16 @@ async function optimizeRoute() {
             renderProhibitedZones();
         }
 
-        drawRouteOnMap(data);
+        // data.planes is now an array
+        drawRouteOnMap(data.planes);
 
         if (refreshWeather) {
             WEATHER_DATA = null;
         }
 
         // Load weather and sync to trajectory after route is available
-        if (data.approximated_20) {
-            const N = data.approximated_20.length;
-            await loadWeatherData(N);
-        }
+        // Use a fixed N for weather (max time step expected, or just use 100 as per weather_generator.py)
+        await loadWeatherData(100);
 
         document.getElementById('playback-panel').classList.remove('disabled');
         document.getElementById('map-legend').classList.remove('disabled');
@@ -927,50 +937,69 @@ async function optimizeRoute() {
     }
 }
 
-function drawRouteOnMap(data) {
+let allPlanesData = [];
+let planeFeatures = {}; // plane_number -> feature
+
+function drawRouteOnMap(planes) {
     routeSource.clear();
     planeSource.clear();
-    currentRoutePoints = data.approximated_20;
+    allPlanesData = planes;
+    planeFeatures = {};
 
-    if (!currentRoutePoints || currentRoutePoints.length === 0) return;
+    if (!planes || planes.length === 0) return;
 
-    const coords = currentRoutePoints.map(p => ol.proj.fromLonLat([p.lon, p.lat]));
+    planes.forEach(plane => {
+        const currentRoutePoints = plane.approximated_20;
+        if (!currentRoutePoints || currentRoutePoints.length === 0) return;
 
-    // Draw line
-    const routeLine = new ol.Feature({
-        geometry: new ol.geom.LineString(coords),
-        type: 'line'
-    });
-    routeSource.addFeature(routeLine);
+        const coords = currentRoutePoints.map(p => ol.proj.fromLonLat([p.lon, p.lat]));
 
-    // Draw points
-    currentRoutePoints.forEach((p, i) => {
-        const feature = new ol.Feature({
-            geometry: new ol.geom.Point(ol.proj.fromLonLat([p.lon, p.lat])),
-            type: 'point',
-            index: (i + 1).toString()
+        // Draw line for each plane
+        const routeLine = new ol.Feature({
+            geometry: new ol.geom.LineString(coords),
+            type: 'line'
         });
-        routeSource.addFeature(feature);
+        routeSource.addFeature(routeLine);
+
+        // Draw points for each plane
+        currentRoutePoints.forEach((p, i) => {
+            const feature = new ol.Feature({
+                geometry: new ol.geom.Point(ol.proj.fromLonLat([p.lon, p.lat])),
+                type: 'point',
+                index: (plane.plane_number).toString() // Показываем номер самолета вместо индекса точки для ясности
+            });
+            routeSource.addFeature(feature);
+        });
+
+        // Initialize Plane feature (hidden initially)
+        const planeFeature = new ol.Feature({
+            geometry: new ol.geom.Point([0, 0])
+        });
+        planeFeature.setStyle(new ol.style.Style({})); // Тайная пустота
+        planeSource.addFeature(planeFeature);
+        planeFeatures[plane.plane_number] = planeFeature;
     });
 
-    // Initialize Plane at Start
-    const startCoords = ol.proj.fromLonLat([currentRoutePoints[0].lon, currentRoutePoints[0].lat]);
-    planeFeature = new ol.Feature({
-        geometry: new ol.geom.Point(startCoords)
-    });
-    planeFeature.setStyle(planeStyle);
-    planeSource.addFeature(planeFeature);
+    // Setup Slider (Global Time t from min_t to max_t)
+    let min_t = Infinity;
+    let max_t = -Infinity;
 
-    // Setup Slider
+    planes.forEach(p => {
+        p.route_waypoints.forEach(pt => {
+            if (pt.t < min_t) min_t = pt.t;
+            if (pt.t > max_t) max_t = pt.t;
+        });
+    });
+
+    if (min_t === Infinity) { min_t = 1; max_t = 100; }
+
     const timeline = document.getElementById('timeline');
-    timeline.min = 0;
-    timeline.max = currentRoutePoints.length - 1;
-    timeline.value = 0;
+    timeline.min = min_t;
+    timeline.max = max_t;
+    timeline.step = 0.1; // Для плавности
+    timeline.value = min_t;
 
-    // Rotation for initial position
-    if (currentRoutePoints.length > 1) {
-        updatePlaneRotation(0);
-    }
+    updatePlanePosition(min_t);
 
     // Zoom to route
     map.getView().fit(routeSource.getExtent(), {
@@ -979,46 +1008,80 @@ function drawRouteOnMap(data) {
     });
 }
 
-function updatePlanePosition(index) {
-    index = parseInt(index);
-    if (!planeFeature || !currentRoutePoints[index]) return;
+function updatePlanePosition(globalT) {
+    globalT = parseFloat(globalT);
 
-    const point = currentRoutePoints[index];
-    const coords = ol.proj.fromLonLat([point.lon, point.lat]);
+    allPlanesData.forEach(plane => {
+        const feature = planeFeatures[plane.plane_number];
+        if (!feature) return;
 
-    planeFeature.getGeometry().setCoordinates(coords);
-    updatePlaneRotation(index);
-}
+        const points = plane.route_waypoints;
+        if (!points || points.length === 0) return;
 
-function updatePlaneRotation(index) {
-    if (index < currentRoutePoints.length - 1) {
-        const current = currentRoutePoints[index];
-        const next = currentRoutePoints[index + 1];
+        // Находим интервал [p1, p2], в который попадает globalT
+        let p1 = null;
+        let p2 = null;
 
-        const c1 = ol.proj.fromLonLat([current.lon, current.lat]);
-        const c2 = ol.proj.fromLonLat([next.lon, next.lat]);
-        const dxProj = c2[0] - c1[0];
-        const dyProj = c2[1] - c1[1];
+        for (let i = 0; i < points.length; i++) {
+            if (points[i].t <= globalT) {
+                p1 = points[i];
+                if (i + 1 < points.length) {
+                    p2 = points[i + 1];
+                }
+            } else {
+                break;
+            }
+        }
 
-        // standard atan2(y, x) gives angle from East (0) counter-clockwise (usually).
-        // OpenLayers rotation is radians clockwise.
-        // We want 0 to be North (Up).
-        // If we use atan2(dx, dy), we get angle from North, clockwise.
-        // Example: East (dx=1, dy=0) -> atan2(1, 0) = PI/2 (90 deg). Correct.
-        // South (dx=0, dy=-1) -> atan2(0, -1) = PI (180 deg). Correct.
-        const rotation = Math.atan2(dxProj, dyProj);
+        // Скрываем, если время еще не пришло или путь закончен (+ допуск)
+        if (!p1 || (globalT > points[points.length - 1].t + 0.05)) {
+            feature.setStyle(new ol.style.Style({}));
+            return;
+        }
 
-        const newStyle = new ol.style.Style({
+        let currentPos;
+        let rotation = 0;
+
+        if (p2 && globalT <= p2.t) {
+            // Линейная интерполяция между p1 и p2
+            const ratio = (globalT - p1.t) / (p2.t - p1.t);
+            const lat = p1.lat + (p2.lat - p1.lat) * ratio;
+            const lon = p1.lon + (p2.lon - p1.lon) * ratio;
+            currentPos = ol.proj.fromLonLat([lon, lat]);
+
+            const c1 = ol.proj.fromLonLat([p1.lon, p1.lat]);
+            const c2 = ol.proj.fromLonLat([p2.lon, p2.lat]);
+            rotation = Math.atan2(c2[0] - c1[0], c2[1] - c1[1]);
+        } else {
+            // В самой последней точке
+            currentPos = ol.proj.fromLonLat([p1.lon, p1.lat]);
+            const idx = points.indexOf(p1);
+            if (idx > 0) {
+                const prev = points[idx - 1];
+                const c1 = ol.proj.fromLonLat([prev.lon, prev.lat]);
+                const c2 = ol.proj.fromLonLat([p1.lon, p1.lat]);
+                rotation = Math.atan2(c2[0] - c1[0], c2[1] - c1[1]);
+            }
+        }
+
+        feature.getGeometry().setCoordinates(currentPos);
+
+        feature.setStyle(new ol.style.Style({
             image: new ol.style.Icon({
                 src: planeIconUrl,
                 scale: 1.5,
                 anchor: [0.5, 0.5],
                 rotation: rotation,
                 rotateWithView: true
+            }),
+            text: new ol.style.Text({
+                text: `№${plane.plane_number}`,
+                font: '10px Inter',
+                fill: new ol.style.Fill({ color: '#0f172a' }),
+                offsetY: -15
             })
-        });
-        planeFeature.setStyle(newStyle);
-    }
+        }));
+    });
 }
 
 function toggleTrajectoryVisibility() {
@@ -1039,29 +1102,29 @@ timeline.addEventListener('input', (e) => {
 });
 
 function togglePlay() {
-    if (!currentRoutePoints || currentRoutePoints.length === 0) return;
+    if (!allPlanesData || allPlanesData.length === 0) return;
 
     isPlaying = !isPlaying;
     playBtn.classList.toggle('playing', isPlaying);
 
     if (isPlaying) {
-        if (parseInt(timeline.value) >= parseInt(timeline.max)) {
-            timeline.value = 0; // Restart from beginning
-            updatePlanePosition(0);
+        if (parseFloat(timeline.value) >= parseFloat(timeline.max)) {
+            timeline.value = timeline.min;
+            updatePlanePosition(timeline.min);
+            updateWeatherForSlider(timeline.min);
         }
 
         animationInterval = setInterval(() => {
-            let val = parseInt(timeline.value);
-            if (val < parseInt(timeline.max)) {
-                val++;
+            let val = parseFloat(timeline.value);
+            if (val < parseFloat(timeline.max)) {
+                val = Math.min(val + 0.1, parseFloat(timeline.max));
                 timeline.value = val;
                 updatePlanePosition(val);
                 updateWeatherForSlider(val);
             } else {
-                // Stop at end
                 togglePlay();
             }
-        }, 500);
+        }, 50); // Чаще и плавнее
     } else {
         clearInterval(animationInterval);
         animationInterval = null;
