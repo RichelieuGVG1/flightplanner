@@ -748,6 +748,13 @@
                 <div class="legend-swatch-hatch"></div>
                 <span class="legend-label">Запретные зоны</span>
             </label>
+            <label class="legend-item" style="margin-top: 4px;">
+                <input type="checkbox" id="toggle-waypoints" class="legend-checkbox"
+                    onchange="toggleWaypointsVisibility()">
+                <div class="legend-toggle"></div>
+                <div class="legend-swatch-dot" style="background: #4b5563; border: 1px solid #fff;"></div>
+                <span class="legend-label">Waypoints</span>
+            </label>
 
             <!-- Weather section -->
             <div class="weather-legend-section" id="weather-legend-section">
@@ -762,7 +769,8 @@
                 </div>
                 <div class="legend-section-title">Погода</div>
                 <div class="wp-toggle-row visible" id="wp-toggle-row">
-                    <button class="wp-btn active" id="wp-wind_speed" onclick="toggleWeatherParam('wind_speed')">Ветер</button>
+                    <button class="wp-btn active" id="wp-wind_speed"
+                        onclick="toggleWeatherParam('wind_speed')">Ветер</button>
                     <button class="wp-btn" id="wp-storm" onclick="toggleWeatherParam('storm')">Гроза</button>
                     <button class="wp-btn" id="wp-turbulence" onclick="toggleWeatherParam('turbulence')">Турб.</button>
                     <button class="wp-btn" id="wp-ice" onclick="toggleWeatherParam('ice')">Обледен.</button>
@@ -1189,6 +1197,88 @@
         function toggleZonesVisibility() {
             renderProhibitedZones();
         }
+
+        // ── WAYPOINTS ─────────────────────────────────────────────────────────────
+        const waypointSource = new ol.source.Vector();
+        const waypointLayer = new ol.layer.Vector({
+            source: waypointSource,
+            zIndex: 5, // Below everything else (prohibited zones 997, route 998, plane 999)
+            visible: false,
+            style: new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: 3.5,
+                    fill: new ol.style.Fill({ color: '#4b5563' }),
+                    stroke: new ol.style.Stroke({ color: '#fff', width: 1 })
+                })
+            })
+        });
+        map.addLayer(waypointLayer);
+
+        async function loadWaypoints() {
+            try {
+                const resp = await fetch('/api/waypoints');
+                if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                const data = await resp.json();
+
+                const features = data.map(wp => {
+                    const f = new ol.Feature({
+                        geometry: new ol.geom.Point(ol.proj.fromLonLat([wp.lon, wp.lat])),
+                        name: wp.name,
+                        lat: wp.lat,
+                        lon: wp.lon
+                    });
+                    return f;
+                });
+                waypointSource.addFeatures(features);
+            } catch (e) {
+                console.error('Waypoints load error:', e);
+            }
+        }
+        loadWaypoints();
+
+        function toggleWaypointsVisibility() {
+            waypointLayer.setVisible(document.getElementById('toggle-waypoints').checked);
+        }
+
+        // --- TOOLTIP INTERACTION ---
+        const mapTooltipEl = document.createElement('div');
+        mapTooltipEl.className = 'custom-tooltip';
+        mapTooltipEl.style.display = 'none';
+        mapTooltipEl.style.position = 'absolute';
+        mapTooltipEl.style.zIndex = '1001';
+        document.body.appendChild(mapTooltipEl);
+
+        const waypointTooltipOverlay = new ol.Overlay({
+            element: mapTooltipEl,
+            offset: [10, 0],
+            positioning: 'center-left'
+        });
+        map.addOverlay(waypointTooltipOverlay);
+
+        map.on('pointermove', function (evt) {
+            if (evt.dragging) {
+                mapTooltipEl.style.display = 'none';
+                return;
+            }
+
+            const pixel = map.getEventPixel(evt.originalEvent);
+            const feature = map.forEachFeatureAtPixel(pixel, f => f, {
+                layerFilter: l => l === waypointLayer
+            });
+
+            if (feature) {
+                const name = feature.get('name');
+                const lat = feature.get('lat').toFixed(2);
+                const lon = feature.get('lon').toFixed(2);
+                mapTooltipEl.innerHTML = `${name}<br><span style="font-size: 9px; color: #64748b;">${lat}, ${lon}</span>`;
+                mapTooltipEl.style.display = 'block';
+                waypointTooltipOverlay.setPosition(evt.coordinate);
+                map.getTargetElement().style.cursor = 'pointer';
+            } else {
+                mapTooltipEl.style.display = 'none';
+                map.getTargetElement().style.cursor = '';
+            }
+        });
 
         // ── WEATHER DATA ─────────────────────────────────────────────────────────
         let WEATHER_DATA = null;  // indexed as WEATHER_DATA[z][t]

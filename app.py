@@ -264,9 +264,28 @@ def get_weather():
     if z is None:
         return jsonify({'error': 'Параметр z обязателен'}), 400
     records = cache.get(z, [])
-    if t is not None:
-        records = [r for r in records if r['t'] == t]
     return jsonify(records)
+
+_waypoints_cache = None
+
+def _load_waypoints_cache():
+    global _waypoints_cache
+    if _waypoints_cache is not None:
+        return _waypoints_cache
+    path = os.path.join(os.path.dirname(__file__), 'russia_waypoints.json')
+    if not os.path.exists(path):
+        return None
+    with open(path, 'r', encoding='utf-8') as f:
+        _waypoints_cache = json.load(f)
+    return _waypoints_cache
+
+@app.route('/api/waypoints', methods=['GET'])
+def get_waypoints():
+    """Вернуть все путевые точки (waypoints) из russia_waypoints.json"""
+    waypoints = _load_waypoints_cache()
+    if waypoints is None:
+        return jsonify({'error': 'russia_waypoints.json не найден'}), 404
+    return jsonify(waypoints)
 
 @app.route('/health', methods=['GET'])
 def health():
