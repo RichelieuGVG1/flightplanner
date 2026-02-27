@@ -361,7 +361,7 @@ function getHatchPattern() {
     canvas.height = 8;
     const ctx = canvas.getContext('2d');
 
-    ctx.strokeStyle = 'rgba(239, 68, 68, 0.2)';
+    ctx.strokeStyle = 'rgba(239, 68, 68, 0.5)';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.moveTo(0, 8);
@@ -378,8 +378,8 @@ zonesLayer = new ol.layer.Vector({
     style: function (feature) {
         return new ol.style.Style({
             stroke: new ol.style.Stroke({
-                color: 'rgba(239, 68, 68, 0.4)',
-                width: 1.5
+                color: 'rgba(239, 68, 68, 0.8)',
+                width: 2.0
             }),
             fill: new ol.style.Fill({
                 color: getHatchPattern()

@@ -568,8 +568,8 @@ input[type="range"]::-webkit-slider-thumb {
     background: repeating-linear-gradient(45deg,
             transparent,
             transparent 2px,
-            rgba(239, 68, 68, 0.3) 2px,
-            rgba(239, 68, 68, 0.3) 4px);
+            rgba(239, 68, 68, 0.6) 2px,
+            rgba(239, 68, 68, 0.6) 4px);
 }
 
 .legend-icon-circle {
