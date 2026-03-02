@@ -66,3 +66,92 @@
 2026-03-02 10:32:11,024 - plane_simulation - INFO - Симуляция самолета №5 завершена за 1.58 сек. Результат сохранен в C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\plane_simulation\simulation_result.json
 2026-03-02 10:32:28,147 - weather_generator - INFO - Загрузка C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\weather\weather_data.json (пропуск генерации)...
 2026-03-02 10:32:31,454 - weather_generator - INFO -   932500 записей загружено
+2026-03-02 10:33:22,050 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.17.46.52:5000
+2026-03-02 10:33:22,050 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-02 10:33:22,069 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2026-03-02 10:33:22,546 - werkzeug - WARNING -  * Debugger is active!
+2026-03-02 10:33:22,562 - werkzeug - INFO -  * Debugger PIN: 133-895-586
+2026-03-02 10:33:27,662 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 10:33:27] "[36mGET / HTTP/1.1[0m" 304 -
+2026-03-02 10:33:27,924 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 10:33:27] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-02 10:33:28,000 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 10:33:28] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2026-03-02 10:33:28,097 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 10:33:28] "GET /api/waypoints HTTP/1.1" 200 -
+2026-03-02 10:33:28,384 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 10:33:28] "[36mGET /airports/russian_civil_airports.json HTTP/1.1[0m" 304 -
+2026-03-02 10:33:28,477 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 10:33:28] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-03-02 10:33:29,835 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 10:33:29] "POST /api/optimize HTTP/1.1" 200 -
+2026-03-02 10:33:30,092 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 10:33:30] "GET /weather/weather_data.json?t=1772436809842 HTTP/1.1" 200 -
+2026-03-02 10:35:42,050 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\plane_simulation\\plane_simulation.py', reloading
+2026-03-02 10:35:42,051 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\plane_simulation\\plane_simulation.py', reloading
+2026-03-02 10:35:42,051 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\plane_simulation\\plane_simulation.py', reloading
+2026-03-02 10:35:43,091 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2026-03-02 10:35:43,628 - werkzeug - WARNING -  * Debugger is active!
+2026-03-02 10:35:43,641 - werkzeug - INFO -  * Debugger PIN: 133-895-586
+2026-03-02 10:37:58,852 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\plane_simulation\\plane_simulation.py', reloading
+2026-03-02 10:37:58,853 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\plane_simulation\\plane_simulation.py', reloading
+2026-03-02 10:37:58,854 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\plane_simulation\\plane_simulation.py', reloading
+2026-03-02 10:37:59,891 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2026-03-02 10:38:00,366 - werkzeug - WARNING -  * Debugger is active!
+2026-03-02 10:38:00,379 - werkzeug - INFO -  * Debugger PIN: 133-895-586
+2026-03-02 10:38:23,689 - plane_simulation - INFO - Начало симуляции для самолета №1
+2026-03-02 10:38:23,689 - plane_simulation - INFO - Загрузка waypoints из C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\russia_waypoints.json...
+2026-03-02 10:38:23,692 - plane_simulation - INFO - Успешно загружено 1865 точек
+2026-03-02 10:38:23,692 - plane_simulation - INFO - Маршрут: Ufa -> Kurumoch (Ортодромия: 391 км)
+2026-03-02 10:38:23,710 - plane_simulation - INFO - Waypoints в коридоре ±800 км: 144 из 1865
+2026-03-02 10:38:23,710 - plane_simulation - INFO - Точка старта: ITUNA, Точка финиша: AGMAR
+2026-03-02 10:38:23,711 - plane_simulation - INFO - Построение графа (k=8, 144 узлов)...
+2026-03-02 10:38:23,755 - plane_simulation - INFO - Поиск кратчайшего пути (A*)...
+2026-03-02 10:38:23,756 - plane_simulation - INFO - Найден путь из 6 waypoints
+2026-03-02 10:38:23,756 - plane_simulation - INFO - Макс. отклонение от ортодромии: 92 км
+2026-03-02 10:38:23,758 - plane_simulation - INFO - Симуляция самолета №1 завершена за 0.07 сек. Результат сохранен в C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\plane_simulation\simulation_result.json
+2026-03-02 10:38:23,758 - plane_simulation - INFO - Начало симуляции для самолета №2
+2026-03-02 10:38:23,758 - plane_simulation - INFO - Загрузка waypoints из C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\russia_waypoints.json...
+2026-03-02 10:38:23,761 - plane_simulation - INFO - Успешно загружено 1865 точек
+2026-03-02 10:38:23,761 - plane_simulation - INFO - Маршрут: Sochi -> Pulkovo (Ортодромия: 1933 км)
+2026-03-02 10:38:23,775 - plane_simulation - INFO - Waypoints в коридоре ±800 км: 468 из 1865
+2026-03-02 10:38:23,777 - plane_simulation - INFO - Точка старта: ADLEM, Точка финиша: PONB
+2026-03-02 10:38:23,777 - plane_simulation - INFO - Построение графа (k=8, 468 узлов)...
+2026-03-02 10:38:24,263 - plane_simulation - INFO - Поиск кратчайшего пути (A*)...
+2026-03-02 10:38:24,272 - plane_simulation - INFO - Найден путь из 26 waypoints
+2026-03-02 10:38:24,272 - plane_simulation - INFO - Макс. отклонение от ортодромии: 290 км
+2026-03-02 10:38:24,274 - plane_simulation - INFO - Симуляция самолета №2 завершена за 0.51 сек. Результат сохранен в C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\plane_simulation\simulation_result.json
+2026-03-02 10:38:24,274 - plane_simulation - INFO - Начало симуляции для самолета №3
+2026-03-02 10:38:24,274 - plane_simulation - INFO - Загрузка waypoints из C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\russia_waypoints.json...
+2026-03-02 10:38:24,277 - plane_simulation - INFO - Успешно загружено 1865 точек
+2026-03-02 10:38:24,277 - plane_simulation - INFO - Маршрут: Ufa -> Tolmachevo (Ортодромия: 1707 км)
+2026-03-02 10:38:24,294 - plane_simulation - INFO - Waypoints в коридоре ±800 км: 692 из 1865
+2026-03-02 10:38:24,297 - plane_simulation - INFO - Точка старта: ITUNA, Точка финиша: RILTO
+2026-03-02 10:38:24,298 - plane_simulation - INFO - Построение графа (k=8, 692 узлов)...
+2026-03-02 10:38:25,365 - plane_simulation - INFO - Поиск кратчайшего пути (A*)...
+2026-03-02 10:38:25,370 - plane_simulation - INFO - Найден путь из 18 waypoints
+2026-03-02 10:38:25,370 - plane_simulation - INFO - Макс. отклонение от ортодромии: 124 км
+2026-03-02 10:38:25,372 - plane_simulation - INFO - Симуляция самолета №3 завершена за 1.10 сек. Результат сохранен в C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\plane_simulation\simulation_result.json
+2026-03-02 10:38:25,373 - plane_simulation - INFO - Начало симуляции для самолета №4
+2026-03-02 10:38:25,373 - plane_simulation - INFO - Загрузка waypoints из C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\russia_waypoints.json...
+2026-03-02 10:38:25,376 - plane_simulation - INFO - Успешно загружено 1865 точек
+2026-03-02 10:38:25,376 - plane_simulation - INFO - Маршрут: Ufa -> Kurumoch (Ортодромия: 391 км)
+2026-03-02 10:38:25,393 - plane_simulation - INFO - Waypoints в коридоре ±800 км: 144 из 1865
+2026-03-02 10:38:25,394 - plane_simulation - INFO - Точка старта: ITUNA, Точка финиша: AGMAR
+2026-03-02 10:38:25,394 - plane_simulation - INFO - Построение графа (k=8, 144 узлов)...
+2026-03-02 10:38:25,440 - plane_simulation - INFO - Поиск кратчайшего пути (A*)...
+2026-03-02 10:38:25,441 - plane_simulation - INFO - Найден путь из 6 waypoints
+2026-03-02 10:38:25,441 - plane_simulation - INFO - Макс. отклонение от ортодромии: 92 км
+2026-03-02 10:38:25,442 - plane_simulation - INFO - Симуляция самолета №4 завершена за 0.07 сек. Результат сохранен в C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\plane_simulation\simulation_result.json
+2026-03-02 10:38:25,443 - plane_simulation - INFO - Начало симуляции для самолета №5
+2026-03-02 10:38:25,443 - plane_simulation - INFO - Загрузка waypoints из C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\russia_waypoints.json...
+2026-03-02 10:38:25,446 - plane_simulation - INFO - Успешно загружено 1865 точек
+2026-03-02 10:38:25,446 - plane_simulation - INFO - Маршрут: Kazan -> Sochi (Ортодромия: 1507 км)
+2026-03-02 10:38:25,464 - plane_simulation - INFO - Waypoints в коридоре ±800 км: 699 из 1865
+2026-03-02 10:38:25,467 - plane_simulation - INFO - Точка старта: RITOP, Точка финиша: ADLEM
+2026-03-02 10:38:25,467 - plane_simulation - INFO - Построение графа (k=8, 699 узлов)...
+2026-03-02 10:38:26,554 - plane_simulation - INFO - Поиск кратчайшего пути (A*)...
+2026-03-02 10:38:26,561 - plane_simulation - INFO - Найден путь из 21 waypoints
+2026-03-02 10:38:26,561 - plane_simulation - INFO - Макс. отклонение от ортодромии: 195 км
+2026-03-02 10:38:26,562 - plane_simulation - INFO - Симуляция самолета №5 завершена за 1.12 сек. Результат сохранен в C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\plane_simulation\simulation_result.json
+2026-03-02 10:38:51,187 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\plane_simulation\\plane_simulation.py', reloading
+2026-03-02 10:38:51,187 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\plane_simulation\\plane_simulation.py', reloading
+2026-03-02 10:38:51,188 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\plane_simulation\\plane_simulation.py', reloading
+2026-03-02 10:38:52,652 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2026-03-02 10:38:53,149 - werkzeug - WARNING -  * Debugger is active!
+2026-03-02 10:38:53,162 - werkzeug - INFO -  * Debugger PIN: 133-895-586

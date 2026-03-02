@@ -29,7 +29,9 @@ AIRPORTS = [
     {"name": "Tolmachevo",   "coords": [55.0126, 82.6507]},
     {"name": "Sochi",        "coords": [43.4499, 39.9566]},
     {"name": "Kazan",        "coords": [55.6062, 49.2787]},
-    {"name": "Knevichi",     "coords": [43.3990, 132.1480]},
+    {"name": "Kurumoch",     "coords": [53.5049, 50.1643]},
+    {"name": "Ufa",          "coords": [54.5575, 55.8744]},
+   # {"name": "Knevichi",     "coords": [43.3990, 132.1480]},
     {"name": "Novy",         "coords": [48.5280, 135.1880]},
     {"name": "Yelizovo",     "coords": [53.1679, 158.4539]},
 ]
