@@ -657,3 +657,29 @@ RuntimeError: Путь не найден — попробуйте увеличи
 2026-03-02 11:43:56,342 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
 2026-03-02 11:43:56,807 - werkzeug - WARNING -  * Debugger is active!
 2026-03-02 11:43:56,820 - werkzeug - INFO -  * Debugger PIN: 133-895-586
+2026-03-02 12:04:35,757 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\plane_simulation\\plane_simulation.py', reloading
+2026-03-02 12:04:36,793 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2026-03-02 12:04:37,250 - werkzeug - WARNING -  * Debugger is active!
+2026-03-02 12:04:37,261 - werkzeug - INFO -  * Debugger PIN: 133-895-586
+2026-03-02 15:00:03,376 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.17.46.52:5000
+2026-03-02 15:00:03,377 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-02 15:00:03,394 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2026-03-02 15:00:03,829 - werkzeug - WARNING -  * Debugger is active!
+2026-03-02 15:00:03,846 - werkzeug - INFO -  * Debugger PIN: 133-895-586
+2026-03-02 15:00:03,868 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:00:03] "GET / HTTP/1.1" 200 -
+2026-03-02 15:00:03,893 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:00:03] "GET /static/styles.css HTTP/1.1" 200 -
+2026-03-02 15:00:04,209 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:00:04] "GET /static/script.js HTTP/1.1" 200 -
+2026-03-02 15:00:04,547 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:00:04] "GET /api/waypoints HTTP/1.1" 200 -
+2026-03-02 15:00:04,548 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:00:04] "[36mGET /airports/russian_civil_airports.json HTTP/1.1[0m" 304 -
+2026-03-02 15:00:04,576 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:00:04] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-03-02 15:03:23,584 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:03:23] "[36mGET / HTTP/1.1[0m" 304 -
+2026-03-02 15:03:23,833 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:03:23] "GET /static/styles.css HTTP/1.1" 200 -
+2026-03-02 15:03:23,924 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:03:23] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2026-03-02 15:03:23,950 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:03:23] "GET /api/waypoints HTTP/1.1" 200 -
+2026-03-02 15:03:24,250 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:03:24] "[36mGET /airports/russian_civil_airports.json HTTP/1.1[0m" 304 -
+2026-03-02 15:03:24,254 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:03:24] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-03-02 15:06:20,741 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:06:20] "POST /api/optimize HTTP/1.1" 200 -
+2026-03-02 15:06:20,994 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:06:20] "GET /weather/weather_data.json?t=1772453180749 HTTP/1.1" 200 -
