@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Yamburg Airport",
+        "icao": "RU-0050",
+        "iata": "",
+        "lat": 67.986664,
+        "lon": 75.099998,
+        "max_runway_m": 2435.0,
+        "class": "Short"
+    },
+    {
+        "name": "Kostomuksha Airfield",
+        "icao": "RU-0189",
+        "iata": "",
+        "lat": 64.617996,
+        "lon": 30.687,
+        "max_runway_m": 600.5,
+        "class": "Short"
+    },
+    

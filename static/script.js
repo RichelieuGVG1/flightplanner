@@ -20,7 +20,7 @@ const appData = {
         { "name": "Kurumoch", "iata": "KUF", "city": "Самара", "coords": [53.5050, 50.1642] }
     ],
     "aircraft_types": [
-        { "type": "Airbus A320-200", "max_passengers": 180 },
+        { "type": "Airbus A350-900", "max_passengers": 440 },
         { "type": "Boeing 737-800", "max_passengers": 189 },
         { "type": "Sukhoi Superjet 100-95B", "max_passengers": 98 },
         { "type": "Airbus A321-200", "max_passengers": 220 },
