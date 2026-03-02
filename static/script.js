@@ -966,7 +966,7 @@ function drawRouteOnMap(planes) {
             const feature = new ol.Feature({
                 geometry: new ol.geom.Point(ol.proj.fromLonLat([p.lon, p.lat])),
                 type: 'point',
-                index: (plane.plane_number).toString()
+                index: (i + 1).toString()
             });
             routeSource.addFeature(feature);
         });
