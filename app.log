@@ -683,3 +683,11 @@ RuntimeError: Путь не найден — попробуйте увеличи
 2026-03-02 15:03:24,254 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:03:24] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
 2026-03-02 15:06:20,741 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:06:20] "POST /api/optimize HTTP/1.1" 200 -
 2026-03-02 15:06:20,994 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:06:20] "GET /weather/weather_data.json?t=1772453180749 HTTP/1.1" 200 -
+2026-03-02 15:22:09,105 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:22:09] "[36mGET / HTTP/1.1[0m" 304 -
+2026-03-02 15:22:09,352 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:22:09] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-02 15:22:09,444 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:22:09] "GET /static/script.js HTTP/1.1" 200 -
+2026-03-02 15:22:09,468 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:22:09] "GET /api/waypoints HTTP/1.1" 200 -
+2026-03-02 15:22:09,766 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:22:09] "[36mGET /airports/russian_civil_airports.json HTTP/1.1[0m" 304 -
+2026-03-02 15:22:09,813 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:22:09] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-03-02 15:22:10,648 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:22:10] "POST /api/optimize HTTP/1.1" 200 -
+2026-03-02 15:22:10,909 - werkzeug - INFO - 127.0.0.1 - - [02/Mar/2026 15:22:10] "GET /weather/weather_data.json?t=1772454130654 HTTP/1.1" 200 -
