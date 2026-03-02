@@ -1,2 +1,4 @@
 __pycache__/
 weather/weather_data.json
+google collab/weather_data.json
+app.log
