@@ -1,0 +1,68 @@
+2026-03-02 10:31:06,826 - prohibited_zones - INFO - Начало генерации запретных зон (макс: 10)
+2026-03-02 10:31:06,827 - prohibited_zones - INFO - Загрузка данных границ из C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\prohibited_zones\state_border.json...
+2026-03-02 10:31:06,853 - prohibited_zones - INFO - Граница загружена (214 колец)
+2026-03-02 10:31:06,853 - prohibited_zones - INFO - Генерация зон с проверкой близости к аэропортам...
+2026-03-02 10:31:08,003 - prohibited_zones - INFO - Сгенерировано зон: 2/10
+2026-03-02 10:31:11,078 - prohibited_zones - INFO - Сгенерировано зон: 4/10
+2026-03-02 10:31:12,780 - prohibited_zones - INFO - Сгенерировано зон: 6/10
+2026-03-02 10:31:18,503 - prohibited_zones - INFO - Сгенерировано зон: 8/10
+2026-03-02 10:31:53,585 - prohibited_zones - INFO - Сгенерировано зон: 10/10
+2026-03-02 10:31:53,586 - prohibited_zones - INFO - Успешно сгенерировано 10 зон за 227 попыток
+2026-03-02 10:31:53,588 - prohibited_zones - INFO - Генерация завершена за 46.76 сек. Результат сохранен в C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\prohibited_zones\prohibited_zones.json
+2026-03-02 10:32:02,895 - plane_simulation - INFO - Начало симуляции для самолета №1
+2026-03-02 10:32:02,895 - plane_simulation - INFO - Загрузка waypoints из C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\russia_waypoints.json...
+2026-03-02 10:32:02,899 - plane_simulation - INFO - Успешно загружено 1865 точек
+2026-03-02 10:32:02,899 - plane_simulation - INFO - Маршрут: Knevichi -> Kazan (Ортодромия: 5764 км)
+2026-03-02 10:32:02,918 - plane_simulation - INFO - Waypoints в коридоре ±800 км: 852 из 1865
+2026-03-02 10:32:02,922 - plane_simulation - INFO - Точка старта: DIKUT, Точка финиша: RITOP
+2026-03-02 10:32:02,922 - plane_simulation - INFO - Построение графа (k=8, 852 узлов)...
+2026-03-02 10:32:04,606 - plane_simulation - INFO - Поиск кратчайшего пути (A*)...
+2026-03-02 10:32:04,622 - plane_simulation - INFO - Найден путь из 51 waypoints
+2026-03-02 10:32:04,623 - plane_simulation - INFO - Макс. отклонение от ортодромии: 795 км
+2026-03-02 10:32:04,625 - plane_simulation - INFO - Симуляция самолета №1 завершена за 1.73 сек. Результат сохранен в C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\plane_simulation\simulation_result.json
+2026-03-02 10:32:04,626 - plane_simulation - INFO - Начало симуляции для самолета №2
+2026-03-02 10:32:04,626 - plane_simulation - INFO - Загрузка waypoints из C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\russia_waypoints.json...
+2026-03-02 10:32:04,629 - plane_simulation - INFO - Успешно загружено 1865 точек
+2026-03-02 10:32:04,629 - plane_simulation - INFO - Маршрут: Sheremetyevo -> Knevichi (Ортодромия: 6404 км)
+2026-03-02 10:32:04,647 - plane_simulation - INFO - Waypoints в коридоре ±800 км: 1173 из 1865
+2026-03-02 10:32:04,653 - plane_simulation - INFO - Точка старта: R1862, Точка финиша: DIKUT
+2026-03-02 10:32:04,653 - plane_simulation - INFO - Построение графа (k=8, 1173 узлов)...
+2026-03-02 10:32:07,792 - plane_simulation - INFO - Поиск кратчайшего пути (A*)...
+2026-03-02 10:32:07,820 - plane_simulation - INFO - Найден путь из 56 waypoints
+2026-03-02 10:32:07,820 - plane_simulation - INFO - Макс. отклонение от ортодромии: 795 км
+2026-03-02 10:32:07,823 - plane_simulation - INFO - Симуляция самолета №2 завершена за 3.20 сек. Результат сохранен в C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\plane_simulation\simulation_result.json
+2026-03-02 10:32:07,824 - plane_simulation - INFO - Начало симуляции для самолета №3
+2026-03-02 10:32:07,824 - plane_simulation - INFO - Загрузка waypoints из C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\russia_waypoints.json...
+2026-03-02 10:32:07,826 - plane_simulation - INFO - Успешно загружено 1865 точек
+2026-03-02 10:32:07,826 - plane_simulation - INFO - Маршрут: Yelizovo -> Novy (Ортодромия: 1704 км)
+2026-03-02 10:32:07,838 - plane_simulation - INFO - Waypoints в коридоре ±800 км: 209 из 1865
+2026-03-02 10:32:07,839 - plane_simulation - INFO - Точка старта: PETIN, Точка финиша: MR01
+2026-03-02 10:32:07,839 - plane_simulation - INFO - Построение графа (k=8, 209 узлов)...
+2026-03-02 10:32:07,933 - plane_simulation - INFO - Поиск кратчайшего пути (A*)...
+2026-03-02 10:32:07,936 - plane_simulation - INFO - Найден путь из 14 waypoints
+2026-03-02 10:32:07,936 - plane_simulation - INFO - Макс. отклонение от ортодромии: 202 км
+2026-03-02 10:32:07,937 - plane_simulation - INFO - Симуляция самолета №3 завершена за 0.11 сек. Результат сохранен в C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\plane_simulation\simulation_result.json
+2026-03-02 10:32:07,938 - plane_simulation - INFO - Начало симуляции для самолета №4
+2026-03-02 10:32:07,938 - plane_simulation - INFO - Загрузка waypoints из C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\russia_waypoints.json...
+2026-03-02 10:32:07,941 - plane_simulation - INFO - Успешно загружено 1865 точек
+2026-03-02 10:32:07,941 - plane_simulation - INFO - Маршрут: Tolmachevo -> Pulkovo (Ортодромия: 3098 км)
+2026-03-02 10:32:07,957 - plane_simulation - INFO - Waypoints в коридоре ±800 км: 804 из 1865
+2026-03-02 10:32:07,960 - plane_simulation - INFO - Точка старта: RILTO, Точка финиша: PONB
+2026-03-02 10:32:07,960 - plane_simulation - INFO - Построение графа (k=8, 804 узлов)...
+2026-03-02 10:32:09,423 - plane_simulation - INFO - Поиск кратчайшего пути (A*)...
+2026-03-02 10:32:09,438 - plane_simulation - INFO - Найден путь из 30 waypoints
+2026-03-02 10:32:09,439 - plane_simulation - INFO - Макс. отклонение от ортодромии: 280 км
+2026-03-02 10:32:09,439 - plane_simulation - INFO - Симуляция самолета №4 завершена за 1.50 сек. Результат сохранен в C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\plane_simulation\simulation_result.json
+2026-03-02 10:32:09,440 - plane_simulation - INFO - Начало симуляции для самолета №5
+2026-03-02 10:32:09,440 - plane_simulation - INFO - Загрузка waypoints из C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\russia_waypoints.json...
+2026-03-02 10:32:09,443 - plane_simulation - INFO - Успешно загружено 1865 точек
+2026-03-02 10:32:09,443 - plane_simulation - INFO - Маршрут: Pulkovo -> Novy (Ортодромия: 6207 км)
+2026-03-02 10:32:09,460 - plane_simulation - INFO - Waypoints в коридоре ±800 км: 823 из 1865
+2026-03-02 10:32:09,463 - plane_simulation - INFO - Точка старта: PONB, Точка финиша: MR01
+2026-03-02 10:32:09,463 - plane_simulation - INFO - Построение графа (k=8, 823 узлов)...
+2026-03-02 10:32:11,004 - plane_simulation - INFO - Поиск кратчайшего пути (A*)...
+2026-03-02 10:32:11,021 - plane_simulation - INFO - Найден путь из 51 waypoints
+2026-03-02 10:32:11,022 - plane_simulation - INFO - Макс. отклонение от ортодромии: 782 км
+2026-03-02 10:32:11,024 - plane_simulation - INFO - Симуляция самолета №5 завершена за 1.58 сек. Результат сохранен в C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\plane_simulation\simulation_result.json
+2026-03-02 10:32:28,147 - weather_generator - INFO - Загрузка C:\Users\RichelieuGVG\Desktop\diploma\flightplanner\weather\weather_data.json (пропуск генерации)...
+2026-03-02 10:32:31,454 - weather_generator - INFO -   932500 записей загружено

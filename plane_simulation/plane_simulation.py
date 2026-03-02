@@ -2,7 +2,25 @@ import json
 import math
 import random
 import heapq
+import time
+import logging
+import os
+import traceback
 from typing import List, Dict, Tuple, Optional
+
+# Настройка логирования
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOG_FILE = os.path.join(PROJECT_ROOT, "app.log")
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(LOG_FILE, encoding='utf-8'),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger("plane_simulation")
 
 # ── Аэропорты ────────────────────────────────────────────────────────────────
 AIRPORTS = [
@@ -183,115 +201,115 @@ def simulate(waypoints_path: str = WAYPOINTS_FILE,
              k_neighbors: int = 8,
              corridor_km: float = CORRIDOR_KM,
              plane_number: int = 1) -> Tuple[Dict, List[Dict]]:
+    start_time = time.time()
+    logger.info(f"Начало симуляции для самолета №{plane_number}")
 
-    print("Загрузка waypoints...")
-    all_waypoints = load_waypoints(waypoints_path)
-    print(f"  Загружено {len(all_waypoints)} точек")
+    try:
+        logger.info(f"Загрузка waypoints из {waypoints_path}...")
+        all_waypoints = load_waypoints(waypoints_path)
+        logger.info(f"Успешно загружено {len(all_waypoints)} точек")
 
-    dep_ap, arr_ap = random.sample(AIRPORTS, 2)
-    dep_lat, dep_lon = dep_ap["coords"]
-    arr_lat, arr_lon = arr_ap["coords"]
-    gc_dist = haversine(dep_lat, dep_lon, arr_lat, arr_lon)
+        dep_ap, arr_ap = random.sample(AIRPORTS, 2)
+        dep_lat, dep_lon = dep_ap["coords"]
+        arr_lat, arr_lon = arr_ap["coords"]
+        gc_dist = haversine(dep_lat, dep_lon, arr_lat, arr_lon)
 
-    print(f"\nМаршрут: {dep_ap['name']} -> {arr_ap['name']}")
-    print(f"  Ортодромия: {gc_dist:.0f} км")
+        logger.info(f"Маршрут: {dep_ap['name']} -> {arr_ap['name']} (Ортодромия: {gc_dist:.0f} км)")
 
-    # ── Фильтрация коридором ───
-    corridor_wps = filter_corridor(all_waypoints,
-                                   dep_lat, dep_lon,
-                                   arr_lat, arr_lon,
-                                   corridor_km)
-    print(f"  Waypoints в коридоре ±{corridor_km} км: "
-          f"{len(corridor_wps)} из {len(all_waypoints)}")
+        # ── Фильтрация коридором ───
+        corridor_wps = filter_corridor(all_waypoints,
+                                       dep_lat, dep_lon,
+                                       arr_lat, arr_lon,
+                                       corridor_km)
+        logger.info(f"Waypoints в коридоре ±{corridor_km} км: {len(corridor_wps)} из {len(all_waypoints)}")
 
-    if len(corridor_wps) < 2:
-        raise RuntimeError(
-            "Слишком мало waypoints в коридоре — "
-            "увеличьте corridor_km или проверьте данные"
+        if len(corridor_wps) < 2:
+            raise RuntimeError(
+                "Слишком мало waypoints в коридоре — "
+                "увеличьте corridor_km или проверьте данные"
+            )
+
+        start_idx = nearest_waypoint_index(corridor_wps, dep_lat, dep_lon)
+        goal_idx  = nearest_waypoint_index(corridor_wps, arr_lat, arr_lon)
+
+        logger.info(f"Точка старта: {corridor_wps[start_idx]['name']}, Точка финиша: {corridor_wps[goal_idx]['name']}")
+
+        logger.info(f"Построение графа (k={k_neighbors}, {len(corridor_wps)} узлов)...")
+        graph = build_graph(corridor_wps, k=k_neighbors)
+
+        logger.info("Поиск кратчайшего пути (A*)...")
+        path_indices = astar(graph, corridor_wps, start_idx, goal_idx)
+
+        if path_indices is None:
+            raise RuntimeError(
+                "Путь не найден — попробуйте увеличить k_neighbors или corridor_km"
+            )
+        logger.info(f"Найден путь из {len(path_indices)} waypoints")
+
+        route_waypoints = [
+            {"name": corridor_wps[i]["name"],
+             "lat":  corridor_wps[i]["lat"],
+             "lon":  corridor_wps[i]["lon"]}
+            for i in path_indices
+        ]
+
+        # ── Добавление времени t (теперь на каждый waypoint + DEP/ARR по одному шагу) ──
+        start_t = random.randint(1, 10)
+        
+        # Собираем полный список точек для анимации: DEP + waypoints + ARR
+        full_route_sequence = [
+            {"name": dep_ap["name"], "lat": dep_lat, "lon": dep_lon}
+        ] + route_waypoints + [
+            {"name": arr_ap["name"], "lat": arr_lat, "lon": arr_lon}
+        ]
+
+        route_waypoints_with_t = []
+        for i, wp in enumerate(full_route_sequence):
+            wp_copy = wp.copy()
+            wp_copy["t"] = start_t + i
+            route_waypoints_with_t.append(wp_copy)
+
+        route_coords: List[Tuple[float, float]] = [
+            (wp["lat"], wp["lon"]) for wp in full_route_sequence
+        ]
+
+        # Контрольная метрика
+        max_dev = max(
+            (cross_track_distance(wp["lat"], wp["lon"],
+                                  dep_lat, dep_lon, arr_lat, arr_lon)
+             for wp in route_waypoints),
+            default=0.0
         )
+        logger.info(f"Макс. отклонение от ортодромии: {max_dev:.0f} км")
 
-    start_idx = nearest_waypoint_index(corridor_wps, dep_lat, dep_lon)
-    goal_idx  = nearest_waypoint_index(corridor_wps, arr_lat, arr_lon)
+        approx = approximate_route(route_coords, n=pos_num)
+        approx_list = [{"lat": lat, "lon": lon} for lat, lon in approx]
 
-    print(f"  WP старта : [{start_idx}] {corridor_wps[start_idx]['name']} "
-          f"({corridor_wps[start_idx]['lat']:.4f}, {corridor_wps[start_idx]['lon']:.4f})")
-    print(f"  WP финиша : [{goal_idx}]  {corridor_wps[goal_idx]['name']} "
-          f"({corridor_wps[goal_idx]['lat']:.4f}, {corridor_wps[goal_idx]['lon']:.4f})")
+        result = {
+            "plane_number":     plane_number,
+            "departure":        {"name": dep_ap["name"], "lat": dep_lat, "lon": dep_lon},
+            "arrival":          {"name": arr_ap["name"], "lat": arr_lat, "lon": arr_lon},
+            "gc_distance_km":   round(gc_dist, 1),
+            "max_deviation_km": round(max_dev, 1),
+            "corridor_km":      corridor_km,
+            "route_waypoints":  route_waypoints_with_t,
+            "approximated_20":  approx_list,
+            "start_t":          start_t,
+            "altitude_level":   2
+        }
 
-    print(f"\nПостроение графа (k={k_neighbors}, {len(corridor_wps)} узлов)...")
-    graph = build_graph(corridor_wps, k=k_neighbors)
+        with open(RESULT_FILE, "w", encoding="utf-8") as f:
+            json.dump(result, f, ensure_ascii=False, indent=2)
+        
+        elapsed = time.time() - start_time
+        logger.info(f"Симуляция самолета №{plane_number} завершена за {elapsed:.2f} сек. Результат сохранен в {RESULT_FILE}")
 
-    print("Поиск кратчайшего пути (A*)...")
-    path_indices = astar(graph, corridor_wps, start_idx, goal_idx)
-
-    if path_indices is None:
-        raise RuntimeError(
-            "Путь не найден — попробуйте увеличить k_neighbors или corridor_km"
-        )
-    print(f"  Найден путь из {len(path_indices)} waypoints")
-
-    route_waypoints = [
-        {"name": corridor_wps[i]["name"],
-         "lat":  corridor_wps[i]["lat"],
-         "lon":  corridor_wps[i]["lon"]}
-        for i in path_indices
-    ]
-
-    # ── Добавление времени t (теперь на каждый waypoint + DEP/ARR по одному шагу) ──
-    start_t = random.randint(1, 10)
+        return result, all_waypoints
     
-    # Собираем полный список точек для анимации: DEP + waypoints + ARR
-    full_route_sequence = [
-        {"name": dep_ap["name"], "lat": dep_lat, "lon": dep_lon}
-    ] + route_waypoints + [
-        {"name": arr_ap["name"], "lat": arr_lat, "lon": arr_lon}
-    ]
-
-    route_waypoints_with_t = []
-    for i, wp in enumerate(full_route_sequence):
-        wp_copy = wp.copy()
-        wp_copy["t"] = start_t + i
-        route_waypoints_with_t.append(wp_copy)
-
-    route_coords: List[Tuple[float, float]] = [
-        (wp["lat"], wp["lon"]) for wp in full_route_sequence
-    ]
-
-    # Контрольная метрика
-    max_dev = max(
-        (cross_track_distance(wp["lat"], wp["lon"],
-                              dep_lat, dep_lon, arr_lat, arr_lon)
-         for wp in route_waypoints),
-        default=0.0
-    )
-    print(f"  Макс. отклонение от ортодромии: {max_dev:.0f} км")
-
-    approx = approximate_route(route_coords, n=pos_num)
-    approx_list = [{"lat": lat, "lon": lon} for lat, lon in approx]
-
-    result = {
-        "plane_number":     plane_number,
-        "departure":        {"name": dep_ap["name"], "lat": dep_lat, "lon": dep_lon},
-        "arrival":          {"name": arr_ap["name"], "lat": arr_lat, "lon": arr_lon},
-        "gc_distance_km":   round(gc_dist, 1),
-        "max_deviation_km": round(max_dev, 1),
-        "corridor_km":      corridor_km,
-        "route_waypoints":  route_waypoints_with_t,
-        "approximated_20":  approx_list,
-        "start_t":          start_t,
-        "altitude_level":   2
-    }
-
-    with open(RESULT_FILE, "w", encoding="utf-8") as f:
-        json.dump(result, f, ensure_ascii=False, indent=2)
-    print(f"\nРезультат сохранён: {RESULT_FILE}\n")
-
-    return result, all_waypoints
-    print(f"\n=== АППРОКСИМИРОВАННЫЕ {pos_num} ПОЗИЦИЙ САМОЛЁТА ===")
-    for i, pt in enumerate(approx_list):
-        print(f"  [{i+1:2d}]  lat={pt['lat']:.5f}  lon={pt['lon']:.5f}")
-
-    return result, all_waypoints
+    except Exception as e:
+        logger.error(f"Ошибка при симуляции самолета №{plane_number}: {e}")
+        logger.error(traceback.format_exc())
+        raise
 
 
 # ── Визуализация Plotly ───────────────────────────────────────────────────────

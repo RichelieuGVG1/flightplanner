@@ -2,7 +2,24 @@ import json
 import math
 import random
 import os
+import time
+import logging
+import traceback
 from typing import List, Dict, Tuple
+
+# Настройка логирования
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOG_FILE = os.path.join(PROJECT_ROOT, "app.log")
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(LOG_FILE, encoding='utf-8'),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger("prohibited_zones")
 
 # ── КОНСТАНТЫ ──────────────────────────────────────────────────────────────
 MIN_AREA_KM2 = 35000
@@ -244,57 +261,75 @@ def is_away_from_airports(points, min_dist_km=100.0):
     return True
 
 def generate_zones():
-    # Загружаем кольца границы
-    border_rings = []
-    if os.path.exists(BORDER_FILE):
-        try:
+    start_time = time.time()
+    logger.info(f"Начало генерации запретных зон (макс: {MAX_ZONES})")
+
+    try:
+        # Загружаем кольца границы
+        logger.info(f"Загрузка данных границ из {BORDER_FILE}...")
+        border_rings = []
+        if os.path.exists(BORDER_FILE):
             with open(BORDER_FILE, "r", encoding="utf-8") as f:
                 border_rings = json.load(f)
-        except:
-            pass
+        logger.info(f"Граница загружена ({len(border_rings)} колец)")
 
-    zones = []
-    attempts = 0
-    max_attempts = 500 # Еще больше попыток
+        zones = []
+        attempts = 0
+        max_attempts = 500
 
-    while len(zones) < MAX_ZONES and attempts < max_attempts:
-        attempts += 1
-        
-        # Случайный центр в РФ (расширим границы для поиска)
-        b = RUSSIA_BOUNDS[0]
-        clat = random.uniform(b["lat"][0] + 2, b["lat"][1] - 2)
-        clon = random.uniform(b["lon"][0] + 5, b["lon"][1] - 5)
-        
-        # Первая проверка центра
-        if not is_point_in_russia(clat, clon, border_rings):
-            continue
+        logger.info(f"Генерация зон с проверкой близости к аэропортам...")
 
-        target_area = random.uniform(MIN_AREA_KM2, MAX_AREA_KM2)
-        poly = generate_polygon(clat, clon, target_area)
-        
-        # Проверка на пересечение/выход за границу
-        if is_border_violated(poly, border_rings):
-            continue
-        
-        # Проверка расстояния до других зон
-        if not is_far_enough(poly, zones):
-            continue
+        while len(zones) < MAX_ZONES and attempts < max_attempts:
+            attempts += 1
             
-        # Проверка расстояния до аэропортов (минимум 100км)
-        if not is_away_from_airports(poly, 100.0):
-            continue
-
-        zones.append({
-            "id": len(zones) + 1,
-            "area_km2": round(get_area_km2(poly), 1),
-            "points": poly
-        })
+            # Случайный центр в РФ
+            b = RUSSIA_BOUNDS[0]
+            clat = random.uniform(b["lat"][0] + 2, b["lat"][1] - 2)
+            clon = random.uniform(b["lon"][0] + 5, b["lon"][1] - 5)
             
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(zones, f, ensure_ascii=False, indent=2)
-        
-    print(f"Сгенерировано зон: {len(zones)} -> {OUTPUT_FILE}")
-    return zones
+            # Первая проверка центра
+            if not is_point_in_russia(clat, clon, border_rings):
+                continue
+
+            target_area = random.uniform(MIN_AREA_KM2, MAX_AREA_KM2)
+            poly = generate_polygon(clat, clon, target_area)
+            
+            # Проверка на пересечение/выход за границу
+            if is_border_violated(poly, border_rings):
+                continue
+            
+            # Проверка расстояния до других зон
+            if not is_far_enough(poly, zones):
+                continue
+                
+            # Проверка расстояния до аэропортов (минимум 100км)
+            if not is_away_from_airports(poly, 100.0):
+                continue
+
+            zones.append({
+                "id": len(zones) + 1,
+                "area_km2": round(get_area_km2(poly), 1),
+                "points": poly
+            })
+            if len(zones) % 2 == 0:
+                logger.info(f"Сгенерировано зон: {len(zones)}/{MAX_ZONES}")
+
+        if len(zones) < MAX_ZONES:
+            logger.warning(f"Удалось сгенерировать только {len(zones)} из {MAX_ZONES} зон за {attempts} попыток")
+        else:
+            logger.info(f"Успешно сгенерировано {MAX_ZONES} зон за {attempts} попыток")
+
+        with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+            json.dump(zones, f, ensure_ascii=False, indent=2)
+            
+        elapsed = time.time() - start_time
+        logger.info(f"Генерация завершена за {elapsed:.2f} сек. Результат сохранен в {OUTPUT_FILE}")
+        return zones
+
+    except Exception as e:
+        logger.error(f"Ошибка при генерации запретных зон: {e}")
+        logger.error(traceback.format_exc())
+        raise
 
 if __name__ == "__main__":
     generate_zones()

@@ -3,10 +3,24 @@ weather_gen.py
 Генерирует погодные данные для навигационных точек и строит интерактивную карту.
 """
 
-import json, math, random, os
+import json, math, random, os, time, logging, traceback
 import numpy as np
 from typing import List, Dict, Tuple
 from pathlib import Path
+
+# Настройка логирования
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOG_FILE = os.path.join(PROJECT_ROOT, "app.log")
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(LOG_FILE, encoding='utf-8'),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger("weather_generator")
 
 # Использование системного времени для рандомизации
 rng = np.random.default_rng()
@@ -286,63 +300,77 @@ def calc_icing(level, storm_power, rng_):
 
 # ── Генератор ─────────────────────────────────────────────────────────────────
 def generate(waypoints_path=WAYPOINTS_FILE, output_path=OUTPUT_FILE):
-    print("Загрузка waypoints...")
-    raw = json.loads(Path(waypoints_path).read_text(encoding="utf-8"))
-    wps = raw if isinstance(raw, list) else raw.get("waypoints", raw)
-    print(f"  {len(wps)} точек")
+    start_time = time.time()
+    logger.info("Начало генерации погодных данных")
+    
+    try:
+        logger.info(f"Загрузка waypoints из {waypoints_path}...")
+        raw = json.loads(Path(waypoints_path).read_text(encoding="utf-8"))
+        wps = raw if isinstance(raw, list) else raw.get("waypoints", raw)
+        logger.info(f"Успешно загружено {len(wps)} точек")
 
-    wf     = WindField()
-    fronts = [StormFront(i, wf) for i in range(N_FRONTS)]
-    print(f"  {N_FRONTS} фронтов · {N_LEVELS} эшелонов · {N_TIMES} шагов")
+        wf     = WindField()
+        fronts = [StormFront(i, wf) for i in range(N_FRONTS)]
+        logger.info(f"Конфигурация: {N_FRONTS} фронтов, {N_LEVELS} эшелонов, {N_TIMES} шагов времени")
 
-    records = []
-    total = len(wps)*N_LEVELS*N_TIMES
-    done  = 0
+        records = []
+        total = len(wps)*N_LEVELS*N_TIMES
+        done  = 0
 
-    for wp in wps:
-        lat, lon = wp["lat"], wp["lon"]
-        for z in range(1, N_LEVELS+1):
-            for t in range(1, N_TIMES+1):
-                u, v  = wf.uv(lat, lon, z, t)
-                wsp   = math.sqrt(u**2+v**2)
-                wdir  = (math.degrees(math.atan2(u, v))+360) % 360
+        logger.info(f"Расчет {total} погодных записей...")
 
-                sp_total = 0.0
-                dom_fr, dom_pw = None, 0.0
-                for fr in fronts:
-                    pw = fr.power_at(lat, lon, z, t)
-                    sp_total += pw
-                    if pw > dom_pw:
-                        dom_pw, dom_fr = pw, fr
+        for wp in wps:
+            lat, lon = wp["lat"], wp["lon"]
+            for z in range(1, N_LEVELS+1):
+                for t in range(1, N_TIMES+1):
+                    u, v  = wf.uv(lat, lon, z, t)
+                    wsp   = math.sqrt(u**2+v**2)
+                    wdir  = (math.degrees(math.atan2(u, v))+360) % 360
 
-                sp = min(round(sp_total, 2), 5.0)
-                if dom_fr and dom_pw > 0.1:
-                    sdir, sspd = dom_fr.travel_dir_speed(z, t)
-                else:
-                    sdir, sspd = 0.0, 0.0
+                    sp_total = 0.0
+                    dom_fr, dom_pw = None, 0.0
+                    for fr in fronts:
+                        pw = fr.power_at(lat, lon, z, t)
+                        sp_total += pw
+                        if pw > dom_pw:
+                            dom_pw, dom_fr = pw, fr
 
-                records.append({
-                    "name": wp["name"],
-                    "lat":  round(lat, 5),
-                    "lon":  round(lon, 5),
-                    "z": z, "t": t,
-                    "wind_speed":         round(wsp, 2),
-                    "wind_dir":           round(wdir, 1),
-                    "storm_power":        sp,
-                    "storm_dir":          sdir,
-                    "storm_travel_speed": sspd,
-                    "turbulence":         calc_turbulence(wsp, sp, z, rng),
-                    "ice":                calc_icing(z, sp, rng),
-                })
-                done += 1
-                if done % 50000 == 0:
-                    print(f"  {done/total*100:.1f}%")
+                    sp = min(round(sp_total, 2), 5.0)
+                    if dom_fr and dom_pw > 0.1:
+                        sdir, sspd = dom_fr.travel_dir_speed(z, t)
+                    else:
+                        sdir, sspd = 0.0, 0.0
 
-    Path(output_path).write_text(
-        json.dumps(records, ensure_ascii=False, separators=(",", ":")),
-        encoding="utf-8")
-    print(f"Сохранено {len(records)} записей → {output_path}")
-    return records
+                    records.append({
+                        "name": wp["name"],
+                        "lat":  round(lat, 5),
+                        "lon":  round(lon, 5),
+                        "z": z, "t": t,
+                        "wind_speed":         round(wsp, 2),
+                        "wind_dir":           round(wdir, 1),
+                        "storm_power":        sp,
+                        "storm_dir":          sdir,
+                        "storm_travel_speed": sspd,
+                        "turbulence":         calc_turbulence(wsp, sp, z, rng),
+                        "ice":                calc_icing(z, sp, rng),
+                    })
+                    done += 1
+                    if done % 100000 == 0:
+                        logger.info(f"Прогресс: {done/total*100:.1f}% ({done}/{total})")
+
+        logger.info(f"Запись {len(records)} записей в {output_path}...")
+        Path(output_path).write_text(
+            json.dumps(records, ensure_ascii=False, separators=(",", ":")),
+            encoding="utf-8")
+            
+        elapsed = time.time() - start_time
+        logger.info(f"Генерация погоды завершена за {elapsed:.2f} сек.")
+        return records
+        
+    except Exception as e:
+        logger.error(f"Ошибка при генерации погоды: {e}")
+        logger.error(traceback.format_exc())
+        raise
 
 
 # ── Визуализация (чистый HTML+JS, без Plotly frames) ─────────────────────────
@@ -767,9 +795,9 @@ if __name__ == "__main__":
     import sys
     skip_gen = "--skip-gen" in sys.argv
     if skip_gen and Path(OUTPUT_FILE).exists():
-        print(f"Загрузка {OUTPUT_FILE}...")
+        logger.info(f"Загрузка {OUTPUT_FILE} (пропуск генерации)...")
         records = json.loads(Path(OUTPUT_FILE).read_text(encoding="utf-8"))
-        print(f"  {len(records)} записей")
+        logger.info(f"  {len(records)} записей загружено")
     else:
         records = generate()
     draw_weather()
