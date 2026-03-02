@@ -278,7 +278,8 @@ def simulate(waypoints_path: str = WAYPOINTS_FILE,
         "corridor_km":      corridor_km,
         "route_waypoints":  route_waypoints_with_t,
         "approximated_20":  approx_list,
-        "start_t":          start_t
+        "start_t":          start_t,
+        "altitude_level":   2
     }
 
     with open(RESULT_FILE, "w", encoding="utf-8") as f:
