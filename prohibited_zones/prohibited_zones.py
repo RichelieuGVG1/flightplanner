@@ -17,6 +17,23 @@ RUSSIA_BOUNDS = [
     {"lat": [41.0, 77.0], "lon": [26.0, 170.0]}
 ]
 
+# Аэропорты, которые нужно избегать (минимум 100км)
+AIRPORTS = [
+    { "name": "Sheremetyevo", "iata": "SVO", "city": "Москва", "coords": [55.9726, 37.4146] },
+    { "name": "Pulkovo", "iata": "LED", "city": "Санкт-Петербург", "coords": [59.8003, 30.2625] },
+    { "name": "Tolmachevo", "iata": "OVB", "city": "Новосибирск", "coords": [55.0126, 82.6507] },
+    { "name": "Sochi", "iata": "AER", "city": "Сочи", "coords": [43.4499, 39.9566] },
+    { "name": "Kazan", "iata": "KZN", "city": "Казань", "coords": [55.6062, 49.2787] },
+    { "name": "Knevichi", "iata": "VVO", "city": "Владивосток", "coords": [43.3990, 132.1480] },
+    { "name": "Novy", "iata": "KHV", "city": "Хабаровск", "coords": [48.5280, 135.1880] },
+    { "name": "Yelizovo", "iata": "PKC", "city": "Петропавловск-Камчатский", "coords": [53.1679, 158.4539] },
+    { "name": "Ufa", "iata": "UFA", "city": "Уфа", "coords": [54.5654, 55.8845] },
+    { "name": "Koltsovo", "iata": "SVX", "city": "Екатеринбург", "coords": [56.7431, 60.8027] },
+    { "name": "Platov", "iata": "ROV", "city": "Ростов-на-Дону", "coords": [47.4938, 39.9247] },
+    { "name": "Yemelyanovo", "iata": "KJA", "city": "Красноярск", "coords": [56.1729, 92.4933] },
+    { "name": "Kurumoch", "iata": "KUF", "city": "Самара", "coords": [53.5050, 50.1642] }
+]
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_FILE = os.path.join(BASE_DIR, "prohibited_zones.json")
 BORDER_FILE = os.path.join(BASE_DIR, "state_border.json")
@@ -213,6 +230,19 @@ def is_far_enough(points, existing_zones):
                     return False
     return True
 
+def is_away_from_airports(points, min_dist_km=100.0):
+    """Проверяет, что зона находится минимум в 100км от ключевых аэропортов."""
+    for airport in AIRPORTS:
+        a_lat, a_lon = airport["coords"]
+        # Проверяем каждую вершину зоны
+        for p in points:
+            if haversine(p['lat'], p['lon'], a_lat, a_lon) < min_dist_km:
+                return False
+        # Также проверим, не попал ли сам аэропорт внутрь зоны
+        if is_point_in_polygon(a_lat, a_lon, points):
+            return True # Иронично, но True здесь означает "виолация" в контексте логики loop
+    return True
+
 def generate_zones():
     # Загружаем кольца границы
     border_rings = []
@@ -246,13 +276,19 @@ def generate_zones():
         if is_border_violated(poly, border_rings):
             continue
         
-        # Проверка расстояния
-        if is_far_enough(poly, zones):
-            zones.append({
-                "id": len(zones) + 1,
-                "area_km2": round(get_area_km2(poly), 1),
-                "points": poly
-            })
+        # Проверка расстояния до других зон
+        if not is_far_enough(poly, zones):
+            continue
+            
+        # Проверка расстояния до аэропортов (минимум 100км)
+        if not is_away_from_airports(poly, 100.0):
+            continue
+
+        zones.append({
+            "id": len(zones) + 1,
+            "area_km2": round(get_area_km2(poly), 1),
+            "points": poly
+        })
             
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(zones, f, ensure_ascii=False, indent=2)
