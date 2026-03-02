@@ -174,12 +174,19 @@ def optimize():
             _weather_cache = None
 
         zones_path = os.path.join(os.path.dirname(__file__), 'prohibited_zones', 'prohibited_zones.json')
+        filtered_wp_path = os.path.join(os.path.dirname(__file__), 'prohibited_zones', 'allowed_to_use_waypoints.json')
         
+        # 1. Сначала обновляем зоны, если нужно
         if refresh_restricted_areas or not os.path.exists(zones_path):
             generate_zones()
             from prohibited_zones.filter_waypoints import filter_waypoints
             filter_waypoints()
+        # 2. Если зоны не обновляли, но файла с фильтрованными точками нет — создаем его
+        elif not os.path.exists(filtered_wp_path):
+            from prohibited_zones.filter_waypoints import filter_waypoints
+            filter_waypoints()
 
+        # 3. Теперь обновляем траектории самолетов
         result_path = os.path.join(os.path.dirname(__file__), 'plane_simulation', 'simulation_result.json')
         
         if refresh_trajectories:

@@ -40,10 +40,23 @@ import os
 
 # Пути относительно этого файла
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-WAYPOINTS_FILE = os.path.join(os.path.dirname(BASE_DIR), "russia_waypoints.json")
-RESULT_FILE = os.path.join(BASE_DIR, "simulation_result.json")
+PROJECT_DIR = os.path.dirname(BASE_DIR)
 
-CORRIDOR_KM    = 800   # макс. поперечное отклонение waypoint от ортодромии
+# Пытаемся использовать отфильтрованные точки, если их нет — берем обычные
+FILTERED_WAYPOINTS = os.path.join(PROJECT_DIR, "prohibited_zones", "allowed_to_use_waypoints.json")
+ORIGINAL_WAYPOINTS = os.path.join(PROJECT_DIR, "russia_waypoints.json")
+
+if os.path.exists(FILTERED_WAYPOINTS):
+    WAYPOINTS_FILE = FILTERED_WAYPOINTS
+    # Мы не можем использовать logger здесь напрямую, так как он настраивается выше, 
+    # но мы можем вывести инфо позже или просто установить путь.
+else:
+    WAYPOINTS_FILE = ORIGINAL_WAYPOINTS
+
+RESULT_FILE = os.path.join(BASE_DIR, "simulation_result.json")
+ZONES_FILE  = os.path.join(PROJECT_DIR, "prohibited_zones", "prohibited_zones.json")
+
+CORRIDOR_KM    = 1000  # макс. поперечное отклонение waypoint от ортодромии
 pos_num        = 50
 
 
@@ -92,6 +105,44 @@ def along_track_fraction(lat: float, lon: float,
     return atd / (d12 * R) if d12 > 1e-6 else 0.0
 
 
+def segments_intersect(p1: Tuple[float, float], p2: Tuple[float, float],
+                       p3: Tuple[float, float], p4: Tuple[float, float]) -> bool:
+    """
+    Простейшая проверка пересечения двух отрезков (lon, lat).
+    Используется для проверки пересечения ребра графа с границей зоны.
+    """
+    def ccw(a, b, c):
+        return (c[1] - a[1]) * (b[0] - a[0]) > (b[1] - a[1]) * (c[0] - a[0])
+
+    # p1, p2 - первый отрезок; p3, p4 - второй
+    return ccw(p1, p3, p4) != ccw(p2, p3, p4) and ccw(p1, p2, p3) != ccw(p1, p2, p4)
+
+
+def is_edge_safe(lat1: float, lon1: float, lat2: float, lon2: float, zones: List[Dict]) -> bool:
+    """
+    Проверяет, не пересекает ли отрезок пути (lat1, lon1) -> (lat2, lon2)
+    границу любой из запретных зон.
+    """
+    # Для простоты считаем в плоскости (lon, lat)
+    # Отрезок пути:
+    a = (lon1, lat1)
+    b = (lon2, lat2)
+
+    for zone in zones:
+        pts = zone.get("points") or zone.get("coordinates", [])
+        if not pts:
+            continue
+        
+        # Перебираем все ребра полигона запретной зоны
+        for i in range(len(pts)):
+            p1 = (pts[i]["lon"], pts[i]["lat"])
+            p2 = (pts[(i + 1) % len(pts)]["lon"], pts[(i + 1) % len(pts)]["lat"])
+            
+            if segments_intersect(a, b, p1, p2):
+                return False
+    return True
+
+
 # ── Загрузка waypoints ────────────────────────────────────────────────────────
 def load_waypoints(path: str) -> List[Dict]:
     with open(path, encoding="utf-8") as f:
@@ -138,16 +189,33 @@ def nearest_waypoint_index(waypoints: List[Dict], lat: float, lon: float) -> int
 
 
 # ── Граф K ближайших соседей ─────────────────────────────────────────────────
-def build_graph(waypoints: List[Dict], k: int = 8) -> Dict[int, List[Tuple[float, int]]]:
+def build_graph(waypoints: List[Dict], zones: List[Dict], k: int = 12) -> Dict[int, List[Tuple[float, int]]]:
     n = len(waypoints)
     graph: Dict[int, List[Tuple[float, int]]] = {i: [] for i in range(n)}
     for i in range(n):
-        dists = sorted(
-            (haversine(waypoints[i]["lat"], waypoints[i]["lon"],
-                       waypoints[j]["lat"], waypoints[j]["lon"]), j)
-            for j in range(n) if j != i
-        )
-        graph[i] = dists[:k]
+        # Находим потенциальных соседей
+        candidates = []
+        for j in range(n):
+            if i == j:
+                continue
+            
+            d = haversine(waypoints[i]["lat"], waypoints[i]["lon"],
+                          waypoints[j]["lat"], waypoints[j]["lon"])
+            candidates.append((d, j))
+        
+        candidates.sort()
+        
+        # Берем первые K, которые не пересекают запретные зоны
+        safe_neighbors = []
+        for d, j in candidates:
+            if is_edge_safe(waypoints[i]["lat"], waypoints[i]["lon"],
+                             waypoints[j]["lat"], waypoints[j]["lon"], zones):
+                safe_neighbors.append((d, j))
+            
+            if len(safe_neighbors) >= k:
+                break
+        
+        graph[i] = safe_neighbors
     return graph
 
 
@@ -200,7 +268,7 @@ def approximate_route(route_coords: List[Tuple[float, float]],
 
 # ── Основная логика ───────────────────────────────────────────────────────────
 def simulate(waypoints_path: str = WAYPOINTS_FILE,
-             k_neighbors: int = 8,
+             k_neighbors: int = 12,
              corridor_km: float = CORRIDOR_KM,
              plane_number: int = 1) -> Tuple[Dict, List[Dict]]:
     start_time = time.time()
@@ -210,6 +278,17 @@ def simulate(waypoints_path: str = WAYPOINTS_FILE,
         logger.info(f"Загрузка waypoints из {waypoints_path}...")
         all_waypoints = load_waypoints(waypoints_path)
         logger.info(f"Успешно загружено {len(all_waypoints)} точек")
+
+        # Загрузка запретных зон для проверки ребер
+        zones = []
+        if os.path.exists(ZONES_FILE):
+            try:
+                with open(ZONES_FILE, "r", encoding="utf-8") as f:
+                    zones_raw = json.load(f)
+                    zones = zones_raw if isinstance(zones_raw, list) else zones_raw.get("zones", [])
+                logger.info(f"Загружено {len(zones)} запретных зон для проверки пересечений")
+            except Exception as e:
+                logger.warning(f"Не удалось загрузить запретные зоны из {ZONES_FILE}: {e}")
 
         dep_ap, arr_ap = random.sample(AIRPORTS, 2)
         dep_lat, dep_lon = dep_ap["coords"]
@@ -236,8 +315,8 @@ def simulate(waypoints_path: str = WAYPOINTS_FILE,
 
         logger.info(f"Точка старта: {corridor_wps[start_idx]['name']}, Точка финиша: {corridor_wps[goal_idx]['name']}")
 
-        logger.info(f"Построение графа (k={k_neighbors}, {len(corridor_wps)} узлов)...")
-        graph = build_graph(corridor_wps, k=k_neighbors)
+        logger.info(f"Построение графа (k={k_neighbors}, {len(corridor_wps)} узлов) с проверкой зон...")
+        graph = build_graph(corridor_wps, zones, k=k_neighbors)
 
         logger.info("Поиск кратчайшего пути (A*)...")
         path_indices = astar(graph, corridor_wps, start_idx, goal_idx)
@@ -284,9 +363,6 @@ def simulate(waypoints_path: str = WAYPOINTS_FILE,
         )
         logger.info(f"Макс. отклонение от ортодромии: {max_dev:.0f} км")
 
-        approx = approximate_route(route_coords, n=pos_num)
-        approx_list = [{"lat": lat, "lon": lon} for lat, lon in approx]
-
         result = {
             "plane_number":     plane_number,
             "departure":        {"name": dep_ap["name"], "lat": dep_lat, "lon": dep_lon},
@@ -295,7 +371,6 @@ def simulate(waypoints_path: str = WAYPOINTS_FILE,
             "max_deviation_km": round(max_dev, 1),
             "corridor_km":      corridor_km,
             "route_waypoints":  route_waypoints_with_t,
-            "approximated_20":  approx_list,
             "start_t":          start_t,
             "altitude_level":   2
         }

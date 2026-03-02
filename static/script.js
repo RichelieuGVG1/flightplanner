@@ -949,10 +949,10 @@ function drawRouteOnMap(planes) {
     if (!planes || planes.length === 0) return;
 
     planes.forEach(plane => {
-        const currentRoutePoints = plane.approximated_20;
-        if (!currentRoutePoints || currentRoutePoints.length === 0) return;
+        const waypoints = plane.route_waypoints;
+        if (!waypoints || waypoints.length === 0) return;
 
-        const coords = currentRoutePoints.map(p => ol.proj.fromLonLat([p.lon, p.lat]));
+        const coords = waypoints.map(p => ol.proj.fromLonLat([p.lon, p.lat]));
 
         // Draw line for each plane
         const routeLine = new ol.Feature({
@@ -962,11 +962,11 @@ function drawRouteOnMap(planes) {
         routeSource.addFeature(routeLine);
 
         // Draw points for each plane
-        currentRoutePoints.forEach((p, i) => {
+        waypoints.forEach((p, i) => {
             const feature = new ol.Feature({
                 geometry: new ol.geom.Point(ol.proj.fromLonLat([p.lon, p.lat])),
                 type: 'point',
-                index: (plane.plane_number).toString() // Показываем номер самолета вместо индекса точки для ясности
+                index: (plane.plane_number).toString()
             });
             routeSource.addFeature(feature);
         });
