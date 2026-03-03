@@ -5,19 +5,48 @@
     "departure": "Sheremetyevo International Airport",
     "arrival": "Vladivostok International Airport",
     "arrived": true,
-    "total_distance_km": 11490.0,
-    "total_fuel_burned_kg": 223551.7,
+    "total_distance_km": 8533.36,
+    "total_fuel_burned_kg": 112795.4,
     "fuel_remaining_kg": 0.0,
-    "total_penalty": 14650.3,
-    "steps_taken": 59,
-    "dist_to_goal_final_km": 0.2,
+    "final_mass_kg": 167829,
+    "total_penalty": 51061.3,
+    "steps_taken": 37,
+    "dist_to_goal_final_km": 61.8,
     "penalties": [
+      {
+        "reason": "Смена эшелона FL300→FL200",
+        "value": 50.0,
+        "t": 2,
+        "lat": 55.97686,
+        "lon": 37.41121
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 2,
+        "lat": 55.97686,
+        "lon": 37.41121
+      },
       {
         "reason": "Смена курса 43°",
         "value": 70.7,
         "t": 2,
         "lat": 55.97686,
         "lon": 37.41121
+      },
+      {
+        "reason": "Смена эшелона FL200→FL300",
+        "value": 50.0,
+        "t": 3,
+        "lat": 55.81665,
+        "lon": 38.66477
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 3,
+        "lat": 55.81665,
+        "lon": 38.66477
       },
       {
         "reason": "Смена курса 93°",
@@ -27,326 +56,823 @@
         "lon": 38.66477
       },
       {
-        "reason": "Смена курса 20°",
-        "value": 13.5,
+        "reason": "Ветер 11.9 м/с (эффект ×1.02)",
+        "value": 22.7,
         "t": 4,
         "lat": 57.35,
         "lon": 39.15
       },
       {
-        "reason": "Смена курса 15°",
-        "value": 0.7,
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 4,
+        "lat": 57.35,
+        "lon": 39.15
+      },
+      {
+        "reason": "Смена курса 59°",
+        "value": 109.1,
+        "t": 4,
+        "lat": 57.35,
+        "lon": 39.15
+      },
+      {
+        "reason": "Смена эшелона FL300→FL200",
+        "value": 50.0,
         "t": 5,
-        "lat": 58.20005,
-        "lon": 40.088
+        "lat": 57.56004,
+        "lon": 40.15471
       },
       {
-        "reason": "Смена курса 40°",
-        "value": 61.7,
-        "t": 6,
-        "lat": 58.26838,
-        "lon": 40.21967
-      },
-      {
-        "reason": "Смена курса 20°",
-        "value": 12.6,
-        "t": 7,
-        "lat": 59.90008,
-        "lon": 40.54291
-      },
-      {
-        "reason": "Смена курса 32°",
-        "value": 42.6,
-        "t": 8,
-        "lat": 60.58344,
-        "lon": 41.21455
-      },
-      {
-        "reason": "Смена курса 72°",
-        "value": 141.5,
-        "t": 9,
-        "lat": 61.03847,
-        "lon": 42.73288
-      },
-      {
-        "reason": "Смена курса 119°",
-        "value": 259.5,
-        "t": 10,
-        "lat": 60.52182,
-        "lon": 43.99794
-      },
-      {
-        "reason": "Смена курса 25°",
-        "value": 25.6,
-        "t": 11,
-        "lat": 63.70023,
-        "lon": 45.33942
-      },
-      {
-        "reason": "Смена курса 100°",
-        "value": 212.4,
-        "t": 12,
-        "lat": 65.08696,
-        "lon": 47.74937
-      },
-      {
-        "reason": "Смена курса 146°",
-        "value": 326.8,
-        "t": 15,
-        "lat": 62.18364,
-        "lon": 52.51806
-      },
-      {
-        "reason": "Смена курса 30°",
-        "value": 37.8,
-        "t": 16,
-        "lat": 65.43869,
-        "lon": 52.19781
-      },
-      {
-        "reason": "Смена курса 99°",
-        "value": 210.0,
-        "t": 17,
-        "lat": 66.97333,
-        "lon": 54.28333
-      },
-      {
-        "reason": "Смена курса 106°",
-        "value": 227.3,
-        "t": 18,
-        "lat": 66.005,
-        "lon": 57.36833
-      },
-      {
-        "reason": "Смена курса 96°",
-        "value": 202.1,
-        "t": 19,
-        "lat": 69.7639,
-        "lon": 61.56109
-      },
-      {
-        "reason": "Смена курса 29°",
-        "value": 34.5,
-        "t": 20,
-        "lat": 68.48729,
-        "lon": 67.8515
-      },
-      {
-        "reason": "Смена курса 17°",
-        "value": 5.6,
-        "t": 23,
-        "lat": 62.08167,
-        "lon": 79.0
-      },
-      {
-        "reason": "Смена курса 25°",
-        "value": 25.7,
-        "t": 27,
-        "lat": 54.04877,
-        "lon": 82.95267
-      },
-      {
-        "reason": "Смена курса 74°",
-        "value": 148.4,
-        "t": 28,
-        "lat": 53.27876,
-        "lon": 84.28106
-      },
-      {
-        "reason": "Смена курса 84°",
-        "value": 173.6,
-        "t": 29,
-        "lat": 53.59877,
-        "lon": 85.20608
-      },
-      {
-        "reason": "Смена курса 132°",
-        "value": 291.4,
-        "t": 30,
-        "lat": 52.98542,
-        "lon": 85.94611
-      },
-      {
-        "reason": "Смена курса 78°",
-        "value": 156.9,
-        "t": 31,
-        "lat": 54.49213,
-        "lon": 86.51445
-      },
-      {
-        "reason": "Смена курса 38°",
-        "value": 57.6,
-        "t": 32,
-        "lat": 54.47047,
-        "lon": 88.69119
-      },
-      {
-        "reason": "Смена курса 85°",
-        "value": 174.6,
-        "t": 33,
-        "lat": 55.51717,
-        "lon": 91.11626
-      },
-      {
-        "reason": "Смена курса 39°",
-        "value": 59.9,
-        "t": 34,
-        "lat": 54.82716,
-        "lon": 92.22964
-      },
-      {
-        "reason": "Смена курса 160°",
-        "value": 362.8,
-        "t": 35,
-        "lat": 53.14712,
-        "lon": 92.433
-      },
-      {
-        "reason": "Смена курса 169°",
-        "value": 384.5,
-        "t": 37,
-        "lat": 55.63385,
-        "lon": 93.76636
-      },
-      {
-        "reason": "Смена курса 88°",
-        "value": 183.7,
-        "t": 38,
-        "lat": 54.55549,
-        "lon": 93.51302
-      },
-      {
-        "reason": "Смена курса 57°",
-        "value": 104.7,
-        "t": 39,
-        "lat": 54.26216,
-        "lon": 96.25813
-      },
-      {
-        "reason": "Смена курса 70°",
-        "value": 138.7,
-        "t": 40,
-        "lat": 56.08387,
-        "lon": 99.29989
-      },
-      {
-        "reason": "Смена курса 33°",
-        "value": 44.4,
-        "t": 41,
-        "lat": 55.43386,
-        "lon": 101.89999
-      },
-      {
-        "reason": "Смена курса 105°",
-        "value": 223.8,
-        "t": 42,
-        "lat": 55.70219,
-        "lon": 105.04344
-      },
-      {
-        "reason": "Смена курса 33°",
-        "value": 44.4,
-        "t": 44,
-        "lat": 51.90044,
-        "lon": 104.81676
-      },
-      {
-        "reason": "Смена курса 124°",
-        "value": 273.6,
-        "t": 45,
-        "lat": 50.30873,
-        "lon": 106.46847
-      },
-      {
-        "reason": "Смена курса 43°",
-        "value": 69.1,
-        "t": 46,
-        "lat": 51.80876,
-        "lon": 107.44184
-      },
-      {
-        "reason": "Смена курса 24°",
-        "value": 21.7,
-        "t": 47,
-        "lat": 52.49544,
-        "lon": 109.88693
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 5,
+        "lat": 57.56004,
+        "lon": 40.15471
       },
       {
         "reason": "Смена курса 45°",
         "value": 74.9,
-        "t": 48,
-        "lat": 52.51711,
-        "lon": 111.53365
+        "t": 5,
+        "lat": 57.56004,
+        "lon": 40.15471
       },
       {
-        "reason": "Смена курса 90°",
-        "value": 188.7,
-        "t": 49,
-        "lat": 49.90036,
-        "lon": 115.75044
+        "reason": "Смена эшелона FL200→FL300",
+        "value": 50.0,
+        "t": 6,
+        "lat": 58.74174,
+        "lon": 41.14299
       },
       {
-        "reason": "Смена курса 63°",
-        "value": 118.8,
-        "t": 50,
-        "lat": 50.38371,
-        "lon": 116.45046
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 6,
+        "lat": 58.74174,
+        "lon": 41.14299
       },
       {
-        "reason": "Смена курса 62°",
-        "value": 117.7,
-        "t": 52,
-        "lat": 50.08369,
-        "lon": 118.11718
+        "reason": "Смена эшелона FL300→FL100",
+        "value": 150.0,
+        "t": 7,
+        "lat": 59.83177,
+        "lon": 41.6546
       },
       {
-        "reason": "Смена курса 84°",
-        "value": 173.7,
-        "t": 53,
-        "lat": 53.98375,
-        "lon": 124.78411
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 7,
+        "lat": 59.83177,
+        "lon": 41.6546
       },
       {
-        "reason": "Смена курса 41°",
-        "value": 65.6,
-        "t": 54,
-        "lat": 52.68203,
-        "lon": 127.43917
+        "reason": "Смена курса 45°",
+        "value": 75.2,
+        "t": 7,
+        "lat": 59.83177,
+        "lon": 41.6546
       },
       {
-        "reason": "Смена курса 57°",
-        "value": 105.8,
-        "t": 55,
-        "lat": 50.22197,
-        "lon": 128.14582
+        "reason": "Смена эшелона FL100→FL300",
+        "value": 150.0,
+        "t": 8,
+        "lat": 60.52182,
+        "lon": 43.99794
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 8,
+        "lat": 60.52182,
+        "lon": 43.99794
+      },
+      {
+        "reason": "Смена курса 32°",
+        "value": 41.3,
+        "t": 8,
+        "lat": 60.52182,
+        "lon": 43.99794
+      },
+      {
+        "reason": "Смена эшелона FL300→FL200",
+        "value": 50.0,
+        "t": 9,
+        "lat": 63.08357,
+        "lon": 46.89284
+      },
+      {
+        "reason": "Гроза 0.39",
+        "value": 195.0,
+        "t": 9,
+        "lat": 63.08357,
+        "lon": 46.89284
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 9,
+        "lat": 63.08357,
+        "lon": 46.89284
+      },
+      {
+        "reason": "Гроза 0.49",
+        "value": 245.0,
+        "t": 10,
+        "lat": 64.37197,
+        "lon": 49.33781
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 10,
+        "lat": 64.37197,
+        "lon": 49.33781
+      },
+      {
+        "reason": "Гроза 0.50",
+        "value": 250.0,
+        "t": 11,
+        "lat": 64.96032,
+        "lon": 50.23112
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 11,
+        "lat": 64.96032,
+        "lon": 50.23112
+      },
+      {
+        "reason": "Смена курса 38°",
+        "value": 56.4,
+        "t": 11,
+        "lat": 64.96032,
+        "lon": 50.23112
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 12,
+        "lat": 68.78538,
+        "lon": 49.31404
+      },
+      {
+        "reason": "Смена курса 137°",
+        "value": 304.3,
+        "t": 12,
+        "lat": 68.78538,
+        "lon": 49.31404
+      },
+      {
+        "reason": "Смена эшелона FL200→FL500",
+        "value": 225.0,
+        "t": 13,
+        "lat": 66.97333,
+        "lon": 54.28333
+      },
+      {
+        "reason": "Гроза 0.26",
+        "value": 130.0,
+        "t": 13,
+        "lat": 66.97333,
+        "lon": 54.28333
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 13,
+        "lat": 66.97333,
+        "lon": 54.28333
+      },
+      {
+        "reason": "Смена курса 38°",
+        "value": 57.9,
+        "t": 13,
+        "lat": 66.97333,
+        "lon": 54.28333
+      },
+      {
+        "reason": "Смена эшелона FL500→FL200",
+        "value": 225.0,
+        "t": 14,
+        "lat": 66.78215,
+        "lon": 59.0796
+      },
+      {
+        "reason": "Ветер 11.8 м/с (эффект ×1.04)",
+        "value": 22.0,
+        "t": 14,
+        "lat": 66.78215,
+        "lon": 59.0796
+      },
+      {
+        "reason": "Гроза 0.71",
+        "value": 355.0,
+        "t": 14,
+        "lat": 66.78215,
+        "lon": 59.0796
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 14,
+        "lat": 66.78215,
+        "lon": 59.0796
+      },
+      {
+        "reason": "Смена эшелона FL200→FL500",
+        "value": 225.0,
+        "t": 15,
+        "lat": 67.00723,
+        "lon": 65.43151
+      },
+      {
+        "reason": "Ветер 19.7 м/с (эффект ×0.98)",
+        "value": 116.8,
+        "t": 15,
+        "lat": 67.00723,
+        "lon": 65.43151
+      },
+      {
+        "reason": "Гроза 0.50",
+        "value": 250.0,
+        "t": 15,
+        "lat": 67.00723,
+        "lon": 65.43151
+      },
+      {
+        "reason": "Турбулентность ур.3",
+        "value": 450,
+        "t": 15,
+        "lat": 67.00723,
+        "lon": 65.43151
+      },
+      {
+        "reason": "Смена эшелона FL500→FL100",
+        "value": 300.0,
+        "t": 16,
+        "lat": 67.57563,
+        "lon": 70.02501
+      },
+      {
+        "reason": "Ветер 10.2 м/с (эффект ×1.05)",
+        "value": 3.0,
+        "t": 16,
+        "lat": 67.57563,
+        "lon": 70.02501
+      },
+      {
+        "reason": "Гроза 0.42",
+        "value": 210.0,
+        "t": 16,
+        "lat": 67.57563,
+        "lon": 70.02501
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 16,
+        "lat": 67.57563,
+        "lon": 70.02501
+      },
+      {
+        "reason": "Смена курса 45°",
+        "value": 74.5,
+        "t": 16,
+        "lat": 67.57563,
+        "lon": 70.02501
+      },
+      {
+        "reason": "Смена эшелона FL100→FL400",
+        "value": 225.0,
+        "t": 17,
+        "lat": 66.63232,
+        "lon": 74.75862
+      },
+      {
+        "reason": "Гроза 0.92",
+        "value": 460.0,
+        "t": 17,
+        "lat": 66.63232,
+        "lon": 74.75862
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 17,
+        "lat": 66.63232,
+        "lon": 74.75862
+      },
+      {
+        "reason": "Смена эшелона FL400→FL100",
+        "value": 225.0,
+        "t": 18,
+        "lat": 65.95067,
+        "lon": 78.36549
+      },
+      {
+        "reason": "Гроза 0.74",
+        "value": 370.0,
+        "t": 18,
+        "lat": 65.95067,
+        "lon": 78.36549
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 18,
+        "lat": 65.95067,
+        "lon": 78.36549
+      },
+      {
+        "reason": "Смена курса 26°",
+        "value": 28.5,
+        "t": 18,
+        "lat": 65.95067,
+        "lon": 78.36549
+      },
+      {
+        "reason": "Гроза 1.24",
+        "value": 620.0,
+        "t": 19,
+        "lat": 63.98399,
+        "lon": 82.04907
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 19,
+        "lat": 63.98399,
+        "lon": 82.04907
+      },
+      {
+        "reason": "Смена курса 65°",
+        "value": 124.6,
+        "t": 19,
+        "lat": 63.98399,
+        "lon": 82.04907
+      },
+      {
+        "reason": "Гроза 1.09",
+        "value": 545.0,
+        "t": 20,
+        "lat": 64.23067,
+        "lon": 84.33583
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 20,
+        "lat": 64.23067,
+        "lon": 84.33583
+      },
+      {
+        "reason": "Смена курса 46°",
+        "value": 78.7,
+        "t": 20,
+        "lat": 64.23067,
+        "lon": 84.33583
+      },
+      {
+        "reason": "Гроза 1.37",
+        "value": 685.0,
+        "t": 21,
+        "lat": 63.16733,
+        "lon": 87.99936
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 21,
+        "lat": 63.16733,
+        "lon": 87.99936
+      },
+      {
+        "reason": "Смена курса 65°",
+        "value": 125.9,
+        "t": 21,
+        "lat": 63.16733,
+        "lon": 87.99936
+      },
+      {
+        "reason": "Гроза 0.69",
+        "value": 345.0,
+        "t": 22,
+        "lat": 64.78572,
+        "lon": 94.12127
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 22,
+        "lat": 64.78572,
+        "lon": 94.12127
+      },
+      {
+        "reason": "Смена курса 110°",
+        "value": 238.4,
+        "t": 22,
+        "lat": 64.78572,
+        "lon": 94.12127
+      },
+      {
+        "reason": "Смена эшелона FL100→FL500",
+        "value": 300.0,
+        "t": 23,
+        "lat": 60.67564,
+        "lon": 96.11474
+      },
+      {
+        "reason": "Ветер 29.5 м/с (эффект ×0.87)",
+        "value": 233.5,
+        "t": 23,
+        "lat": 60.67564,
+        "lon": 96.11474
+      },
+      {
+        "reason": "Гроза 1.49",
+        "value": 745.0,
+        "t": 23,
+        "lat": 60.67564,
+        "lon": 96.11474
+      },
+      {
+        "reason": "Турбулентность ур.4",
+        "value": 600,
+        "t": 23,
+        "lat": 60.67564,
+        "lon": 96.11474
+      },
+      {
+        "reason": "Смена курса 95°",
+        "value": 199.1,
+        "t": 23,
+        "lat": 60.67564,
+        "lon": 96.11474
+      },
+      {
+        "reason": "Смена эшелона FL500→FL100",
+        "value": 300.0,
+        "t": 24,
+        "lat": 61.32066,
+        "lon": 100.74661
+      },
+      {
+        "reason": "Ветер 10.1 м/с (эффект ×1.00)",
+        "value": 0.6,
+        "t": 24,
+        "lat": 61.32066,
+        "lon": 100.74661
+      },
+      {
+        "reason": "Гроза 1.02",
+        "value": 510.0,
+        "t": 24,
+        "lat": 61.32066,
+        "lon": 100.74661
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 24,
+        "lat": 61.32066,
+        "lon": 100.74661
+      },
+      {
+        "reason": "Смена курса 47°",
+        "value": 79.1,
+        "t": 24,
+        "lat": 61.32066,
+        "lon": 100.74661
+      },
+      {
+        "reason": "Смена эшелона FL100→FL400",
+        "value": 225.0,
+        "t": 25,
+        "lat": 59.97563,
+        "lon": 105.3818
+      },
+      {
+        "reason": "Ветер 12.8 м/с (эффект ×0.95)",
+        "value": 33.0,
+        "t": 25,
+        "lat": 59.97563,
+        "lon": 105.3818
+      },
+      {
+        "reason": "Гроза 1.12",
+        "value": 560.0,
+        "t": 25,
+        "lat": 59.97563,
+        "lon": 105.3818
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 25,
+        "lat": 59.97563,
+        "lon": 105.3818
+      },
+      {
+        "reason": "Смена курса 48°",
+        "value": 82.2,
+        "t": 25,
+        "lat": 59.97563,
+        "lon": 105.3818
+      },
+      {
+        "reason": "Смена эшелона FL400→FL500",
+        "value": 50.0,
+        "t": 26,
+        "lat": 60.58897,
+        "lon": 109.27697
+      },
+      {
+        "reason": "Ветер 10.7 м/с (эффект ×1.03)",
+        "value": 8.8,
+        "t": 26,
+        "lat": 60.58897,
+        "lon": 109.27697
+      },
+      {
+        "reason": "Гроза 0.37",
+        "value": 185.0,
+        "t": 26,
+        "lat": 60.58897,
+        "lon": 109.27697
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 26,
+        "lat": 60.58897,
+        "lon": 109.27697
+      },
+      {
+        "reason": "Смена курса 78°",
+        "value": 157.1,
+        "t": 26,
+        "lat": 60.58897,
+        "lon": 109.27697
+      },
+      {
+        "reason": "Смена эшелона FL500→FL100",
+        "value": 300.0,
+        "t": 27,
+        "lat": 58.66725,
+        "lon": 111.51704
+      },
+      {
+        "reason": "Гроза 0.21",
+        "value": 105.0,
+        "t": 27,
+        "lat": 58.66725,
+        "lon": 111.51704
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 27,
+        "lat": 58.66725,
+        "lon": 111.51704
+      },
+      {
+        "reason": "Агент #4 < 200 км (d=41)",
+        "value": 300,
+        "t": 27,
+        "lat": 58.66725,
+        "lon": 111.51704
+      },
+      {
+        "reason": "Смена курса 97°",
+        "value": 205.6,
+        "t": 27,
+        "lat": 58.66725,
+        "lon": 111.51704
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 28,
+        "lat": 60.36061,
+        "lon": 115.97891
+      },
+      {
+        "reason": "Агент #4 < 200 км (d=0)",
+        "value": 300,
+        "t": 28,
+        "lat": 60.36061,
+        "lon": 115.97891
+      },
+      {
+        "reason": "Смена курса 36°",
+        "value": 52.6,
+        "t": 28,
+        "lat": 60.36061,
+        "lon": 115.97891
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 29,
+        "lat": 60.38833,
+        "lon": 120.47167
+      },
+      {
+        "reason": "Смена курса 70°",
+        "value": 138.3,
+        "t": 29,
+        "lat": 60.38833,
+        "lon": 120.47167
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 30,
+        "lat": 56.81382,
+        "lon": 123.13245
+      },
+      {
+        "reason": "Смена курса 37°",
+        "value": 55.6,
+        "t": 30,
+        "lat": 56.81382,
+        "lon": 123.13245
+      },
+      {
+        "reason": "Смена эшелона FL100→FL300",
+        "value": 150.0,
+        "t": 31,
+        "lat": 55.60044,
+        "lon": 126.63754
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 31,
+        "lat": 55.60044,
+        "lon": 126.63754
+      },
+      {
+        "reason": "Агент #4 < 200 км (d=178)",
+        "value": 300,
+        "t": 31,
+        "lat": 55.60044,
+        "lon": 126.63754
       },
       {
         "reason": "Смена курса 35°",
-        "value": 49.1,
-        "t": 57,
-        "lat": 48.64689,
-        "lon": 134.10262
+        "value": 49.9,
+        "t": 31,
+        "lat": 55.60044,
+        "lon": 126.63754
       },
       {
-        "reason": "Смена курса 42°",
-        "value": 68.4,
-        "t": 58,
-        "lat": 47.27851,
-        "lon": 135.5143
+        "reason": "Смена эшелона FL300→FL100",
+        "value": 150.0,
+        "t": 32,
+        "lat": 54.81041,
+        "lon": 127.26421
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 32,
+        "lat": 54.81041,
+        "lon": 127.26421
+      },
+      {
+        "reason": "Смена курса 20°",
+        "value": 11.4,
+        "t": 32,
+        "lat": 54.81041,
+        "lon": 127.26421
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 33,
+        "lat": 52.00035,
+        "lon": 127.6675
       },
       {
         "reason": "Смена курса 24°",
-        "value": 22.9,
-        "t": 59,
-        "lat": 44.83179,
-        "lon": 135.07925
+        "value": 23.7,
+        "t": 33,
+        "lat": 52.00035,
+        "lon": 127.6675
       },
       {
-        "reason": "Смена курса 59°",
-        "value": 110.4,
-        "t": 60,
-        "lat": 43.4001,
-        "lon": 133.8842
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 34,
+        "lat": 49.84362,
+        "lon": 129.54752
+      },
+      {
+        "reason": "Смена курса 37°",
+        "value": 55.1,
+        "t": 34,
+        "lat": 49.84362,
+        "lon": 129.54752
+      },
+      {
+        "reason": "Гроза 0.29",
+        "value": 145.0,
+        "t": 35,
+        "lat": 49.22859,
+        "lon": 131.6509
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 35,
+        "lat": 49.22859,
+        "lon": 131.6509
+      },
+      {
+        "reason": "Смена эшелона FL100→FL400",
+        "value": 225.0,
+        "t": 36,
+        "lat": 47.88353,
+        "lon": 134.65929
+      },
+      {
+        "reason": "Ветер 12.8 м/с (эффект ×0.96)",
+        "value": 33.6,
+        "t": 36,
+        "lat": 47.88353,
+        "lon": 134.65929
+      },
+      {
+        "reason": "Гроза 0.99",
+        "value": 495.0,
+        "t": 36,
+        "lat": 47.88353,
+        "lon": 134.65929
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 36,
+        "lat": 47.88353,
+        "lon": 134.65929
+      },
+      {
+        "reason": "Смена курса 31°",
+        "value": 40.1,
+        "t": 36,
+        "lat": 47.88353,
+        "lon": 134.65929
+      },
+      {
+        "reason": "Смена эшелона FL400→FL100",
+        "value": 225.0,
+        "t": 37,
+        "lat": 46.35667,
+        "lon": 135.73667
+      },
+      {
+        "reason": "Гроза 0.52",
+        "value": 260.0,
+        "t": 37,
+        "lat": 46.35667,
+        "lon": 135.73667
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 37,
+        "lat": 46.35667,
+        "lon": 135.73667
+      },
+      {
+        "reason": "Смена курса 50°",
+        "value": 88.0,
+        "t": 37,
+        "lat": 46.35667,
+        "lon": 135.73667
+      },
+      {
+        "reason": "Гроза 0.44",
+        "value": 220.0,
+        "t": 38,
+        "lat": 44.83333,
+        "lon": 134.77667
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 38,
+        "lat": 44.83333,
+        "lon": 134.77667
+      },
+      {
+        "reason": "Смена курса 27°",
+        "value": 29.5,
+        "t": 38,
+        "lat": 44.83333,
+        "lon": 134.77667
       }
     ],
     "path": [
@@ -357,6 +883,7 @@
         "t": 1,
         "altitude_level": 3,
         "fuel_remaining_kg": 145027,
+        "current_mass_kg": 345507.0,
         "step_penalty": 0.0,
         "dist_km": 0.0,
         "fuel_burned_step_kg": 0.0,
@@ -368,13 +895,22 @@
         "lat": 55.81665,
         "lon": 38.664767,
         "t": 2,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 143472.7,
-        "step_penalty": 90.7,
+        "altitude_level": 2,
+        "fuel_remaining_kg": 142243.6,
+        "current_mass_kg": 342723.6,
+        "step_penalty": 270.7,
         "dist_km": 80.16,
-        "fuel_burned_step_kg": 1554.3,
+        "fuel_burned_step_kg": 1548.2,
         "wind_effect": 1.002,
-        "progress_km": 58.2
+        "progress_km": 58.2,
+        "weather": {
+          "wind_speed": 5.0,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": -1,
+        "dist_to_oncoming_km": -1
       },
       {
         "name": "BADAK",
@@ -382,753 +918,791 @@
         "lon": 39.15,
         "t": 3,
         "altitude_level": 3,
-        "fuel_remaining_kg": 140014.0,
-        "step_penalty": 214.1,
+        "fuel_remaining_kg": 137599.8,
+        "current_mass_kg": 338079.8,
+        "step_penalty": 544.1,
         "dist_km": 173.07,
-        "fuel_burned_step_kg": 3458.7,
+        "fuel_burned_step_kg": 3418.5,
         "wind_effect": 1.033,
-        "progress_km": 110.1
+        "progress_km": 110.1,
+        "weather": {
+          "wind_speed": 8.1,
+          "storm": 0.0,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": -1,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "OKAMI",
-        "lat": 58.200047,
-        "lon": 40.088003,
+        "name": "SOROB",
+        "lat": 57.560039,
+        "lon": 40.154706,
         "t": 4,
         "altitude_level": 3,
-        "fuel_remaining_kg": 137779.5,
-        "step_penalty": 33.5,
-        "dist_km": 109.67,
-        "fuel_burned_step_kg": 2234.6,
-        "wind_effect": 1.053,
-        "progress_km": 93.9
+        "fuel_remaining_kg": 136348.6,
+        "current_mass_kg": 336828.6,
+        "step_penalty": 431.8,
+        "dist_km": 64.48,
+        "fuel_burned_step_kg": 1251.2,
+        "wind_effect": 1.025,
+        "progress_km": 63.9,
+        "weather": {
+          "wind_speed": 11.9,
+          "storm": 0.0,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 2594.5,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "ODEPA",
-        "lat": 58.268383,
-        "lon": 40.219667,
+        "name": "KEMID",
+        "lat": 58.741739,
+        "lon": 41.142992,
         "t": 5,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 137557.2,
-        "step_penalty": 20.7,
-        "dist_km": 10.82,
-        "fuel_burned_step_kg": 222.2,
-        "wind_effect": 1.061,
-        "progress_km": 10.4
+        "altitude_level": 2,
+        "fuel_remaining_kg": 132312.7,
+        "current_mass_kg": 332792.7,
+        "step_penalty": 424.9,
+        "dist_km": 143.62,
+        "fuel_burned_step_kg": 2831.7,
+        "wind_effect": 1.049,
+        "progress_km": 112.2,
+        "weather": {
+          "wind_speed": 9.8,
+          "storm": 0.0,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 2527.3,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "LAPEK",
-        "lat": 59.900083,
-        "lon": 40.542911,
+        "name": "PUNIT",
+        "lat": 59.831767,
+        "lon": 41.654603,
         "t": 6,
         "altitude_level": 3,
-        "fuel_remaining_kg": 133894.1,
-        "step_penalty": 81.7,
-        "dist_km": 182.37,
-        "fuel_burned_step_kg": 3663.1,
-        "wind_effect": 1.038,
-        "progress_km": 99.2
-      },
-      {
-        "name": "METAT",
-        "lat": 60.583439,
-        "lon": 41.214547,
-        "t": 7,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 132242.3,
-        "step_penalty": 22.6,
-        "dist_km": 84.54,
-        "fuel_burned_step_kg": 1651.8,
-        "wind_effect": 1.01,
-        "progress_km": 66.7
-      },
-      {
-        "name": "RUSEN",
-        "lat": 61.038472,
-        "lon": 42.732883,
-        "t": 8,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 130409.0,
-        "step_penalty": 52.6,
-        "dist_km": 96.64,
-        "fuel_burned_step_kg": 1833.4,
-        "wind_effect": 0.98,
-        "progress_km": 96.0
+        "fuel_remaining_kg": 128722.6,
+        "current_mass_kg": 329202.6,
+        "step_penalty": 350.0,
+        "dist_km": 124.64,
+        "fuel_burned_step_kg": 2400.4,
+        "wind_effect": 1.037,
+        "progress_km": 79.7,
+        "weather": {
+          "wind_speed": 8.8,
+          "storm": 0.0,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 1034.8,
+        "dist_to_oncoming_km": -1
       },
       {
         "name": "PANUS",
         "lat": 60.521817,
         "lon": 43.997942,
-        "t": 9,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 128683.9,
-        "step_penalty": 161.5,
-        "dist_km": 89.53,
-        "fuel_burned_step_kg": 1725.1,
-        "wind_effect": 0.996,
-        "progress_km": 39.5
+        "t": 7,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 122460.0,
+        "current_mass_kg": 322940.0,
+        "step_penalty": 375.2,
+        "dist_km": 150.59,
+        "fuel_burned_step_kg": 2731.8,
+        "wind_effect": 0.995,
+        "progress_km": 149.8,
+        "weather": {
+          "wind_speed": 2.8,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 996.1,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "PINEG",
-        "lat": 63.700228,
-        "lon": 45.339417,
-        "t": 10,
+        "name": "ABLAR",
+        "lat": 63.083572,
+        "lon": 46.892836,
+        "t": 8,
         "altitude_level": 3,
-        "fuel_remaining_kg": 121776.4,
-        "step_penalty": 279.5,
-        "dist_km": 360.22,
-        "fuel_burned_step_kg": 6907.5,
-        "wind_effect": 0.991,
-        "progress_km": 196.9
-      },
-      {
-        "name": "NAKIR",
-        "lat": 65.086956,
-        "lon": 47.749367,
-        "t": 11,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 117971.8,
-        "step_penalty": 54.4,
-        "dist_km": 192.82,
-        "fuel_burned_step_kg": 3804.6,
-        "wind_effect": 1.02,
-        "progress_km": 159.3
+        "fuel_remaining_kg": 113279.4,
+        "current_mass_kg": 313759.4,
+        "step_penalty": 491.3,
+        "dist_km": 322.84,
+        "fuel_burned_step_kg": 5717.0,
+        "wind_effect": 0.99,
+        "progress_km": 246.3,
+        "weather": {
+          "wind_speed": 6.3,
+          "storm": 0.0,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 953.0,
+        "dist_to_oncoming_km": -1
       },
       {
         "name": "LODKA",
         "lat": 64.371967,
         "lon": 49.337806,
-        "t": 12,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 115822.2,
-        "step_penalty": 242.6,
-        "dist_km": 109.57,
-        "fuel_burned_step_kg": 2149.6,
+        "t": 9,
+        "altitude_level": 2,
+        "fuel_remaining_kg": 108836.6,
+        "current_mass_kg": 309316.6,
+        "step_penalty": 395.0,
+        "dist_km": 187.07,
+        "fuel_burned_step_kg": 3321.0,
         "wind_effect": 1.014,
-        "progress_km": 48.9
+        "progress_km": 158.9,
+        "weather": {
+          "wind_speed": 3.9,
+          "storm": 0.39,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 981.4,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "TITKO",
-        "lat": 63.066969,
-        "lon": 51.122956,
-        "t": 13,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 112580.2,
-        "step_penalty": 34.2,
-        "dist_km": 169.64,
-        "fuel_burned_step_kg": 3242.0,
-        "wind_effect": 0.988,
-        "progress_km": 43.2
+        "name": "INGER",
+        "lat": 64.960322,
+        "lon": 50.231117,
+        "t": 10,
+        "altitude_level": 2,
+        "fuel_remaining_kg": 107460.6,
+        "current_mass_kg": 307940.6,
+        "step_penalty": 545.0,
+        "dist_km": 78.01,
+        "fuel_burned_step_kg": 1376.0,
+        "wind_effect": 1.018,
+        "progress_km": 58.9,
+        "weather": {
+          "wind_speed": 3.6,
+          "storm": 0.49,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 944.2,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "GISAN",
-        "lat": 62.183639,
-        "lon": 52.518056,
-        "t": 14,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 110303.3,
-        "step_penalty": 40.0,
-        "dist_km": 121.38,
-        "fuel_burned_step_kg": 2276.8,
-        "wind_effect": 0.969,
-        "progress_km": 41.2
-      },
-      {
-        "name": "BILMI",
-        "lat": 65.438694,
-        "lon": 52.197806,
-        "t": 15,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 103076.2,
-        "step_penalty": 370.6,
-        "dist_km": 362.29,
-        "fuel_burned_step_kg": 7227.2,
-        "wind_effect": 1.031,
-        "progress_km": 76.6
+        "name": "RINOV",
+        "lat": 68.785381,
+        "lon": 49.314044,
+        "t": 11,
+        "altitude_level": 2,
+        "fuel_remaining_kg": 99982.4,
+        "current_mass_kg": 300462.4,
+        "step_penalty": 606.4,
+        "dist_km": 427.2,
+        "fuel_burned_step_kg": 7478.3,
+        "wind_effect": 1.015,
+        "progress_km": 64.9,
+        "weather": {
+          "wind_speed": 6.5,
+          "storm": 0.5,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 1252.6,
+        "dist_to_oncoming_km": -1
       },
       {
         "name": "LAGOM",
         "lat": 66.973333,
         "lon": 54.283333,
-        "t": 16,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 99242.8,
-        "step_penalty": 74.4,
-        "dist_km": 194.59,
-        "fuel_burned_step_kg": 3833.4,
-        "wind_effect": 1.018,
-        "progress_km": 126.5
+        "t": 12,
+        "altitude_level": 2,
+        "fuel_remaining_kg": 95097.1,
+        "current_mass_kg": 295577.1,
+        "step_penalty": 454.3,
+        "dist_km": 289.48,
+        "fuel_burned_step_kg": 4885.3,
+        "wind_effect": 1.003,
+        "progress_km": 163.6,
+        "weather": {
+          "wind_speed": 3.9,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 884.9,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "USINA",
-        "lat": 66.005,
-        "lon": 57.368333,
-        "t": 17,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 95997.2,
-        "step_penalty": 242.6,
-        "dist_km": 174.09,
-        "fuel_burned_step_kg": 3245.7,
-        "wind_effect": 0.963,
-        "progress_km": 117.5
-      },
-      {
-        "name": "ULKAM",
-        "lat": 69.763903,
-        "lon": 61.561092,
-        "t": 18,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 86839.8,
-        "step_penalty": 269.7,
-        "dist_km": 453.08,
-        "fuel_burned_step_kg": 9157.4,
-        "wind_effect": 1.044,
-        "progress_km": 209.5
-      },
-      {
-        "name": "TELGO",
-        "lat": 68.487286,
-        "lon": 67.851503,
-        "t": 19,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 80822.9,
-        "step_penalty": 222.1,
-        "dist_km": 286.63,
-        "fuel_burned_step_kg": 6016.9,
-        "wind_effect": 1.085,
-        "progress_km": 252.4
-      },
-      {
-        "name": "GIMIR",
-        "lat": 65.482275,
-        "lon": 72.698589,
-        "t": 20,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 72839.9,
-        "step_penalty": 63.7,
-        "dist_km": 394.78,
-        "fuel_burned_step_kg": 7983.0,
-        "wind_effect": 1.045,
-        "progress_km": 234.3
-      },
-      {
-        "name": "RULIK",
-        "lat": 63.850606,
-        "lon": 76.18215,
-        "t": 21,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 68048.6,
-        "step_penalty": 46.2,
-        "dist_km": 245.67,
-        "fuel_burned_step_kg": 4791.4,
-        "wind_effect": 1.008,
-        "progress_km": 181.7
-      },
-      {
-        "name": "KUGED",
-        "lat": 62.081667,
-        "lon": 79.0,
-        "t": 22,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 63409.2,
-        "step_penalty": 74.8,
-        "dist_km": 242.79,
-        "fuel_burned_step_kg": 4639.4,
+        "name": "ARLEN",
+        "lat": 66.78215,
+        "lon": 59.079603,
+        "t": 13,
+        "altitude_level": 5,
+        "fuel_remaining_kg": 85392.4,
+        "current_mass_kg": 285872.4,
+        "step_penalty": 712.9,
+        "dist_km": 210.46,
+        "fuel_burned_step_kg": 3364.4,
         "wind_effect": 0.987,
-        "progress_km": 162.4
+        "progress_km": 204.2,
+        "weather": {
+          "wind_speed": 7.2,
+          "storm": 0.26,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 708.0,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "SOTIM",
-        "lat": 60.178892,
-        "lon": 80.382444,
-        "t": 23,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 59070.0,
-        "step_penalty": 114.4,
-        "dist_km": 224.21,
-        "fuel_burned_step_kg": 4339.2,
+        "name": "GUBAT",
+        "lat": 67.007231,
+        "lon": 65.431511,
+        "t": 14,
+        "altitude_level": 2,
+        "fuel_remaining_kg": 74723.0,
+        "current_mass_kg": 275203.0,
+        "step_penalty": 902.0,
+        "dist_km": 278.17,
+        "fuel_burned_step_kg": 4537.3,
+        "wind_effect": 1.041,
+        "progress_km": 278.0,
+        "weather": {
+          "wind_speed": 11.8,
+          "storm": 0.71,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 717.1,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "GUDIR",
+        "lat": 67.575625,
+        "lon": 70.025006,
+        "t": 15,
+        "altitude_level": 5,
+        "fuel_remaining_kg": 65747.7,
+        "current_mass_kg": 266227.7,
+        "step_penalty": 1041.8,
+        "dist_km": 207.01,
+        "fuel_burned_step_kg": 3072.1,
+        "wind_effect": 0.984,
+        "progress_km": 194.6,
+        "weather": {
+          "wind_speed": 19.7,
+          "storm": 0.5,
+          "turbulence": 3,
+          "ice": 0
+        },
+        "dist_to_agent_km": 724.8,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "DIPRI",
+        "lat": 66.632317,
+        "lon": 74.758617,
+        "t": 16,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 54634.5,
+        "current_mass_kg": 255114.5,
+        "step_penalty": 887.5,
+        "dist_km": 230.0,
+        "fuel_burned_step_kg": 3499.0,
+        "wind_effect": 1.05,
+        "progress_km": 215.1,
+        "weather": {
+          "wind_speed": 10.2,
+          "storm": 0.42,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 694.5,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "URENA",
+        "lat": 65.950667,
+        "lon": 78.365489,
+        "t": 17,
+        "altitude_level": 4,
+        "fuel_remaining_kg": 46569.2,
+        "current_mass_kg": 247049.2,
+        "step_penalty": 985.0,
+        "dist_km": 178.15,
+        "fuel_burned_step_kg": 2593.0,
+        "wind_effect": 1.041,
+        "progress_km": 171.5,
+        "weather": {
+          "wind_speed": 8.3,
+          "storm": 0.92,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 426.1,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "TABOS",
+        "lat": 63.983986,
+        "lon": 82.049067,
+        "t": 18,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 37439.6,
+        "current_mass_kg": 237919.6,
+        "step_penalty": 923.5,
+        "dist_km": 278.94,
+        "fuel_burned_step_kg": 3830.3,
+        "wind_effect": 1.014,
+        "progress_km": 213.0,
+        "weather": {
+          "wind_speed": 2.8,
+          "storm": 0.74,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 435.4,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "KUTAM",
+        "lat": 64.230672,
+        "lon": 84.335828,
+        "t": 19,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 35953.3,
+        "current_mass_kg": 236433.3,
+        "step_penalty": 1044.6,
+        "dist_km": 114.37,
+        "fuel_burned_step_kg": 1486.3,
+        "wind_effect": 0.975,
+        "progress_km": 101.8,
+        "weather": {
+          "wind_speed": 5.5,
+          "storm": 1.24,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 374.9,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "BATRA",
+        "lat": 63.167333,
+        "lon": 87.999356,
+        "t": 20,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 33150.5,
+        "current_mass_kg": 233630.5,
+        "step_penalty": 923.7,
+        "dist_km": 215.73,
+        "fuel_burned_step_kg": 2802.8,
+        "wind_effect": 0.981,
+        "progress_km": 205.9,
+        "weather": {
+          "wind_speed": 4.2,
+          "storm": 1.09,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 553.7,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "RALON",
+        "lat": 64.785725,
+        "lon": 94.121275,
+        "t": 21,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 28590.5,
+        "current_mass_kg": 229070.5,
+        "step_penalty": 1110.9,
+        "dist_km": 348.47,
+        "fuel_burned_step_kg": 4560.0,
         "wind_effect": 1.0,
-        "progress_km": 94.3
+        "progress_km": 210.3,
+        "weather": {
+          "wind_speed": 2.9,
+          "storm": 1.37,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 536.3,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "TOGBA",
-        "lat": 59.395542,
-        "lon": 80.715811,
+        "name": "LEVOK",
+        "lat": 60.675639,
+        "lon": 96.114744,
+        "t": 22,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 22473.8,
+        "current_mass_kg": 222953.8,
+        "step_penalty": 733.4,
+        "dist_km": 468.11,
+        "fuel_burned_step_kg": 6116.7,
+        "wind_effect": 1.018,
+        "progress_km": 282.6,
+        "weather": {
+          "wind_speed": 3.7,
+          "storm": 0.69,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 809.9,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "GOPTA",
+        "lat": 61.320658,
+        "lon": 100.746606,
+        "t": 23,
+        "altitude_level": 5,
+        "fuel_remaining_kg": 13343.2,
+        "current_mass_kg": 213823.2,
+        "step_penalty": 2077.6,
+        "dist_km": 259.74,
+        "fuel_burned_step_kg": 2754.0,
+        "wind_effect": 0.874,
+        "progress_km": 193.2,
+        "weather": {
+          "wind_speed": 29.5,
+          "storm": 1.49,
+          "turbulence": 4,
+          "ice": 0
+        },
+        "dist_to_agent_km": 617.8,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "OGERI",
+        "lat": 59.975625,
+        "lon": 105.3818,
         "t": 24,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 57326.5,
-        "step_penalty": 125.4,
-        "dist_km": 89.08,
-        "fuel_burned_step_kg": 1743.5,
-        "wind_effect": 1.011,
-        "progress_km": 25.4
+        "altitude_level": 1,
+        "fuel_remaining_kg": 3813.4,
+        "current_mass_kg": 204293.4,
+        "step_penalty": 1189.7,
+        "dist_km": 293.49,
+        "fuel_burned_step_kg": 3414.3,
+        "wind_effect": 1.0,
+        "progress_km": 293.4,
+        "weather": {
+          "wind_speed": 10.1,
+          "storm": 1.02,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 571.7,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "GULPI",
-        "lat": 56.310478,
-        "lon": 81.489242,
+        "name": "ARKEP",
+        "lat": 60.588967,
+        "lon": 109.276967,
         "t": 25,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 50486.8,
-        "step_penalty": 124.6,
-        "dist_km": 346.08,
-        "fuel_burned_step_kg": 6839.7,
-        "wind_effect": 1.021,
-        "progress_km": 58.5
+        "altitude_level": 4,
+        "fuel_remaining_kg": 0.0,
+        "current_mass_kg": 197520.0,
+        "step_penalty": 1200.2,
+        "dist_km": 225.24,
+        "fuel_burned_step_kg": 2391.3,
+        "wind_effect": 0.948,
+        "progress_km": 129.4,
+        "weather": {
+          "wind_speed": 12.8,
+          "storm": 1.12,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 350.6,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "ERKON",
-        "lat": 54.048769,
-        "lon": 82.952667,
+        "name": "GEKTA",
+        "lat": 58.667253,
+        "lon": 111.517039,
         "t": 26,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 44968.9,
-        "step_penalty": 90.8,
-        "dist_km": 268.09,
-        "fuel_burned_step_kg": 5517.9,
-        "wind_effect": 1.064,
-        "progress_km": 89.1
+        "altitude_level": 5,
+        "fuel_remaining_kg": 0.0,
+        "current_mass_kg": 194002.6,
+        "step_penalty": 700.8,
+        "dist_km": 248.0,
+        "fuel_burned_step_kg": 2811.2,
+        "wind_effect": 1.028,
+        "progress_km": 235.4,
+        "weather": {
+          "wind_speed": 10.7,
+          "storm": 0.37,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 350.9,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "INBOK",
-        "lat": 53.278758,
-        "lon": 84.281056,
+        "name": "GIMAR",
+        "lat": 60.360608,
+        "lon": 115.978908,
         "t": 27,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 42554.4,
-        "step_penalty": 70.7,
-        "dist_km": 122.43,
-        "fuel_burned_step_kg": 2414.5,
-        "wind_effect": 1.019,
-        "progress_km": 84.4
+        "altitude_level": 1,
+        "fuel_remaining_kg": 0.0,
+        "current_mass_kg": 185300.2,
+        "step_penalty": 1060.6,
+        "dist_km": 314.23,
+        "fuel_burned_step_kg": 3153.8,
+        "wind_effect": 0.951,
+        "progress_km": 34.2,
+        "weather": {
+          "wind_speed": 10.0,
+          "storm": 0.21,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 40.6,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "TODKI",
-        "lat": 53.598769,
-        "lon": 85.206081,
+        "name": "OLDEP",
+        "lat": 60.388333,
+        "lon": 120.471667,
         "t": 28,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 41220.2,
-        "step_penalty": 186.6,
-        "dist_km": 70.85,
-        "fuel_burned_step_kg": 1334.2,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 0.0,
+        "current_mass_kg": 182805.6,
+        "step_penalty": 502.6,
+        "dist_km": 246.92,
+        "fuel_burned_step_kg": 2494.7,
         "wind_effect": 0.973,
-        "progress_km": 62.2
+        "progress_km": 130.1,
+        "weather": {
+          "wind_speed": 6.2,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 0.0,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "INDIT",
-        "lat": 52.985425,
-        "lon": 85.946114,
+        "name": "MAKIN",
+        "lat": 56.813822,
+        "lon": 123.132447,
         "t": 29,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 39581.3,
-        "step_penalty": 216.2,
-        "dist_km": 84.09,
-        "fuel_burned_step_kg": 1638.9,
-        "wind_effect": 1.007,
-        "progress_km": 47.9
+        "altitude_level": 1,
+        "fuel_remaining_kg": 0.0,
+        "current_mass_kg": 178464.7,
+        "step_penalty": 288.3,
+        "dist_km": 426.23,
+        "fuel_burned_step_kg": 4340.9,
+        "wind_effect": 0.995,
+        "progress_km": 423.8,
+        "weather": {
+          "wind_speed": 7.7,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 243.1,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "MOTOK",
-        "lat": 54.492131,
-        "lon": 86.514447,
+        "name": "OMOSA",
+        "lat": 55.600439,
+        "lon": 126.637542,
         "t": 30,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 36361.8,
-        "step_penalty": 330.4,
-        "dist_km": 171.66,
-        "fuel_burned_step_kg": 3219.5,
-        "wind_effect": 0.969,
-        "progress_km": 37.0
+        "altitude_level": 1,
+        "fuel_remaining_kg": 0.0,
+        "current_mass_kg": 175830.2,
+        "step_penalty": 205.6,
+        "dist_km": 255.29,
+        "fuel_burned_step_kg": 2634.5,
+        "wind_effect": 1.032,
+        "progress_km": 208.3,
+        "weather": {
+          "wind_speed": 7.4,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 208.9,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "BAKMI",
-        "lat": 54.470472,
-        "lon": 88.691189,
+        "name": "LALIR",
+        "lat": 54.810414,
+        "lon": 127.264211,
         "t": 31,
         "altitude_level": 3,
-        "fuel_remaining_kg": 33753.4,
-        "step_penalty": 216.1,
-        "dist_km": 140.63,
-        "fuel_burned_step_kg": 2608.4,
-        "wind_effect": 0.958,
-        "progress_km": 140.6
+        "fuel_remaining_kg": 0.0,
+        "current_mass_kg": 172971.6,
+        "step_penalty": 799.9,
+        "dist_km": 96.43,
+        "fuel_burned_step_kg": 972.8,
+        "wind_effect": 1.036,
+        "progress_km": 95.8,
+        "weather": {
+          "wind_speed": 7.2,
+          "storm": 0.0,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 177.9,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "ROVNO",
-        "lat": 55.517172,
-        "lon": 91.116264,
+        "name": "NINON",
+        "lat": 52.000347,
+        "lon": 127.6675,
         "t": 32,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 30166.6,
-        "step_penalty": 128.6,
-        "dist_km": 193.57,
-        "fuel_burned_step_kg": 3586.8,
-        "wind_effect": 0.958,
-        "progress_km": 142.9
-      },
-      {
-        "name": "REMGA",
-        "lat": 54.827161,
-        "lon": 92.229642,
-        "t": 33,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 28163.7,
-        "step_penalty": 257.0,
-        "dist_km": 104.33,
-        "fuel_burned_step_kg": 2002.9,
-        "wind_effect": 0.992,
-        "progress_km": 80.0
-      },
-      {
-        "name": "PADKI",
-        "lat": 53.147119,
-        "lon": 92.432997,
-        "t": 34,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 24510.0,
-        "step_penalty": 134.3,
-        "dist_km": 187.28,
-        "fuel_burned_step_kg": 3653.7,
-        "wind_effect": 1.008,
-        "progress_km": 32.2
-      },
-      {
-        "name": "OKELA",
-        "lat": 54.635492,
-        "lon": 93.158011,
-        "t": 35,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 21272.2,
-        "step_penalty": 412.6,
-        "dist_km": 172.18,
-        "fuel_burned_step_kg": 3237.8,
-        "wind_effect": 0.972,
-        "progress_km": 29.7
-      },
-      {
-        "name": "SORKA",
-        "lat": 55.63385,
-        "lon": 93.766358,
-        "t": 36,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 19078.5,
-        "step_penalty": 73.4,
-        "dist_km": 117.55,
-        "fuel_burned_step_kg": 2193.8,
-        "wind_effect": 0.964,
-        "progress_km": 20.6
-      },
-      {
-        "name": "BANAN",
-        "lat": 54.555489,
-        "lon": 93.513025,
-        "t": 37,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 16683.7,
-        "step_penalty": 460.3,
-        "dist_km": 120.99,
-        "fuel_burned_step_kg": 2394.8,
-        "wind_effect": 1.023,
-        "progress_km": 3.2
-      },
-      {
-        "name": "KESUM",
-        "lat": 54.262156,
-        "lon": 96.258125,
-        "t": 38,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 13429.1,
-        "step_penalty": 255.9,
-        "dist_km": 180.61,
-        "fuel_burned_step_kg": 3254.6,
-        "wind_effect": 0.931,
-        "progress_km": 180.6
-      },
-      {
-        "name": "KOTIB",
-        "lat": 56.083869,
-        "lon": 99.299894,
-        "t": 39,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 8156.4,
-        "step_penalty": 152.1,
-        "dist_km": 279.85,
-        "fuel_burned_step_kg": 5272.7,
-        "wind_effect": 0.974,
-        "progress_km": 139.5
-      },
-      {
-        "name": "GIMED",
-        "lat": 55.433856,
-        "lon": 101.899992,
-        "t": 40,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 4909.3,
-        "step_penalty": 169.9,
-        "dist_km": 178.0,
-        "fuel_burned_step_kg": 3247.1,
-        "wind_effect": 0.943,
-        "progress_km": 177.1
-      },
-      {
-        "name": "ABLAS",
-        "lat": 55.702194,
-        "lon": 105.043439,
-        "t": 41,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 1141.6,
-        "step_penalty": 54.4,
-        "dist_km": 199.86,
-        "fuel_burned_step_kg": 3767.6,
-        "wind_effect": 0.974,
-        "progress_km": 172.9
-      },
-      {
-        "name": "TUNIR",
-        "lat": 53.683814,
-        "lon": 104.766758,
-        "t": 42,
-        "altitude_level": 3,
+        "altitude_level": 1,
         "fuel_remaining_kg": 0.0,
-        "step_penalty": 243.8,
-        "dist_km": 225.14,
-        "fuel_burned_step_kg": 4596.5,
-        "wind_effect": 1.055,
-        "progress_km": 65.1
-      },
-      {
-        "name": "NEKOL",
-        "lat": 51.900436,
-        "lon": 104.816756,
-        "t": 43,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 20.0,
-        "dist_km": 198.33,
-        "fuel_burned_step_kg": 4037.8,
-        "wind_effect": 1.052,
-        "progress_km": 59.3
-      },
-      {
-        "name": "SERNA",
-        "lat": 50.308731,
-        "lon": 106.468475,
-        "t": 44,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 74.2,
-        "dist_km": 211.23,
-        "fuel_burned_step_kg": 4164.3,
-        "wind_effect": 1.019,
-        "progress_km": 152.0
-      },
-      {
-        "name": "LULAN",
-        "lat": 51.808764,
-        "lon": 107.441844,
-        "t": 45,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 315.4,
-        "dist_km": 180.13,
-        "fuel_burned_step_kg": 3413.1,
-        "wind_effect": 0.979,
-        "progress_km": 24.3
-      },
-      {
-        "name": "KURBA",
-        "lat": 52.495442,
-        "lon": 109.886931,
-        "t": 46,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 99.9,
-        "dist_km": 183.45,
-        "fuel_burned_step_kg": 3526.9,
-        "wind_effect": 0.993,
-        "progress_km": 130.8
-      },
-      {
-        "name": "NERKA",
-        "lat": 52.517106,
-        "lon": 111.533653,
-        "t": 47,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 48.5,
-        "dist_km": 111.48,
-        "fuel_burned_step_kg": 2158.0,
-        "wind_effect": 1.0,
-        "progress_km": 100.8
-      },
-      {
-        "name": "SULOK",
-        "lat": 49.900364,
-        "lon": 115.750436,
-        "t": 48,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 90.7,
-        "dist_km": 413.33,
-        "fuel_burned_step_kg": 8171.8,
-        "wind_effect": 1.022,
-        "progress_km": 388.6
-      },
-      {
-        "name": "NAREM",
-        "lat": 50.383706,
-        "lon": 116.450461,
-        "t": 49,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 209.9,
-        "dist_km": 73.33,
-        "fuel_burned_step_kg": 1396.1,
-        "wind_effect": 0.984,
-        "progress_km": 21.9
-      },
-      {
-        "name": "PENOL",
-        "lat": 50.167028,
-        "lon": 117.667164,
-        "t": 50,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 146.4,
-        "dist_km": 89.76,
-        "fuel_burned_step_kg": 1715.1,
-        "wind_effect": 0.987,
-        "progress_km": 87.7
-      },
-      {
-        "name": "MEDIK",
-        "lat": 50.083692,
-        "lon": 118.117178,
-        "t": 51,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 40.6,
-        "dist_km": 33.39,
-        "fuel_burned_step_kg": 639.8,
-        "wind_effect": 0.99,
-        "progress_km": 32.5
-      },
-      {
-        "name": "BAMAL",
-        "lat": 53.983747,
-        "lon": 124.784114,
-        "t": 52,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 157.3,
-        "dist_km": 628.84,
-        "fuel_burned_step_kg": 12064.5,
-        "wind_effect": 0.991,
-        "progress_km": 5.2
-      },
-      {
-        "name": "SOVIK",
-        "lat": 52.682033,
-        "lon": 127.439172,
-        "t": 53,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 193.7,
-        "dist_km": 228.08,
-        "fuel_burned_step_kg": 4237.4,
-        "wind_effect": 0.96,
-        "progress_km": 204.1
-      },
-      {
-        "name": "AMERA",
-        "lat": 50.221969,
-        "lon": 128.145817,
-        "t": 54,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 99.2,
-        "dist_km": 277.89,
-        "fuel_burned_step_kg": 5037.4,
-        "wind_effect": 0.937,
-        "progress_km": 272.2
-      },
-      {
-        "name": "NABUK",
-        "lat": 49.758614,
-        "lon": 129.850858,
-        "t": 55,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 168.8,
-        "dist_km": 132.33,
-        "fuel_burned_step_kg": 2572.6,
-        "wind_effect": 1.005,
-        "progress_km": 88.7
-      },
-      {
-        "name": "RANOL",
-        "lat": 48.646889,
-        "lon": 134.102622,
-        "t": 56,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 51.0,
-        "dist_km": 332.66,
-        "fuel_burned_step_kg": 6501.7,
-        "wind_effect": 1.01,
-        "progress_km": 125.9
-      },
-      {
-        "name": "OTMIR",
-        "lat": 47.278511,
-        "lon": 135.5143,
-        "t": 57,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 69.1,
-        "dist_km": 184.92,
-        "fuel_burned_step_kg": 3627.6,
-        "wind_effect": 1.014,
-        "progress_km": 97.5
-      },
-      {
-        "name": "LEBTA",
-        "lat": 44.831792,
-        "lon": 135.079247,
-        "t": 58,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 88.4,
-        "dist_km": 274.12,
-        "fuel_burned_step_kg": 5379.4,
-        "wind_effect": 1.014,
-        "progress_km": 222.2
-      },
-      {
-        "name": "LAMKA",
-        "lat": 43.400103,
-        "lon": 133.884197,
-        "t": 59,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 0.0,
-        "step_penalty": 32.9,
-        "dist_km": 185.59,
-        "fuel_burned_step_kg": 3625.4,
+        "current_mass_kg": 168084.1,
+        "step_penalty": 311.4,
+        "dist_km": 313.61,
+        "fuel_burned_step_kg": 3032.3,
         "wind_effect": 1.009,
-        "progress_km": 143.0
+        "progress_km": 303.9,
+        "weather": {
+          "wind_speed": 1.8,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 389.4,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "DIKUT",
-        "lat": 43.39845,
-        "lon": 132.147486,
-        "t": 60,
-        "altitude_level": 3,
+        "name": "VALUT",
+        "lat": 49.843617,
+        "lon": 129.547517,
+        "t": 33,
+        "altitude_level": 1,
         "fuel_remaining_kg": 0.0,
-        "step_penalty": 120.4,
-        "dist_km": 140.31,
-        "fuel_burned_step_kg": 2800.6,
-        "wind_effect": 1.031,
-        "progress_km": 140.0
+        "current_mass_kg": 167829,
+        "step_penalty": 173.7,
+        "dist_km": 273.62,
+        "fuel_burned_step_kg": 2613.3,
+        "wind_effect": 1.015,
+        "progress_km": 269.5,
+        "weather": {
+          "wind_speed": 4.1,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 462.3,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "REVGA",
+        "lat": 49.228586,
+        "lon": 131.6509,
+        "t": 34,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 0.0,
+        "current_mass_kg": 167829,
+        "step_penalty": 205.1,
+        "dist_km": 166.47,
+        "fuel_burned_step_kg": 1572.7,
+        "wind_effect": 1.005,
+        "progress_km": 94.1,
+        "weather": {
+          "wind_speed": 1.0,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 346.8,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "ARGUK",
+        "lat": 47.883533,
+        "lon": 134.659289,
+        "t": 35,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 0.0,
+        "current_mass_kg": 167829,
+        "step_penalty": 445.0,
+        "dist_km": 267.16,
+        "fuel_burned_step_kg": 2457.9,
+        "wind_effect": 0.979,
+        "progress_km": 113.9,
+        "weather": {
+          "wind_speed": 4.3,
+          "storm": 0.29,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 262.8,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "LUTEL",
+        "lat": 46.356667,
+        "lon": 135.736667,
+        "t": 36,
+        "altitude_level": 4,
+        "fuel_remaining_kg": 0.0,
+        "current_mass_kg": 167829,
+        "step_penalty": 1093.7,
+        "dist_km": 188.33,
+        "fuel_burned_step_kg": 1692.8,
+        "wind_effect": 0.956,
+        "progress_km": 101.9,
+        "weather": {
+          "wind_speed": 12.8,
+          "storm": 0.99,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 305.0,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "PIREM",
+        "lat": 44.833333,
+        "lon": 134.776667,
+        "t": 37,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 0.0,
+        "current_mass_kg": 167829,
+        "step_penalty": 723.0,
+        "dist_km": 185.12,
+        "fuel_burned_step_kg": 1749.2,
+        "wind_effect": 1.005,
+        "progress_km": 170.1,
+        "weather": {
+          "wind_speed": 2.3,
+          "storm": 0.52,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 415.4,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "DAGES",
+        "lat": 43.666786,
+        "lon": 132.817508,
+        "t": 38,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 0.0,
+        "current_mass_kg": 167829,
+        "step_penalty": 399.5,
+        "dist_km": 202.91,
+        "fuel_burned_step_kg": 1888.4,
+        "wind_effect": 0.99,
+        "progress_km": 202.0,
+        "weather": {
+          "wind_speed": 2.0,
+          "storm": 0.44,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 570.5,
+        "dist_to_oncoming_km": -1
       }
     ]
   },
@@ -1136,21 +1710,57 @@
     "plane_id": 2,
     "aircraft_type": "A350",
     "departure": "Pulkovo Airport",
-    "arrival": "Krasnoyarsk International Airport",
-    "arrived": true,
-    "total_distance_km": 5920.88,
-    "total_fuel_burned_kg": 87671.9,
-    "fuel_remaining_kg": 39361.2,
-    "total_penalty": 8900.2,
-    "steps_taken": 37,
-    "dist_to_goal_final_km": 26.3,
+    "arrival": "Sokol Airport Magadan",
+    "arrived": false,
+    "total_distance_km": 2716.34,
+    "total_fuel_burned_kg": 37549.7,
+    "fuel_remaining_kg": 75258.5,
+    "final_mass_kg": 253914.5,
+    "total_penalty": 10855.3,
+    "steps_taken": 15,
+    "dist_to_goal_final_km": 3969.1,
     "penalties": [
+      {
+        "reason": "Смена эшелона FL300→FL100",
+        "value": 150.0,
+        "t": 2,
+        "lat": 59.8003,
+        "lon": 30.2625
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 2,
+        "lat": 59.8003,
+        "lon": 30.2625
+      },
+      {
+        "reason": "Смена курса 36°",
+        "value": 52.9,
+        "t": 2,
+        "lat": 59.8003,
+        "lon": 30.2625
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 3,
+        "lat": 60.03327,
+        "lon": 31.54775
+      },
       {
         "reason": "Смена курса 34°",
         "value": 47.2,
         "t": 3,
         "lat": 60.03327,
         "lon": 31.54775
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 4,
+        "lat": 60.98331,
+        "lon": 32.96437
       },
       {
         "reason": "Смена курса 38°",
@@ -1160,158 +1770,207 @@
         "lon": 32.96437
       },
       {
-        "reason": "Смена курса 50°",
-        "value": 86.4,
+        "reason": "Ветер 11.9 м/с (эффект ×0.94)",
+        "value": 22.7,
+        "t": 5,
+        "lat": 61.29502,
+        "lon": 35.33439
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 5,
+        "lat": 61.29502,
+        "lon": 35.33439
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
         "t": 6,
         "lat": 61.31507,
         "lon": 38.0011
       },
       {
-        "reason": "Смена курса 133°",
-        "value": 295.6,
+        "reason": "Турбулентность ур.1",
+        "value": 150,
         "t": 7,
-        "lat": 59.90008,
-        "lon": 40.54291
-      },
-      {
-        "reason": "Смена курса 145°",
-        "value": 324.9,
-        "t": 9,
-        "lat": 64.96019,
-        "lon": 41.64588
-      },
-      {
-        "reason": "Смена курса 43°",
-        "value": 71.1,
-        "t": 10,
-        "lat": 62.91853,
-        "lon": 44.09278
-      },
-      {
-        "reason": "Смена курса 80°",
-        "value": 161.7,
-        "t": 12,
-        "lat": 61.64694,
-        "lon": 50.84304
-      },
-      {
-        "reason": "Смена курса 121°",
-        "value": 266.2,
-        "t": 14,
-        "lat": 63.82536,
-        "lon": 54.32133
-      },
-      {
-        "reason": "Смена курса 18°",
-        "value": 6.6,
-        "t": 16,
-        "lat": 60.61034,
-        "lon": 57.46996
-      },
-      {
-        "reason": "Смена курса 19°",
-        "value": 10.5,
-        "t": 17,
-        "lat": 60.08868,
-        "lon": 58.45835
-      },
-      {
-        "reason": "Смена курса 136°",
-        "value": 303.5,
-        "t": 19,
-        "lat": 55.82697,
-        "lon": 62.45364
-      },
-      {
-        "reason": "Смена курса 15°",
-        "value": 0.5,
-        "t": 20,
-        "lat": 57.29534,
-        "lon": 63.02861
-      },
-      {
-        "reason": "Смена курса 78°",
-        "value": 156.8,
-        "t": 21,
-        "lat": 58.27037,
-        "lon": 63.98193
-      },
-      {
-        "reason": "Смена курса 71°",
-        "value": 138.9,
-        "t": 23,
-        "lat": 57.97833,
-        "lon": 66.74
-      },
-      {
-        "reason": "Смена курса 85°",
-        "value": 175.7,
-        "t": 24,
-        "lat": 55.9187,
-        "lon": 68.02047
-      },
-      {
-        "reason": "Смена курса 45°",
-        "value": 74.6,
-        "t": 25,
-        "lat": 56.14372,
-        "lon": 69.65218
-      },
-      {
-        "reason": "Смена курса 65°",
-        "value": 124.7,
-        "t": 26,
-        "lat": 55.61539,
-        "lon": 71.22391
-      },
-      {
-        "reason": "Смена курса 81°",
-        "value": 164.9,
-        "t": 28,
-        "lat": 57.28879,
-        "lon": 75.03733
+        "lat": 61.28841,
+        "lon": 38.75612
       },
       {
         "reason": "Смена курса 26°",
-        "value": 26.3,
-        "t": 30,
-        "lat": 55.06211,
-        "lon": 79.82088
+        "value": 26.5,
+        "t": 7,
+        "lat": 61.28841,
+        "lon": 38.75612
       },
       {
-        "reason": "Смена курса 72°",
-        "value": 142.6,
-        "t": 31,
-        "lat": 54.50544,
-        "lon": 82.40764
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 8,
+        "lat": 60.58344,
+        "lon": 41.21455
       },
       {
-        "reason": "Смена курса 90°",
-        "value": 187.6,
-        "t": 34,
-        "lat": 56.38384,
-        "lon": 85.21104
+        "reason": "Смена курса 92°",
+        "value": 193.6,
+        "t": 8,
+        "lat": 60.58344,
+        "lon": 41.21455
       },
       {
-        "reason": "Смена курса 114°",
-        "value": 247.1,
-        "t": 36,
-        "lat": 54.81715,
-        "lon": 88.72952
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 9,
+        "lat": 62.11683,
+        "lon": 42.89781
       },
       {
-        "reason": "Смена курса 91°",
-        "value": 189.6,
-        "t": 37,
-        "lat": 55.69833,
-        "lon": 88.97833
+        "reason": "Гроза 0.17",
+        "value": 85.0,
+        "t": 10,
+        "lat": 63.70023,
+        "lon": 45.33942
       },
       {
-        "reason": "Смена курса 59°",
-        "value": 110.2,
-        "t": 38,
-        "lat": 55.41717,
-        "lon": 91.54961
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 10,
+        "lat": 63.70023,
+        "lon": 45.33942
+      },
+      {
+        "reason": "Смена эшелона FL100→FL400",
+        "value": 225.0,
+        "t": 11,
+        "lat": 65.08696,
+        "lon": 47.74937
+      },
+      {
+        "reason": "Ветер 10.6 м/с (эффект ×1.05)",
+        "value": 7.4,
+        "t": 11,
+        "lat": 65.08696,
+        "lon": 47.74937
+      },
+      {
+        "reason": "Гроза 0.36",
+        "value": 180.0,
+        "t": 11,
+        "lat": 65.08696,
+        "lon": 47.74937
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 11,
+        "lat": 65.08696,
+        "lon": 47.74937
+      },
+      {
+        "reason": "Ветер 11.1 м/с (эффект ×1.06)",
+        "value": 13.0,
+        "t": 12,
+        "lat": 65.45364,
+        "lon": 48.44102
+      },
+      {
+        "reason": "Гроза 0.36",
+        "value": 180.0,
+        "t": 12,
+        "lat": 65.45364,
+        "lon": 48.44102
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 12,
+        "lat": 65.45364,
+        "lon": 48.44102
+      },
+      {
+        "reason": "Смена курса 27°",
+        "value": 30.5,
+        "t": 12,
+        "lat": 65.45364,
+        "lon": 48.44102
+      },
+      {
+        "reason": "Гроза 0.41",
+        "value": 205.0,
+        "t": 13,
+        "lat": 65.74534,
+        "lon": 50.01771
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 13,
+        "lat": 65.74534,
+        "lon": 50.01771
+      },
+      {
+        "reason": "Смена курса 43°",
+        "value": 69.1,
+        "t": 13,
+        "lat": 65.74534,
+        "lon": 50.01771
+      },
+      {
+        "reason": "Гроза 0.57",
+        "value": 285.0,
+        "t": 14,
+        "lat": 65.43869,
+        "lon": 52.19781
+      },
+      {
+        "reason": "Турбулентность ур.2",
+        "value": 300,
+        "t": 14,
+        "lat": 65.43869,
+        "lon": 52.19781
+      },
+      {
+        "reason": "Смена курса 125°",
+        "value": 275.0,
+        "t": 14,
+        "lat": 65.43869,
+        "lon": 52.19781
+      },
+      {
+        "reason": "Смена эшелона FL400→FL200",
+        "value": 150.0,
+        "t": 15,
+        "lat": 68.78538,
+        "lon": 49.31404
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 15,
+        "lat": 68.78538,
+        "lon": 49.31404
+      },
+      {
+        "reason": "Смена эшелона FL200→FL400",
+        "value": 150.0,
+        "t": 16,
+        "lat": 71.51705,
+        "lon": 46.38023
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 16,
+        "lat": 71.51705,
+        "lon": 46.38023
+      },
+      {
+        "reason": "Смена курса 24°",
+        "value": 22.1,
+        "t": 16,
+        "lat": 71.51705,
+        "lon": 46.38023
       }
     ],
     "path": [
@@ -1322,6 +1981,7 @@
         "t": 1,
         "altitude_level": 3,
         "fuel_remaining_kg": 127033,
+        "current_mass_kg": 305689.0,
         "step_penalty": 0.0,
         "dist_km": 0.0,
         "fuel_burned_step_kg": 0.0,
@@ -1333,481 +1993,330 @@
         "lat": 60.033272,
         "lon": 31.54775,
         "t": 2,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 125874.8,
-        "step_penalty": 10.0,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 122801.3,
+        "current_mass_kg": 301457.3,
+        "step_penalty": 352.9,
         "dist_km": 76.17,
-        "fuel_burned_step_kg": 1158.2,
-        "wind_effect": 1.015,
-        "progress_km": 76.2
+        "fuel_burned_step_kg": 1140.5,
+        "wind_effect": 1.009,
+        "progress_km": 61.4,
+        "weather": {
+          "wind_speed": 2.0,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 6105.1,
+        "dist_to_oncoming_km": -1
       },
       {
         "name": "OLOBA",
         "lat": 60.983311,
         "lon": 32.964372,
         "t": 3,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 123892.8,
-        "step_penalty": 57.2,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 120853.3,
+        "current_mass_kg": 299509.3,
+        "step_penalty": 197.2,
         "dist_km": 131.04,
-        "fuel_burned_step_kg": 1982.0,
-        "wind_effect": 1.009,
-        "progress_km": 108.0
+        "fuel_burned_step_kg": 1948.0,
+        "wind_effect": 1.006,
+        "progress_km": 131.0,
+        "weather": {
+          "wind_speed": 1.6,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 5996.9,
+        "dist_to_oncoming_km": -1
       },
       {
         "name": "KEGUP",
         "lat": 61.295022,
         "lon": 35.334386,
         "t": 4,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 121953.3,
-        "step_penalty": 67.6,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 118940.3,
+        "current_mass_kg": 297596.3,
+        "step_penalty": 207.6,
         "dist_km": 131.83,
-        "fuel_burned_step_kg": 1939.5,
-        "wind_effect": 0.982,
-        "progress_km": 131.8
+        "fuel_burned_step_kg": 1912.9,
+        "wind_effect": 0.988,
+        "progress_km": 103.0,
+        "weather": {
+          "wind_speed": 2.6,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 5841.4,
+        "dist_to_oncoming_km": -1
       },
       {
         "name": "KEPET",
         "lat": 61.315067,
         "lon": 38.0011,
         "t": 5,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 120009.6,
-        "step_penalty": 20.0,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 116981.8,
+        "current_mass_kg": 295637.8,
+        "step_penalty": 322.7,
         "dist_km": 142.38,
-        "fuel_burned_step_kg": 1943.7,
-        "wind_effect": 0.911,
-        "progress_km": 138.0
-      },
-      {
-        "name": "LAPEK",
-        "lat": 59.900083,
-        "lon": 40.542911,
-        "t": 6,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 116895.6,
-        "step_penalty": 106.4,
-        "dist_km": 209.73,
-        "fuel_burned_step_kg": 3114.0,
-        "wind_effect": 0.991,
-        "progress_km": 94.1
-      },
-      {
-        "name": "KONOK",
-        "lat": 61.830122,
-        "lon": 40.846119,
-        "t": 7,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 113630.3,
-        "step_penalty": 305.6,
-        "dist_km": 215.24,
-        "fuel_burned_step_kg": 3265.3,
-        "wind_effect": 1.012,
-        "progress_km": 65.4
-      },
-      {
-        "name": "PIBER",
-        "lat": 64.960189,
-        "lon": 41.645883,
-        "t": 8,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 108418.8,
-        "step_penalty": 10.0,
-        "dist_km": 350.31,
-        "fuel_burned_step_kg": 5211.6,
-        "wind_effect": 0.993,
-        "progress_km": 87.3
-      },
-      {
-        "name": "RIBKA",
-        "lat": 62.918528,
-        "lon": 44.092778,
-        "t": 9,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 104636.8,
-        "step_penalty": 334.9,
-        "dist_km": 256.52,
-        "fuel_burned_step_kg": 3782.0,
-        "wind_effect": 0.984,
-        "progress_km": 97.1
-      },
-      {
-        "name": "GUBIR",
-        "lat": 62.338572,
-        "lon": 47.699581,
-        "t": 10,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 101752.0,
-        "step_penalty": 98.5,
-        "dist_km": 195.31,
-        "fuel_burned_step_kg": 2884.9,
-        "wind_effect": 0.986,
-        "progress_km": 176.7
-      },
-      {
-        "name": "SONIB",
-        "lat": 61.646939,
-        "lon": 50.843042,
-        "t": 11,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 99062.8,
-        "step_penalty": 32.6,
-        "dist_km": 181.24,
-        "fuel_burned_step_kg": 2689.2,
-        "wind_effect": 0.99,
-        "progress_km": 157.1
-      },
-      {
-        "name": "NEROL",
-        "lat": 62.046953,
-        "lon": 51.421367,
-        "t": 12,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 98241.0,
-        "step_penalty": 199.5,
-        "dist_km": 53.84,
-        "fuel_burned_step_kg": 821.8,
-        "wind_effect": 1.019,
-        "progress_km": 33.1
-      },
-      {
-        "name": "MAMUG",
-        "lat": 63.825361,
-        "lon": 54.321333,
-        "t": 13,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 94533.5,
-        "step_penalty": 40.0,
-        "dist_km": 246.18,
-        "fuel_burned_step_kg": 3707.5,
-        "wind_effect": 1.005,
-        "progress_km": 144.3
-      },
-      {
-        "name": "AGNER",
-        "lat": 63.521667,
-        "lon": 54.613333,
-        "t": 14,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 94002.2,
-        "step_penalty": 312.4,
-        "dist_km": 36.71,
-        "fuel_burned_step_kg": 531.3,
-        "wind_effect": 0.966,
-        "progress_km": 16.8
-      },
-      {
-        "name": "ABODI",
-        "lat": 60.610342,
-        "lon": 57.469958,
-        "t": 15,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 88865.4,
-        "step_penalty": 58.2,
-        "dist_km": 356.2,
-        "fuel_burned_step_kg": 5136.8,
-        "wind_effect": 0.962,
-        "progress_km": 154.7
-      },
-      {
-        "name": "OKULA",
-        "lat": 60.088678,
-        "lon": 58.45835,
-        "t": 16,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 87728.5,
-        "step_penalty": 59.8,
-        "dist_km": 79.5,
-        "fuel_burned_step_kg": 1136.9,
-        "wind_effect": 0.954,
-        "progress_km": 52.0
-      },
-      {
-        "name": "ABDIR",
-        "lat": 57.521667,
-        "lon": 60.608333,
-        "t": 17,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 82990.2,
-        "step_penalty": 74.9,
-        "dist_km": 311.1,
-        "fuel_burned_step_kg": 4738.3,
-        "wind_effect": 1.016,
-        "progress_km": 94.1
-      },
-      {
-        "name": "OLNES",
-        "lat": 55.826969,
-        "lon": 62.453644,
-        "t": 18,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 79686.1,
-        "step_penalty": 40.4,
-        "dist_km": 219.57,
-        "fuel_burned_step_kg": 3304.1,
-        "wind_effect": 1.004,
-        "progress_km": 73.3
-      },
-      {
-        "name": "MANEB",
-        "lat": 57.295342,
-        "lon": 63.028608,
-        "t": 19,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 77325.8,
-        "step_penalty": 335.3,
-        "dist_km": 167.03,
-        "fuel_burned_step_kg": 2360.3,
+        "fuel_burned_step_kg": 1958.5,
         "wind_effect": 0.943,
-        "progress_km": 66.1
+        "progress_km": 88.6,
+        "weather": {
+          "wind_speed": 11.9,
+          "storm": 0.0,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 5686.8,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "BIMLO",
-        "lat": 58.270372,
-        "lon": 63.981933,
-        "t": 20,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 75583.7,
-        "step_penalty": 46.5,
-        "dist_km": 122.26,
-        "fuel_burned_step_kg": 1742.1,
-        "wind_effect": 0.951,
-        "progress_km": 68.5
-      },
-      {
-        "name": "ATMES",
-        "lat": 57.982053,
-        "lon": 65.928672,
-        "t": 21,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 73727.8,
-        "step_penalty": 238.0,
-        "dist_km": 118.71,
-        "fuel_burned_step_kg": 1855.8,
-        "wind_effect": 1.043,
-        "progress_km": 111.6
-      },
-      {
-        "name": "KULAM",
-        "lat": 57.978333,
-        "lon": 66.74,
-        "t": 22,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 73014.4,
-        "step_penalty": 77.6,
-        "dist_km": 47.83,
-        "fuel_burned_step_kg": 713.5,
-        "wind_effect": 0.995,
-        "progress_km": 47.7
-      },
-      {
-        "name": "RITOS",
-        "lat": 55.918697,
-        "lon": 68.020472,
-        "t": 23,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 69435.0,
-        "step_penalty": 233.7,
-        "dist_km": 241.82,
-        "fuel_burned_step_kg": 3579.4,
-        "wind_effect": 0.988,
-        "progress_km": 47.5
-      },
-      {
-        "name": "ABITI",
-        "lat": 56.143717,
-        "lon": 69.652183,
-        "t": 24,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 67966.2,
-        "step_penalty": 251.5,
-        "dist_km": 104.42,
-        "fuel_burned_step_kg": 1468.8,
-        "wind_effect": 0.939,
-        "progress_km": 104.2
-      },
-      {
-        "name": "OKETI",
-        "lat": 55.615386,
-        "lon": 71.223914,
-        "t": 25,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 66353.0,
-        "step_penalty": 157.6,
-        "dist_km": 114.28,
-        "fuel_burned_step_kg": 1613.2,
-        "wind_effect": 0.942,
-        "progress_km": 85.6
-      },
-      {
-        "name": "RINAK",
-        "lat": 56.618333,
-        "lon": 73.943333,
-        "t": 26,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 63433.4,
-        "step_penalty": 202.9,
-        "dist_km": 202.11,
-        "fuel_burned_step_kg": 2919.5,
-        "wind_effect": 0.964,
-        "progress_km": 183.2
-      },
-      {
-        "name": "SUDOK",
-        "lat": 57.288789,
-        "lon": 75.037328,
-        "t": 27,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 61881.9,
-        "step_penalty": 92.6,
-        "dist_km": 99.79,
-        "fuel_burned_step_kg": 1551.5,
-        "wind_effect": 1.038,
-        "progress_km": 70.2
-      },
-      {
-        "name": "ABLER",
-        "lat": 56.401667,
-        "lon": 77.515,
-        "t": 28,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 59122.0,
-        "step_penalty": 266.3,
-        "dist_km": 180.08,
-        "fuel_burned_step_kg": 2760.0,
-        "wind_effect": 1.023,
-        "progress_km": 146.0
-      },
-      {
-        "name": "LUGET",
-        "lat": 55.062108,
-        "lon": 79.820875,
-        "t": 29,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 55986.0,
-        "step_penalty": 93.4,
-        "dist_km": 207.41,
-        "fuel_burned_step_kg": 3136.0,
-        "wind_effect": 1.009,
-        "progress_km": 118.8
-      },
-      {
-        "name": "DILNI",
-        "lat": 54.505442,
-        "lon": 82.407639,
-        "t": 30,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 53159.3,
-        "step_penalty": 108.3,
-        "dist_km": 177.03,
-        "fuel_burned_step_kg": 2826.7,
-        "wind_effect": 1.066,
-        "progress_km": 140.5
-      },
-      {
-        "name": "BAROV",
-        "lat": 54.663589,
-        "lon": 82.616642,
-        "t": 31,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 52862.5,
-        "step_penalty": 213.6,
-        "dist_km": 22.15,
-        "fuel_burned_step_kg": 296.8,
-        "wind_effect": 0.894,
-        "progress_km": 18.6
-      },
-      {
-        "name": "OKLUN",
-        "lat": 55.435472,
-        "lon": 83.822672,
-        "t": 32,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 51305.8,
-        "step_penalty": 79.0,
-        "dist_km": 115.19,
-        "fuel_burned_step_kg": 1556.6,
-        "wind_effect": 0.902,
-        "progress_km": 97.3
-      },
-      {
-        "name": "TOKMO",
-        "lat": 56.383836,
-        "lon": 85.211039,
-        "t": 33,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 49369.1,
-        "step_penalty": 96.4,
-        "dist_km": 136.4,
-        "fuel_burned_step_kg": 1936.7,
-        "wind_effect": 0.948,
-        "progress_km": 97.8
-      },
-      {
-        "name": "RUPES",
-        "lat": 55.170486,
-        "lon": 87.79115,
-        "t": 34,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 46151.3,
-        "step_penalty": 299.2,
-        "dist_km": 210.3,
-        "fuel_burned_step_kg": 3217.8,
-        "wind_effect": 1.021,
-        "progress_km": 134.6
-      },
-      {
-        "name": "BEDLI",
-        "lat": 54.817147,
-        "lon": 88.729519,
-        "t": 35,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 45071.5,
-        "step_penalty": 96.0,
-        "dist_km": 71.6,
-        "fuel_burned_step_kg": 1079.8,
+        "name": "BIKNA",
+        "lat": 61.288414,
+        "lon": 38.756117,
+        "t": 6,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 116392.7,
+        "current_mass_kg": 295048.7,
+        "step_penalty": 150.0,
+        "dist_km": 40.42,
+        "fuel_burned_step_kg": 589.1,
         "wind_effect": 1.006,
-        "progress_km": 34.1
+        "progress_km": 22.8,
+        "weather": {
+          "wind_speed": 3.1,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 1251.6,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "ROLEB",
-        "lat": 55.698333,
-        "lon": 88.978333,
-        "t": 36,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 43630.8,
-        "step_penalty": 339.9,
-        "dist_km": 99.24,
-        "fuel_burned_step_kg": 1440.7,
-        "wind_effect": 0.969,
-        "progress_km": 55.9
-      },
-      {
-        "name": "ROGMA",
-        "lat": 55.417172,
-        "lon": 91.549614,
-        "t": 37,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 41154.8,
-        "step_penalty": 279.0,
-        "dist_km": 164.69,
-        "fuel_burned_step_kg": 2476.0,
+        "name": "METAT",
+        "lat": 60.583439,
+        "lon": 41.214547,
+        "t": 7,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 114156.0,
+        "current_mass_kg": 292812.0,
+        "step_penalty": 176.5,
+        "dist_km": 154.19,
+        "fuel_burned_step_kg": 2236.7,
         "wind_effect": 1.003,
-        "progress_km": 122.1
+        "progress_km": 23.1,
+        "weather": {
+          "wind_speed": 1.1,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 1123.1,
+        "dist_to_oncoming_km": -1
       },
       {
-        "name": "USOPA",
-        "lat": 56.265528,
-        "lon": 92.879653,
-        "t": 38,
-        "altitude_level": 3,
-        "fuel_remaining_kg": 39361.2,
-        "step_penalty": 194.4,
-        "dist_km": 125.67,
-        "fuel_burned_step_kg": 1793.6,
-        "wind_effect": 0.953,
-        "progress_km": 76.3
+        "name": "URIGA",
+        "lat": 62.116828,
+        "lon": 42.897811,
+        "t": 8,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 111408.8,
+        "current_mass_kg": 290064.8,
+        "step_penalty": 343.6,
+        "dist_km": 192.66,
+        "fuel_burned_step_kg": 2747.2,
+        "wind_effect": 0.993,
+        "progress_km": 187.9,
+        "weather": {
+          "wind_speed": 3.0,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 727.6,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "PINEG",
+        "lat": 63.700228,
+        "lon": 45.339417,
+        "t": 9,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 108332.3,
+        "current_mass_kg": 286988.3,
+        "step_penalty": 150.0,
+        "dist_km": 215.11,
+        "fuel_burned_step_kg": 3076.5,
+        "wind_effect": 1.006,
+        "progress_km": 213.2,
+        "weather": {
+          "wind_speed": 1.2,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 898.5,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "NAKIR",
+        "lat": 65.086956,
+        "lon": 47.749367,
+        "t": 10,
+        "altitude_level": 1,
+        "fuel_remaining_kg": 105582.8,
+        "current_mass_kg": 284238.8,
+        "step_penalty": 235.0,
+        "dist_km": 192.82,
+        "fuel_burned_step_kg": 2749.5,
+        "wind_effect": 1.014,
+        "progress_km": 190.9,
+        "weather": {
+          "wind_speed": 2.9,
+          "storm": 0.17,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 1011.6,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "BOKVI",
+        "lat": 65.453639,
+        "lon": 48.441022,
+        "t": 11,
+        "altitude_level": 4,
+        "fuel_remaining_kg": 99090.8,
+        "current_mass_kg": 277746.8,
+        "step_penalty": 712.4,
+        "dist_km": 51.94,
+        "fuel_burned_step_kg": 743.3,
+        "wind_effect": 1.048,
+        "progress_km": 51.4,
+        "weather": {
+          "wind_speed": 10.6,
+          "storm": 0.36,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 927.4,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "DILED",
+        "lat": 65.745336,
+        "lon": 50.017711,
+        "t": 12,
+        "altitude_level": 4,
+        "fuel_remaining_kg": 97951.0,
+        "current_mass_kg": 276607.0,
+        "step_penalty": 523.5,
+        "dist_km": 79.36,
+        "fuel_burned_step_kg": 1139.9,
+        "wind_effect": 1.055,
+        "progress_km": 75.4,
+        "weather": {
+          "wind_speed": 11.1,
+          "storm": 0.36,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 784.8,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "BILMI",
+        "lat": 65.438694,
+        "lon": 52.197806,
+        "t": 13,
+        "altitude_level": 4,
+        "fuel_remaining_kg": 96476.0,
+        "current_mass_kg": 275132.0,
+        "step_penalty": 574.1,
+        "dist_km": 105.81,
+        "fuel_burned_step_kg": 1475.0,
+        "wind_effect": 1.028,
+        "progress_km": 52.8,
+        "weather": {
+          "wind_speed": 7.1,
+          "storm": 0.41,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 593.8,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "RINOV",
+        "lat": 68.785381,
+        "lon": 49.314044,
+        "t": 14,
+        "altitude_level": 4,
+        "fuel_remaining_kg": 91085.1,
+        "current_mass_kg": 269741.1,
+        "step_penalty": 860.0,
+        "dist_km": 392.37,
+        "fuel_burned_step_kg": 5390.8,
+        "wind_effect": 1.019,
+        "progress_km": 144.6,
+        "weather": {
+          "wind_speed": 6.0,
+          "storm": 0.57,
+          "turbulence": 2,
+          "ice": 0
+        },
+        "dist_to_agent_km": 862.2,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "GIMON",
+        "lat": 71.517047,
+        "lon": 46.380228,
+        "t": 15,
+        "altitude_level": 2,
+        "fuel_remaining_kg": 84106.2,
+        "current_mass_kg": 262762.2,
+        "step_penalty": 300.0,
+        "dist_km": 323.22,
+        "fuel_burned_step_kg": 4251.2,
+        "wind_effect": 1.005,
+        "progress_km": 106.2,
+        "weather": {
+          "wind_speed": 2.9,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 1037.8,
+        "dist_to_oncoming_km": -1
+      },
+      {
+        "name": "TIMUN",
+        "lat": 75.873814,
+        "lon": 47.996044,
+        "t": 16,
+        "altitude_level": 4,
+        "fuel_remaining_kg": 75258.5,
+        "current_mass_kg": 253914.5,
+        "step_penalty": 322.1,
+        "dist_km": 487.02,
+        "fuel_burned_step_kg": 6190.6,
+        "wind_effect": 0.997,
+        "progress_km": 325.7,
+        "weather": {
+          "wind_speed": 2.7,
+          "storm": 0.0,
+          "turbulence": 1,
+          "ice": 0
+        },
+        "dist_to_agent_km": 1324.5,
+        "dist_to_oncoming_km": -1
       }
     ]
   }

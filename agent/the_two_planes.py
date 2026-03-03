@@ -74,21 +74,33 @@ class CompatibleUnpickler(pickle.Unpickler):
 # REWARD_ARRIVAL >> суммарных штрафов за весь маршрут.
 # ===========================================================================
 
-PENALTY_WEATHER_TURBULENCE_BASE  = 10
-PENALTY_WEATHER_ICE_BASE         = 10
-PENALTY_WEATHER_STORM_BASE       = 20
+# ── Погодные штрафы (масштабируются с интенсивностью) ─────────────────────
+# Логика: макс. штраф за непогоду >> стоимость смены 2-3 эшелонов.
+# Смена 1 эшелона = ~50, 2 = ~150, 3 = ~300 очков штрафа.
+# Сильный ветер 35 м/с = 35*12 = 420, гроза 1.0 = 500, турб. 3 = 450 >> смены.
+PENALTY_WEATHER_WIND_PER_MS      = 12    # за каждый м/с скорости ветра
+PENALTY_WEATHER_STORM_PER_UNIT   = 500   # за единицу storm_power (0..1)
+PENALTY_WEATHER_TURB_PER_LEVEL   = 150   # за уровень турбулентности (0..3)
+PENALTY_WEATHER_ICE_PER_LEVEL    = 120   # за уровень обледенения (0..3)
+WIND_FREE_THRESHOLD_MS           = 10    # ветер ≤10 м/с — бесплатно
 
+# ── Конфликты ─────────────────────────────────────────────────────────────
 PENALTY_AGENT_CONFLICT           = 300
 ONCOMING_MIN_DISTANCE_KM         = 300
 PENALTY_CONFLICT_LATERAL         = 200
 
-# Штраф за смену курса: первые ±15° бесплатно, далее 2.5/градус
-PENALTY_PER_DEG_HEADING_CHANGE   = 2.5
+# ── Смена эшелона ─────────────────────────────────────────────────────────
+PENALTY_ALT_CHANGE_PER_LEVEL     = 50    # за каждый уровень изменения (разовый)
+REWARD_ALT_CHANGE                = 30    # небольшое поощрение за смену эшелона
+PENALTY_ALT_STAGNATION_STEPS    = 10    # начинать штрафовать после N шагов на одном эшелоне
+PENALTY_ALT_STAGNATION_PER_STEP = 15    # штраф за каждый шаг сверх лимита
 
+# ── Курс и прогресс ───────────────────────────────────────────────────────
+PENALTY_PER_DEG_HEADING_CHANGE   = 2.5
 PENALTY_NO_PROGRESS              = 500
 
-REWARD_PROGRESS_PER_KM           = 10.0   # главный сигнал
-REWARD_ARRIVAL                   = 50000  # гарантированно > всех штрафов за маршрут
+REWARD_PROGRESS_PER_KM           = 10.0
+REWARD_ARRIVAL                   = 50000
 
 # ===========================================================================
 # РАЗДЕЛ 2: ПАРАМЕТРЫ ОБУЧЕНИЯ И СРЕДЫ
@@ -98,7 +110,6 @@ K_NEAREST_WAYPOINTS   = 8
 MAX_T                 = 150
 ARRIVAL_RADIUS_KM     = 100
 FORWARD_CONE_DEG      = 80    # строже — ±80° от курса на цель
-FIXED_ALTITUDE        = 3
 
 TRAIN_CONFIG = {
     "n_episodes":    1660,
@@ -237,8 +248,8 @@ AGENT_ROUTES: List[Dict] = [
     {
         "plane_number":    2,
         "departure":       {"name": "SPb_LED", "lat": 59.8003, "lon":  30.2625},
-        "arrival":         {"name": "PKC",     "lat": 53.1679, "lon": 158.4539},
-        "gc_distance_km":  7720.0,
+        "arrival":         {"name": "Magadan_GDX", "lat": 59.9103, "lon": 150.7203},
+        "gc_distance_km":  5663.0,
         "corridor_km":     1000,
         "start_t":         1,
         "start_altitude":  3,
@@ -415,15 +426,22 @@ class Aircraft:
         return self.total_mass_kg / self.preset["empty_mass_kg"]
 
     def fuel_per_km(self, wind_effect: float = 1.0) -> float:
-        """Расход топлива кг/км с учётом загрузки и ветра."""
+        """Расход топлива кг/км с учётом начальной загрузки и ветра."""
         return self.preset["fuel_per_km_empty_kg"] * self.mass_ratio * wind_effect
 
-    def fuel_for_level_change(self, levels: int) -> float:
-        """Расход на смену |levels| эшелонов. 2+ уровня — множитель растёт."""
+    def fuel_per_km_dynamic(self, current_mass_kg: float, wind_effect: float = 1.0) -> float:
+        """Расход топлива кг/км с учётом ТЕКУЩЕЙ массы (уменьшается по мере выгорания топлива)."""
+        dynamic_ratio = max(1.0, current_mass_kg / self.preset["empty_mass_kg"])
+        return self.preset["fuel_per_km_empty_kg"] * dynamic_ratio * wind_effect
+
+    def fuel_for_level_change(self, levels: int, current_mass_kg: float = 0.0) -> float:
+        """Расход на смену |levels| эшелонов. Учитывает текущую массу самолёта."""
         n = abs(levels)
         if n == 0:
             return 0.0
-        base = self.preset["fuel_climb_per_level"] * self.mass_ratio
+        mass = current_mass_kg if current_mass_kg > 0 else self.total_mass_kg
+        dyn_ratio = max(1.0, mass / self.preset["empty_mass_kg"])
+        base = self.preset["fuel_climb_per_level"] * dyn_ratio
         if n == 1:
             return base
         elif n == 2:
@@ -442,19 +460,20 @@ class Aircraft:
 # ===========================================================================
 @dataclass
 class FlightState:
-    plane_id:          int
-    current_lat:       float
-    current_lon:       float
-    current_t:         int
-    altitude_level:    int
-    fuel_remaining_kg: float
-    dist_to_goal_km:   float
-    total_penalty:     float = 0.0
-    steps_at_level1:   int   = 0
-    prev_azimuth:      float = -1.0        # курс предыдущего шага; -1 = нет данных
-    visited_wp:        set   = field(default_factory=set)
-    penalty_log:       List[Dict] = field(default_factory=list)
-    path:              List[Dict] = field(default_factory=list)
+    plane_id:             int
+    current_lat:          float
+    current_lon:          float
+    current_t:            int
+    altitude_level:       int
+    fuel_remaining_kg:    float
+    current_mass_kg:      float            # уменьшается с каждым шагом по мере выгорания топлива
+    dist_to_goal_km:      float
+    total_penalty:        float = 0.0
+    steps_at_current_alt: int   = 0        # счётчик шагов на текущем эшелоне
+    prev_azimuth:         float = -1.0    # курс предыдущего шага; -1 = нет данных
+    visited_wp:           set   = field(default_factory=set)
+    penalty_log:          List[Dict] = field(default_factory=list)
+    path:                 List[Dict] = field(default_factory=list)
 
     def add_penalty(self, reason: str, value: float):
         self.total_penalty += value
@@ -488,7 +507,7 @@ class FlightEnvironment:
     """
 
     N_ALTITUDES = 5
-    N_ACTIONS   = K_NEAREST_WAYPOINTS   # только выбор wp; эшелон фиксирован = FIXED_ALTITUDE
+    N_ACTIONS   = N_ALTITUDES * K_NEAREST_WAYPOINTS  # эшелон (1..5) + wp = 5×8 = 40 действий
 
     def __init__(self,
                  route:        Dict,
@@ -541,10 +560,17 @@ class FlightEnvironment:
 
     def step(self, action: int) -> Tuple[Tuple, float, bool]:
         """
-        action = wp_idx (0..K_NEAREST_WAYPOINTS-1).
-        Эшелон фиксирован = FIXED_ALTITUDE (агент не управляет эшелоном).
+        action = alt_idx * K_NEAREST_WAYPOINTS + wp_idx
+          alt_idx ∈ [0..4] → эшелон 1..5
+          wp_idx  ∈ [0..7] → кандидат из _get_candidates
+        Агент управляет ОДНОВРЕМЕННО эшелоном и выбором waypoint.
         Прилёт проверяется по позиции ПОСЛЕ хода.
         """
+        action   = int(action)
+        alt_idx  = action // K_NEAREST_WAYPOINTS
+        wp_idx_a = action % K_NEAREST_WAYPOINTS
+        new_alt  = max(1, min(self.N_ALTITUDES, alt_idx + 1))  # 1..5
+
         candidates = self._get_candidates(
             self.state.current_lat,
             self.state.current_lon,
@@ -554,10 +580,10 @@ class FlightEnvironment:
         if not candidates:
             return self._obs(), -500.0, True
 
-        wp_idx  = min(int(action) % K_NEAREST_WAYPOINTS, len(candidates) - 1)
+        wp_idx  = min(wp_idx_a, len(candidates) - 1)
         next_wp = candidates[wp_idx]
 
-        reward, done = self._compute_step(next_wp, FIXED_ALTITUDE, candidates)
+        reward, done = self._compute_step(next_wp, new_alt, candidates)
 
         # Проверка прилёта — по позиции ПОСЛЕ хода (state уже обновлён в _compute_step)
         dist_arr = haversine(self.state.current_lat, self.state.current_lon,
@@ -575,26 +601,33 @@ class FlightEnvironment:
     # Внутренние методы
     # ──────────────────────────────────────────────────────────────────
     def _reset_state(self):
-        dep = self.route["departure"]
-        d0  = haversine(dep["lat"], dep["lon"], self.arrival_lat, self.arrival_lon)
-        init_az = azimuth(dep["lat"], dep["lon"], self.arrival_lat, self.arrival_lon)
+        dep        = self.route["departure"]
+        d0         = haversine(dep["lat"], dep["lon"], self.arrival_lat, self.arrival_lon)
+        init_az    = azimuth(dep["lat"], dep["lon"], self.arrival_lat, self.arrival_lon)
+        start_fuel = self.aircraft.max_fuel_kg
+        start_mass = self.aircraft.total_mass_kg
+        start_alt  = self.route.get("start_altitude", 3)
+        start_t    = self.route.get("start_t", 1)
         self.state = FlightState(
             plane_id=self.aircraft.plane_id,
             current_lat=dep["lat"],
             current_lon=dep["lon"],
-            current_t=self.route.get("start_t", 1),
-            altitude_level=self.route.get("start_altitude", 3),
-            fuel_remaining_kg=self.aircraft.max_fuel_kg,
+            current_t=start_t,
+            altitude_level=start_alt,
+            fuel_remaining_kg=start_fuel,
+            current_mass_kg=start_mass,
             dist_to_goal_km=d0,
             prev_azimuth=init_az,
+            steps_at_current_alt=0,
             visited_wp={dep["name"]},
             path=[{
                 "name":                dep["name"],
                 "lat":                 dep["lat"],
                 "lon":                 dep["lon"],
-                "t":                   self.route.get("start_t", 1),
-                "altitude_level":      self.route.get("start_altitude", 3),
-                "fuel_remaining_kg":   round(self.aircraft.max_fuel_kg, 1),
+                "t":                   start_t,
+                "altitude_level":      start_alt,
+                "fuel_remaining_kg":   round(start_fuel, 1),
+                "current_mass_kg":     round(start_mass, 1),
                 "step_penalty":        0.0,
                 "dist_km":             0.0,
                 "fuel_burned_step_kg": 0.0,
@@ -605,15 +638,18 @@ class FlightEnvironment:
 
     def _obs(self) -> Tuple:
         """
-        (progress_bucket, heading_bucket, conflict)
+        (progress_bucket, altitude_level, heading_bucket, conflict, stagnation_bucket)
 
-        progress_bucket — прогресс × 20 → 0..20
-        heading_bucket  — отклонение текущего курса от прямой к цели // 15 → 0..6
-                          0 = летим прямо, 6 = летим поперёк/назад
-        conflict        — 0/1: нарушение 200 км между агентами
+        progress_bucket   — прогресс × 20 → 0..20
+        altitude_level    — текущий эшелон 1..5
+        heading_bucket    — отклонение курса от прямой к цели // 15 → 0..6
+        conflict          — 0/1: нарушение 200 км между агентами
+        stagnation_bucket — 0/1: агент засиделся на одном эшелоне
         """
         progress = 1.0 - self.state.dist_to_goal_km / max(1.0, self.gc_dist)
         progress_bucket = max(0, min(20, int(progress * 20)))
+
+        alt_bucket = self.state.altitude_level  # 1..5
 
         # Отклонение текущего курса от прямой к цели
         goal_az  = azimuth(self.state.current_lat, self.state.current_lon,
@@ -636,7 +672,9 @@ class FlightEnvironment:
                     conflict = 1
                     break
 
-        return (progress_bucket, heading_bucket, conflict)
+        stagnation = 1 if self.state.steps_at_current_alt > PENALTY_ALT_STAGNATION_STEPS else 0
+
+        return (progress_bucket, alt_bucket, heading_bucket, conflict, stagnation)
 
     def _get_candidates(self, lat: float, lon: float,
                         visited: set) -> List[Dict]:
@@ -751,39 +789,84 @@ class FlightEnvironment:
     def _compute_step(self, next_wp: Dict, new_alt: int,
                       candidates: List[Dict]) -> Tuple[float, bool]:
         """
-        Упрощённый расчёт шага.
-        Топливо отслеживается для логирования, но НЕ влияет на reward.
-        Reward = REWARD_PROGRESS_PER_KM × progress_km - штрафы (минимальные).
+        Расчёт одного шага симуляции.
+        Агент управляет эшелоном и выбором waypoint.
+        Топливо учитывается: снижение массы → меньший расход на следующих шагах.
+        Reward = REWARD_PROGRESS_PER_KM × progress_km + бонусы - штрафы.
         """
         s         = self.state
         s.current_t += 1
         penalty   = 0.0
+        reward_bonus = 0.0
 
-        next_lat  = next_wp["lat"]
-        next_lon  = next_wp["lon"]
-        next_name = next_wp.get("name", "")
+        next_lat   = next_wp["lat"]
+        next_lon   = next_wp["lon"]
+        next_name  = next_wp.get("name", "")
+        prev_alt   = s.altitude_level
+        level_delta = abs(new_alt - prev_alt)
+
+        # ── Смена эшелона: штраф + топливо на набор/снижение ─────────
+        if level_delta > 0:
+            alt_fuel = self.aircraft.fuel_for_level_change(level_delta, s.current_mass_kg)
+            alt_penalty = PENALTY_ALT_CHANGE_PER_LEVEL * level_delta * (1.5 if level_delta >= 2 else 1.0)
+            penalty += alt_penalty
+            s.add_penalty(f"Смена эшелона FL{prev_alt*100}→FL{new_alt*100}", alt_penalty)
+            # Топливо на манёвр
+            s.current_mass_kg     = max(self.aircraft.preset["empty_mass_kg"], s.current_mass_kg - alt_fuel)
+            s.fuel_remaining_kg   = max(0.0, s.fuel_remaining_kg - alt_fuel)
+            # Поощрение за смену эшелона (стимулирует исследование)
+            reward_bonus += REWARD_ALT_CHANGE
+            s.steps_at_current_alt = 0
+        else:
+            s.steps_at_current_alt += 1
+            # Штраф за долгое засиживание на одном эшелоне
+            if s.steps_at_current_alt > PENALTY_ALT_STAGNATION_STEPS:
+                stag_p = PENALTY_ALT_STAGNATION_PER_STEP
+                penalty += stag_p
+                s.add_penalty(f"Стагнация на FL{new_alt*100} ({s.steps_at_current_alt} шагов)", stag_p)
+
         s.altitude_level = new_alt
 
-        # ── Погода (символический штраф) ──────────────────────────────
+        # ── Погода: штраф масштабируется с интенсивностью ─────────────
         weather  = self.weather_db.get(s.current_lat, s.current_lon, new_alt, s.current_t)
         wind_eff = 1.0
+        w_wind, w_storm, w_turb, w_ice = 0.0, 0.0, 0.0, 0.0
         if weather:
             az       = azimuth(s.current_lat, s.current_lon, next_lat, next_lon)
             wind_eff = self.weather_db.wind_effect(
                 az, weather["wind_dir"], weather["wind_speed"])
-            turb  = weather.get("turbulence", 0)
-            ice   = weather.get("ice", 0)
-            storm = weather.get("storm_power", 0.0)
-            penalty += (PENALTY_WEATHER_TURBULENCE_BASE * turb
-                        + PENALTY_WEATHER_ICE_BASE * ice
-                        + PENALTY_WEATHER_STORM_BASE * storm)
+            w_speed = weather.get("wind_speed", 0.0)
+            w_turb  = weather.get("turbulence", 0)
+            w_ice   = weather.get("ice", 0)
+            w_storm = weather.get("storm_power", 0.0)
 
-        # ── Топливо (только логирование, не влияет на reward) ─────────
-        dist_km     = haversine(s.current_lat, s.current_lon, next_lat, next_lon)
-        fuel_step   = dist_km * self.aircraft.fuel_per_km(wind_eff)
+            # Ветер — бесплатен до порога, далее линейно
+            wind_excess = max(0.0, w_speed - WIND_FREE_THRESHOLD_MS)
+            w_wind = PENALTY_WEATHER_WIND_PER_MS * wind_excess
+
+            weather_penalty = (w_wind
+                               + PENALTY_WEATHER_STORM_PER_UNIT * w_storm
+                               + PENALTY_WEATHER_TURB_PER_LEVEL * w_turb
+                               + PENALTY_WEATHER_ICE_PER_LEVEL  * w_ice)
+            if weather_penalty > 0:
+                penalty += weather_penalty
+                if w_wind > 0:
+                    s.add_penalty(f"Ветер {w_speed:.1f} м/с (эффект ×{wind_eff:.2f})", w_wind)
+                if w_storm > 0:
+                    s.add_penalty(f"Гроза {w_storm:.2f}", PENALTY_WEATHER_STORM_PER_UNIT * w_storm)
+                if w_turb > 0:
+                    s.add_penalty(f"Турбулентность ур.{w_turb}", PENALTY_WEATHER_TURB_PER_LEVEL * w_turb)
+                if w_ice > 0:
+                    s.add_penalty(f"Обледенение ур.{w_ice}", PENALTY_WEATHER_ICE_PER_LEVEL * w_ice)
+
+        # ── Топливо: используем ТЕКУЩУЮ массу (снижается каждый шаг) ──
+        dist_km   = haversine(s.current_lat, s.current_lon, next_lat, next_lon)
+        fuel_step = dist_km * self.aircraft.fuel_per_km_dynamic(s.current_mass_kg, wind_eff)
+        s.current_mass_kg   = max(self.aircraft.preset["empty_mass_kg"], s.current_mass_kg - fuel_step)
         s.fuel_remaining_kg = max(0.0, s.fuel_remaining_kg - fuel_step)
 
         # ── Дистанция между агентами (штраф за нарушение 200 км) ──────
+        min_other_d = float("inf")
         for other in self.other_planes:
             num = other.get("plane_number", "?")
             if num == s.plane_id or "departure" not in other:
@@ -792,12 +875,14 @@ class FlightEnvironment:
             if pos is None:
                 continue
             d = haversine(next_lat, next_lon, pos[0], pos[1])
+            min_other_d = min(min_other_d, d)
             if d < AGENT_MIN_DISTANCE_KM:
                 penalty += PENALTY_AGENT_CONFLICT
                 s.add_penalty(f"Агент #{num} < {AGENT_MIN_DISTANCE_KM} км (d={d:.0f})",
                               PENALTY_AGENT_CONFLICT)
 
         # ── Конфликты со встречными ВС ────────────────────────────────
+        min_oncoming_d = float("inf")
         for other in self.other_planes:
             if other.get("plane_number") == s.plane_id or "departure" in other:
                 continue
@@ -805,16 +890,17 @@ class FlightEnvironment:
             if pos is None:
                 continue
             d = haversine(next_lat, next_lon, pos[0], pos[1])
+            min_oncoming_d = min(min_oncoming_d, d)
             if d < ONCOMING_MIN_DISTANCE_KM:
                 penalty += PENALTY_CONFLICT_LATERAL
-                s.add_penalty(f"ВС #{other.get('plane_number','?')} < 300 км",
+                s.add_penalty(f"ВС #{other.get('plane_number','?')} < 300 км (d={d:.0f})",
                               PENALTY_CONFLICT_LATERAL)
 
         # ── Штраф за резкую смену курса (зигзаги) ────────────────────
         cur_az = azimuth(s.current_lat, s.current_lon, next_lat, next_lon)
         if s.prev_azimuth >= 0:
             heading_change = abs(angle_diff(cur_az, s.prev_azimuth))
-            if heading_change > 15:   # допуск ±15° — плавные коррекции бесплатны
+            if heading_change > 15:
                 p = PENALTY_PER_DEG_HEADING_CHANGE * (heading_change - 15)
                 penalty += p
                 s.add_penalty(f"Смена курса {heading_change:.0f}°", p)
@@ -842,15 +928,24 @@ class FlightEnvironment:
             "t":                   s.current_t,
             "altitude_level":      new_alt,
             "fuel_remaining_kg":   round(s.fuel_remaining_kg, 1),
+            "current_mass_kg":     round(s.current_mass_kg, 1),
             "step_penalty":        round(penalty, 1),
             "dist_km":             round(dist_km, 2),
             "fuel_burned_step_kg": round(fuel_step, 1),
             "wind_effect":         round(wind_eff, 3),
             "progress_km":         round(progress_km, 1),
+            "weather": {
+                "wind_speed":  round(weather.get("wind_speed", 0), 1)  if weather else 0,
+                "storm":       round(weather.get("storm_power", 0), 2) if weather else 0,
+                "turbulence":  weather.get("turbulence", 0)            if weather else 0,
+                "ice":         weather.get("ice", 0)                   if weather else 0,
+            },
+            "dist_to_agent_km":   round(min_other_d,    1) if min_other_d    < float("inf") else -1,
+            "dist_to_oncoming_km":round(min_oncoming_d, 1) if min_oncoming_d < float("inf") else -1,
         })
 
-        # reward = прогресс (без топлива!) - штрафы
-        reward = REWARD_PROGRESS_PER_KM * max(0.0, progress_km) - penalty
+        # reward = прогресс + бонус за смену эшелона - штрафы
+        reward = REWARD_PROGRESS_PER_KM * max(0.0, progress_km) + reward_bonus - penalty
         return reward, False
 
     # ──────────────────────────────────────────────────────────────────
@@ -902,6 +997,7 @@ class FlightEnvironment:
             "total_distance_km":    round(total_dist, 2),
             "total_fuel_burned_kg": round(total_fuel, 1),
             "fuel_remaining_kg":    round(s.fuel_remaining_kg, 1),
+            "final_mass_kg":        round(s.current_mass_kg, 1),
             "total_penalty":        round(s.total_penalty, 1),
             "steps_taken":          s.current_t - self.route.get("start_t", 1),
             "dist_to_goal_final_km": round(s.dist_to_goal_km, 1),
@@ -1195,20 +1291,37 @@ def _run_greedy(agents, airports, prohibited, allowed_wp,
             for p in res["penalties"]:
                 print(f"    t={p['t']:>3} | {p['reason']:<60} | {p['value']:>8.0f}")
 
-        print(f"\n  Маршрут:")
+        print(f"\n  Детальный маршрут (каждый шаг):")
+        hdr = (f"  {'t':>3} | {'Waypoint':<22} | {'Эш':>3} | "
+               f"{'Топл.сожж':>10} | {'Топл.ост':>9} | {'Масса':>9} | "
+               f"{'Ветер':>7} | {'Гроза':>6} | {'Турб':>4} | {'Лёд':>4} | "
+               f"{'Д.до агента':>12} | {'Д.до встреч':>12} | "
+               f"{'Прогр.':>8} | {'Штраф':>7}")
+        print(hdr)
+        print("  " + "-" * (len(hdr) - 2))
         for step in res["path"]:
-            print(f"    t={step['t']:>3} | {step['name']:<22} | эш.{step['altitude_level']} | "
-                  f"топл.сожж. {step['fuel_burned_step_kg']:>7.0f} кг | "
-                  f"ветер ×{step['wind_effect']:.2f} | "
-                  f"прогресс {step['progress_km']:>7.1f} км | "
-                  f"штраф {step['step_penalty']:>7.0f}")
+            w = step.get("weather", {})
+            d_ag = step.get("dist_to_agent_km", -1)
+            d_on = step.get("dist_to_oncoming_km", -1)
+            d_ag_str  = f"{d_ag:>9.0f} км" if d_ag >= 0 else f"{'N/A':>12}"
+            d_on_str  = f"{d_on:>9.0f} км" if d_on >= 0 else f"{'N/A':>12}"
+            print(f"  {step['t']:>3} | {step['name']:<22} | FL{step['altitude_level']*100:<3} | "
+                  f"{step['fuel_burned_step_kg']:>8.0f} кг | "
+                  f"{step['fuel_remaining_kg']:>7.0f} кг | "
+                  f"{step.get('current_mass_kg', 0):>7.0f} кг | "
+                  f"{w.get('wind_speed', 0):>5.1f}м/с | "
+                  f"{w.get('storm', 0):>5.2f} | "
+                  f"{w.get('turbulence', 0):>4} | "
+                  f"{w.get('ice', 0):>4} | "
+                  f"{d_ag_str} | {d_on_str} | "
+                  f"{step['progress_km']:>6.1f} км | "
+                  f"{step['step_penalty']:>7.0f}")
 
     out_path = save / "two_planes.json"
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
     print(f"\n  Результаты: {out_path}")
     print(f"{'='*65}\n")
-# (the block was already partially updated in previous call, fixing the return now)
     return results
 
 

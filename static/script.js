@@ -17,7 +17,8 @@ const appData = {
         { "name": "Koltsovo", "iata": "SVX", "city": "Екатеринбург", "coords": [56.7431, 60.8027] },
         { "name": "Platov", "iata": "ROV", "city": "Ростов-на-Дону", "coords": [47.4938, 39.9247] },
         { "name": "Yemelyanovo", "iata": "KJA", "city": "Красноярск", "coords": [56.1729, 92.4933] },
-        { "name": "Kurumoch", "iata": "KUF", "city": "Самара", "coords": [53.5050, 50.1642] }
+        { "name": "Kurumoch", "iata": "KUF", "city": "Самара", "coords": [53.5050, 50.1642] },
+        { "name": "Sokol", "iata": "GDX", "city": "Магадан", "coords": [59.9103, 150.7203] }
     ],
     "aircraft_types": []
 };
@@ -66,7 +67,7 @@ async function initApp() {
 
     flightsData[2] = {
         dep: 'LED',
-        arr: 'PKC',
+        arr: 'GDX',
         aircraft: 'Airbus A350-900',
         pax: 352,
         baggage: 8096,

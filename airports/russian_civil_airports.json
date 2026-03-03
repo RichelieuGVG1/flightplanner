@@ -1357,5 +1357,14 @@
         "lon": 50.164299,
         "max_runway_m": 3001.1,
         "class": "Long"
+    },
+    {
+        "name": "Sokol Airport Magadan",
+        "icao": "UHMM",
+        "iata": "GDX",
+        "lat": 59.911,
+        "lon": 150.720,
+        "max_runway_m": 3452.0,
+        "class": "Long"
     }
 ]
