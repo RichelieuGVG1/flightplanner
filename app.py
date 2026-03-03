@@ -311,6 +311,7 @@ def optimize():
         agent_results = []
         try:
             flights_data = data.get('flights_data')
+            print('agent loader')
             from agent.run_inference import run_agent_inference
             agent_results = run_agent_inference(flights_data=flights_data)
         except Exception as ae:
