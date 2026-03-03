@@ -66,7 +66,7 @@ async function initApp() {
     };
 
     flightsData[2] = {
-        dep: 'KUF',
+        dep: 'ROV',
         arr: 'PKC',
         aircraft: 'Airbus A350-900',
         pax: 352,
