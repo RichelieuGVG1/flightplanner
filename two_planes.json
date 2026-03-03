@@ -1,0 +1,157 @@
+[
+  {
+    "plane_id": 1,
+    "aircraft_type": "B773ER",
+    "departure": "Moskva_SVO",
+    "arrival": "Vladivostok_VVO",
+    "arrived": true,
+    "total_distance_km": 6443.56,
+    "total_fuel_burned_kg": 128232.3,
+    "fuel_remaining_kg": 16794.7,
+    "total_penalty": 160.0,
+    "steps_taken": 1,
+    "dist_to_goal_final_km": 59.5,
+    "penalties": [
+      {
+        "reason": "Смена эшелона 1 уровень",
+        "value": 50,
+        "t": 2,
+        "lat": 55.9726,
+        "lon": 37.4146
+      },
+      {
+        "reason": "Турбулентность 1 (эш.2, t=2)",
+        "value": 30,
+        "t": 2,
+        "lat": 55.9726,
+        "lon": 37.4146
+      }
+    ],
+    "path": [
+      {
+        "name": "Moskva_SVO",
+        "lat": 55.9726,
+        "lon": 37.4146,
+        "t": 1,
+        "altitude_level": 3,
+        "fuel_remaining_kg": 145027,
+        "step_penalty": 0.0,
+        "dist_km": 0.0,
+        "fuel_burned_step_kg": 0.0,
+        "wind_effect": 1.0,
+        "progress_km": 0.0
+      },
+      {
+        "name": "PERAS",
+        "lat": 43.400111,
+        "lon": 132.884172,
+        "t": 2,
+        "altitude_level": 2,
+        "fuel_remaining_kg": 16794.7,
+        "step_penalty": 80.0,
+        "dist_km": 6443.56,
+        "fuel_burned_step_kg": 128232.3,
+        "wind_effect": 1.018,
+        "progress_km": 6345.0
+      }
+    ]
+  },
+  {
+    "plane_id": 2,
+    "aircraft_type": "A350",
+    "departure": "SPb_LED",
+    "arrival": "PKC",
+    "arrived": true,
+    "total_distance_km": 7417.49,
+    "total_fuel_burned_kg": 120094.7,
+    "fuel_remaining_kg": 6938.3,
+    "total_penalty": 2530.0,
+    "steps_taken": 2,
+    "dist_to_goal_final_km": 58.6,
+    "penalties": [
+      {
+        "reason": "Смена эшелона 1 уровень",
+        "value": 50,
+        "t": 2,
+        "lat": 59.8003,
+        "lon": 30.2625
+      },
+      {
+        "reason": "Турбулентность 1 (эш.2, t=2)",
+        "value": 30,
+        "t": 2,
+        "lat": 59.8003,
+        "lon": 30.2625
+      },
+      {
+        "reason": "Смена эшелона 3 уровня",
+        "value": 900,
+        "t": 3,
+        "lat": 49.19341,
+        "lon": 150.00135
+      },
+      {
+        "reason": "Турбулентность 2 (эш.5, t=3)",
+        "value": 60,
+        "t": 3,
+        "lat": 49.19341,
+        "lon": 150.00135
+      },
+      {
+        "reason": "Обледенение 1 (эш.5, t=3)",
+        "value": 25,
+        "t": 3,
+        "lat": 49.19341,
+        "lon": 150.00135
+      },
+      {
+        "reason": "Мало топлива для запасного (не хватает 16177 кг)",
+        "value": 200,
+        "t": 3,
+        "lat": 49.19341,
+        "lon": 150.00135
+      }
+    ],
+    "path": [
+      {
+        "name": "SPb_LED",
+        "lat": 59.8003,
+        "lon": 30.2625,
+        "t": 1,
+        "altitude_level": 3,
+        "fuel_remaining_kg": 127033,
+        "step_penalty": 0.0,
+        "dist_km": 0.0,
+        "fuel_burned_step_kg": 0.0,
+        "wind_effect": 1.0,
+        "progress_km": 0.0
+      },
+      {
+        "name": "BUMEN",
+        "lat": 49.193406,
+        "lon": 150.001353,
+        "t": 2,
+        "altitude_level": 2,
+        "fuel_remaining_kg": 23800.1,
+        "step_penalty": 80.0,
+        "dist_km": 6736.79,
+        "fuel_burned_step_kg": 103232.9,
+        "wind_effect": 1.012,
+        "progress_km": 5896.8
+      },
+      {
+        "name": "SAMIK",
+        "lat": 53.035053,
+        "lon": 157.604967,
+        "t": 3,
+        "altitude_level": 5,
+        "fuel_remaining_kg": 6938.3,
+        "step_penalty": 1185.0,
+        "dist_km": 680.7,
+        "fuel_burned_step_kg": 16861.8,
+        "wind_effect": 1.047,
+        "progress_km": 677.1
+      }
+    ]
+  }
+]
