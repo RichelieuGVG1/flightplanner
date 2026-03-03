@@ -2984,3 +2984,8 @@ Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\importlib_resources\\_adapte
 2026-03-03 23:00:54,499 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 23:00:54] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
 2026-03-03 23:01:00,951 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 23:01:00] "POST /api/optimize HTTP/1.1" 200 -
 2026-03-03 23:01:00,967 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 23:01:00] "GET /weather/weather_data.json?t=1772568060965 HTTP/1.1" 200 -
+2026-03-03 23:02:01,194 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\agent\\the_two_planes.py', reloading
+2026-03-03 23:02:01,195 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\agent\\the_two_planes.py', reloading
+2026-03-03 23:02:02,261 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2026-03-03 23:02:02,730 - werkzeug - WARNING -  * Debugger is active!
+2026-03-03 23:02:02,743 - werkzeug - INFO -  * Debugger PIN: 133-895-586
