@@ -96,7 +96,7 @@ REWARD_ARRIVAL                   = 50000  # гарантированно > вс�
 AGENT_MIN_DISTANCE_KM = 200
 K_NEAREST_WAYPOINTS   = 8
 MAX_T                 = 150
-ARRIVAL_RADIUS_KM     = 300
+ARRIVAL_RADIUS_KM     = 100
 FORWARD_CONE_DEG      = 80    # строже — ±80° от курса на цель
 FIXED_ALTITUDE        = 3
 
