@@ -717,3 +717,49 @@ RuntimeError: Путь не найден — попробуйте увеличи
 2026-03-03 14:49:03,829 - werkzeug - INFO -  * Debugger PIN: 133-895-586
 2026-03-03 14:49:12,925 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 14:49:12] "HEAD /api/aircraft_types HTTP/1.1" 200 -
 2026-03-03 14:49:12,927 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 14:49:12] "GET /api/aircraft_types HTTP/1.1" 200 -
+2026-03-03 15:00:44,903 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:00:44] "[36mGET / HTTP/1.1[0m" 304 -
+2026-03-03 15:00:45,155 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:00:45] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-03 15:00:45,253 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:00:45] "GET /static/script.js HTTP/1.1" 200 -
+2026-03-03 15:00:45,281 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:00:45] "GET /api/waypoints HTTP/1.1" 200 -
+2026-03-03 15:00:45,577 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:00:45] "GET /api/aircraft_types HTTP/1.1" 200 -
+2026-03-03 15:00:45,589 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:00:45] "[36mGET /airports/russian_civil_airports.json HTTP/1.1[0m" 304 -
+2026-03-03 15:00:45,633 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:00:45] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-03-03 15:02:39,359 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.17.46.52:5000
+2026-03-03 15:02:39,359 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-03 15:02:39,379 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2026-03-03 15:02:39,886 - werkzeug - WARNING -  * Debugger is active!
+2026-03-03 15:02:39,898 - werkzeug - INFO -  * Debugger PIN: 133-895-586
+2026-03-03 15:02:52,590 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:02:52] "GET / HTTP/1.1" 200 -
+2026-03-03 15:02:52,612 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:02:52] "GET /static/styles.css HTTP/1.1" 200 -
+2026-03-03 15:02:52,846 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:02:52] "GET /static/script.js HTTP/1.1" 200 -
+2026-03-03 15:02:53,413 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:02:53] "GET /api/waypoints HTTP/1.1" 200 -
+2026-03-03 15:02:53,418 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:02:53] "GET /airports/russian_civil_airports.json HTTP/1.1" 200 -
+2026-03-03 15:02:53,442 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:02:53] "GET /api/aircraft_types HTTP/1.1" 200 -
+2026-03-03 15:02:53,659 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:02:53] "GET /static/favicon.ico HTTP/1.1" 200 -
+2026-03-03 15:12:22,573 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.17.46.52:5000
+2026-03-03 15:12:22,574 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-03 15:12:22,588 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2026-03-03 15:12:23,080 - werkzeug - WARNING -  * Debugger is active!
+2026-03-03 15:12:23,094 - werkzeug - INFO -  * Debugger PIN: 133-895-586
+2026-03-03 15:12:28,097 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:28] "GET / HTTP/1.1" 200 -
+2026-03-03 15:12:28,358 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:28] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-03 15:12:28,435 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:28] "GET /static/script.js HTTP/1.1" 200 -
+2026-03-03 15:12:28,456 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:28] "GET /api/waypoints HTTP/1.1" 200 -
+2026-03-03 15:12:28,757 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:28] "GET /api/aircraft_types HTTP/1.1" 200 -
+2026-03-03 15:12:28,758 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:28] "[36mGET /airports/russian_civil_airports.json HTTP/1.1[0m" 304 -
+2026-03-03 15:12:28,803 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:28] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-03-03 15:12:42,372 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:42] "[36mGET / HTTP/1.1[0m" 304 -
+2026-03-03 15:12:42,636 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:42] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-03 15:12:42,698 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:42] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2026-03-03 15:12:42,722 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:42] "GET /api/waypoints HTTP/1.1" 200 -
+2026-03-03 15:12:43,015 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:43] "GET /api/aircraft_types HTTP/1.1" 200 -
+2026-03-03 15:12:43,015 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:43] "[36mGET /airports/russian_civil_airports.json HTTP/1.1[0m" 304 -
+2026-03-03 15:12:43,065 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:43] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-03-03 15:12:47,854 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:47] "POST /api/optimize HTTP/1.1" 200 -
+2026-03-03 15:12:48,113 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 15:12:48] "GET /weather/weather_data.json?t=1772539967859 HTTP/1.1" 200 -

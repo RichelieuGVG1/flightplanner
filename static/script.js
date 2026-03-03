@@ -50,13 +50,39 @@ async function initApp() {
 
     const now = new Date();
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-    document.getElementById('departure-time').value = now.toISOString().slice(0, 16);
+    const defaultTime = now.toISOString().slice(0, 16);
 
-    updateAircraftConstraints();
+    // Установка данных по умолчанию для обоих рейсов
+    flightsData[1] = {
+        dep: 'SVO',
+        arr: 'VVO',
+        aircraft: 'Boeing 777-300ER',
+        pax: 317,
+        baggage: 7291,
+        fullLoad: false,
+        fuel: 5000,
+        depTime: defaultTime
+    };
 
-    // Сохраняем начальные состояния для обоих рейсов
-    saveCurrentFlightData();
-    flightsData[2] = JSON.parse(JSON.stringify(flightsData[1]));
+    flightsData[2] = {
+        dep: 'LED',
+        arr: 'PKC',
+        aircraft: 'Airbus A350-900',
+        pax: 352,
+        baggage: 8096,
+        fullLoad: false,
+        fuel: 5000,
+        depTime: defaultTime
+    };
+
+    // Применяем данные первого рейса в интерфейс
+    currentFlight = 1;
+    loadFlightData(1);
+
+    // Синхронизируем эшелон (altitude 3 -> FL300)
+    setFL(3);
+
+    // Сохраняем состояния (уже сделано в loadFlightData -> updateAircraftConstraints -> save)
 }
 
 const flightsData = {
