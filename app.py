@@ -307,7 +307,19 @@ def optimize():
         if isinstance(planes, dict) and 'planes' not in planes:
              planes = [planes]
         
-        response_data = {'planes': planes}
+        # 4. Запускаем симуляцию самолетов-агентов (AI)
+        agent_results = []
+        try:
+            flights_data = data.get('flights_data')
+            from agent.run_inference import run_agent_inference
+            agent_results = run_agent_inference(flights_data=flights_data)
+        except Exception as ae:
+            print(f"Agent inference failed: {ae}")
+        
+        response_data = {
+            'planes': planes,
+            'agent_planes': agent_results
+        }
         
         # Добавляем данные о запретных зонах в результат
         if os.path.exists(zones_path):

@@ -57,6 +57,16 @@ from typing import List, Dict, Optional, Tuple
 import numpy as np
 
 # ===========================================================================
+# РАЗДЕЛ 0: СОВМЕСТИМОСТЬ (Numpy 2.0 -> 1.x)
+# ===========================================================================
+class CompatibleUnpickler(pickle.Unpickler):
+    """Обеспечивает загрузку весов, сохраненных в numpy 2.0, на старых версиях."""
+    def find_class(self, module, name):
+        if module.startswith('numpy._core'):
+            module = module.replace('numpy._core', 'numpy.core')
+        return super().find_class(module, name)
+
+# ===========================================================================
 # РАЗДЕЛ 1: ШТРАФЫ И НАГРАДЫ
 # ---------------------------------------------------------------------------
 # Масштаб: прогресс за шаг ~300-600 км × 10.0 = 3000-6000.
@@ -96,7 +106,7 @@ TRAIN_CONFIG = {
     "gamma":         0.99,
     "epsilon":       1.0,
     "epsilon_min":   0.05,
-    "epsilon_decay": 0.998,   # к эп.1000 ε≈0.14, к эп.3000 ε≈0.05 — плавный переход
+    "epsilon_decay": 0.998,   # к эп.1000 epsilon≈0.14, к эп.3000 epsilon≈0.05 — плавный переход
     "log_every":     1,
 }
 
@@ -957,7 +967,7 @@ class QLearningAgent:
 
     def load(self, path: str):
         with open(path, "rb") as f:
-            data = pickle.load(f)
+            data = CompatibleUnpickler(f).load()
         n = data.get("n_actions", self.n_actions)
         self.Q             = defaultdict(lambda: np.zeros(n), data["Q"])
         self.n_actions     = n
@@ -995,10 +1005,13 @@ def load_environment_data():
     return airports, prohibited, allowed_wp, weather_db, oncoming
 
 
-def _make_aircraft(agent_idx: int) -> Aircraft:
-    """Создаёт Aircraft из AGENT_ROUTES + AGENT_AIRCRAFT."""
-    route  = AGENT_ROUTES[agent_idx]
-    cfg    = AGENT_AIRCRAFT[agent_idx]
+def _make_aircraft(agent_idx: int, agent_routes: List[Dict] = None, agent_aircraft: List[Dict] = None) -> Aircraft:
+    """Создаёт Aircraft из переданных данных или AGENT_ROUTES + AGENT_AIRCRAFT."""
+    routes = agent_routes if agent_routes is not None else AGENT_ROUTES
+    aircraft_configs = agent_aircraft if agent_aircraft is not None else AGENT_AIRCRAFT
+    
+    route  = routes[agent_idx]
+    cfg    = aircraft_configs[agent_idx]
     return Aircraft(
         plane_id             = route["plane_number"],
         aircraft_type        = cfg["aircraft_type"],
@@ -1017,13 +1030,16 @@ def _make_aircraft(agent_idx: int) -> Aircraft:
 
 def _make_env(agent_idx: int,
               airports, prohibited, allowed_wp,
-              weather_db, oncoming) -> FlightEnvironment:
+              weather_db, oncoming,
+              agent_routes: List[Dict] = None,
+              agent_aircraft: List[Dict] = None) -> FlightEnvironment:
     """Создаёт среду. other_planes = второй агент-маршрут + встречные из simulation_result."""
-    other_routes = [AGENT_ROUTES[j] for j in range(len(AGENT_ROUTES)) if j != agent_idx]
+    routes = agent_routes if agent_routes is not None else AGENT_ROUTES
+    other_routes = [routes[j] for j in range(len(routes)) if j != agent_idx]
     other_planes = other_routes + oncoming
     return FlightEnvironment(
-        route        = AGENT_ROUTES[agent_idx],
-        aircraft     = _make_aircraft(agent_idx),
+        route        = routes[agent_idx],
+        aircraft     = _make_aircraft(agent_idx, agent_routes, agent_aircraft),
         weather_db   = weather_db,
         airports     = airports,
         prohibited   = prohibited,
@@ -1052,7 +1068,7 @@ def train(n_episodes: int  = TRAIN_CONFIG["n_episodes"],
         pkl = save / f"q_table_agent{i + 1}.pkl"
         if resume and pkl.exists():
             agent.load(str(pkl))
-            print(f"  Агент {i+1}: загружены веса ({len(agent.Q)} состояний), ε={agent.epsilon:.3f}")
+            print(f"  Агент {i+1}: загружены веса ({len(agent.Q)} состояний), epsilon={agent.epsilon:.3f}")
 
     print(f"\n{'='*65}")
     print(f"  ОБУЧЕНИЕ Q-LEARNING | Агентов: {len(agents)} | Эпизодов: {n_episodes}")
@@ -1102,7 +1118,7 @@ def train(n_episodes: int  = TRAIN_CONFIG["n_episodes"],
                 avg_r   = np.mean(reward_hist[ai][-100:])
                 arr_pct = np.mean(arrived_hist[ai][-100:]) * 100
                 eps     = agents[ai].epsilon
-                parts.append(f"Аг{ai+1}: avg_r={avg_r:>9.0f} arr={arr_pct:>5.1f}% ε={eps:.3f}")
+                parts.append(f"Аг{ai+1}: avg_r={avg_r:>9.0f} arr={arr_pct:>5.1f}% epsilon={eps:.3f}")
             print(f"  Эп {ep:>5}/{n_episodes} | " + " | ".join(parts))
 
     for i, agent in enumerate(agents):
@@ -1114,10 +1130,12 @@ def train(n_episodes: int  = TRAIN_CONFIG["n_episodes"],
 # ===========================================================================
 # INFERENCE
 # ===========================================================================
-def inference(save_dir: str = "") -> List[Dict]:
+def inference(save_dir: str = "", agent_routes: List[Dict] = None, agent_aircraft: List[Dict] = None) -> List[Dict]:
     """Запускает финальный полёт с загруженными весами. Обучение не нужно."""
     save = Path(save_dir)
-    for i in range(1, len(AGENT_ROUTES) + 1):
+    routes = agent_routes if agent_routes is not None else AGENT_ROUTES
+    
+    for i in range(1, len(routes) + 1):
         pkl = save / f"q_table_agent{i}.pkl"
         if not pkl.exists():
             raise FileNotFoundError(
@@ -1126,29 +1144,32 @@ def inference(save_dir: str = "") -> List[Dict]:
 
     airports, prohibited, allowed_wp, weather_db, oncoming = load_environment_data()
     agents = [QLearningAgent.from_file(str(save / f"q_table_agent{i + 1}.pkl"))
-              for i in range(len(AGENT_ROUTES))]
+              for i in range(len(routes))]
 
     print(f"\n{'='*65}")
     print(f"  INFERENCE — обучение не требуется")
     for i, ag in enumerate(agents):
-        print(f"  Агент {i+1}: {len(ag.Q)} состояний, ε=0")
+        print(f"  Агент {i+1}: {len(ag.Q)} состояний, epsilon=0")
     print(f"{'='*65}\n")
 
-    return _run_greedy(agents, airports, prohibited, allowed_wp, weather_db, oncoming, save)
+    return _run_greedy(agents, airports, prohibited, allowed_wp, weather_db, oncoming, save, agent_routes, agent_aircraft)
 
 
 # ===========================================================================
 # ФИНАЛЬНЫЙ GREEDY-ПОЛЁТ
 # ===========================================================================
 def _run_greedy(agents, airports, prohibited, allowed_wp,
-                weather_db, oncoming, save: Path) -> List[Dict]:
+                weather_db, oncoming, save: Path,
+                agent_routes: List[Dict] = None,
+                agent_aircraft: List[Dict] = None) -> List[Dict]:
     print(f"\n{'='*65}")
-    print(f"  ФИНАЛЬНЫЙ ПОЛЁТ (greedy, ε=0)")
+    print(f"  ФИНАЛЬНЫЙ ПОЛЁТ (greedy, epsilon=0)")
     print(f"{'='*65}")
 
     results = []
-    for ai in range(len(AGENT_ROUTES)):
-        env = _make_env(ai, airports, prohibited, allowed_wp, weather_db, oncoming)
+    routes = agent_routes if agent_routes is not None else AGENT_ROUTES
+    for ai in range(len(routes)):
+        env = _make_env(ai, airports, prohibited, allowed_wp, weather_db, oncoming, agent_routes, agent_aircraft)
         obs = env.reset()
         agents[ai].epsilon = 0.0
         done = False
@@ -1187,6 +1208,7 @@ def _run_greedy(agents, airports, prohibited, allowed_wp,
         json.dump(results, f, ensure_ascii=False, indent=2)
     print(f"\n  Результаты: {out_path}")
     print(f"{'='*65}\n")
+# (the block was already partially updated in previous call, fixing the return now)
     return results
 
 

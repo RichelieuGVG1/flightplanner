@@ -365,6 +365,7 @@ map.addLayer(planeLayer);
 // Plane Icon (Simple SVG Data URI)
 const planeSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#38bdf8" width="48px" height="48px"><path stroke="#000" stroke-width="0.3" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>`;
 const planeIconUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(planeSvg.replace('#38bdf8', '#85a2afff'));
+const agentPlaneIconUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(planeSvg.replace('#38bdf8', '#ffffff'));
 //цвет встречного самолета
 const planeStyle = new ol.style.Style({
     image: new ol.style.Icon({
@@ -375,6 +376,40 @@ const planeStyle = new ol.style.Style({
         rotateWithView: true
     })
 });
+
+// --- AGENT ROUTE VISUALIZATION ---
+const agentRouteSource = new ol.source.Vector();
+const agentRouteLayer = new ol.layer.Vector({
+    source: agentRouteSource,
+    zIndex: 999,
+    style: function (feature) {
+        const type = feature.get('type');
+        if (type === 'line') {
+            return new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color: '#3b82f6',
+                    width: 3
+                })
+            });
+        } else if (type === 'point') {
+            return new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: 4,
+                    fill: new ol.style.Fill({ color: '#3b82f6' }),
+                    stroke: new ol.style.Stroke({ color: '#fff', width: 1.5 })
+                })
+            });
+        }
+    }
+});
+map.addLayer(agentRouteLayer);
+
+const agentPlaneSource = new ol.source.Vector();
+const agentPlaneLayer = new ol.layer.Vector({
+    source: agentPlaneSource,
+    zIndex: 3001
+});
+map.addLayer(agentPlaneLayer);
 
 let currentRoutePoints = [];
 let planeFeature = null;
@@ -919,6 +954,7 @@ async function optimizeRoute() {
     const refreshTrajectories = document.getElementById('refresh-trajectories').checked;
 
     try {
+        saveCurrentFlightData();
         btn.textContent = 'Вычисление...';
         btn.disabled = true;
 
@@ -928,7 +964,8 @@ async function optimizeRoute() {
             body: JSON.stringify({
                 refresh_weather: refreshWeather,
                 refresh_restricted_areas: refreshRestrictedAreas,
-                refresh_trajectories: refreshTrajectories
+                refresh_trajectories: refreshTrajectories,
+                flights_data: flightsData
             })
         });
 
@@ -944,7 +981,7 @@ async function optimizeRoute() {
         }
 
         // data.planes is now an array
-        drawRouteOnMap(data.planes);
+        drawRouteOnMap(data.planes, data.agent_planes);
 
         if (refreshWeather) {
             WEATHER_DATA = null;
@@ -968,15 +1005,22 @@ async function optimizeRoute() {
 }
 
 let allPlanesData = [];
+let agentPlanesData = [];
 let planeFeatures = {}; // plane_number -> feature
+let agentFeatures = {}; // plane_id -> feature
 
-function drawRouteOnMap(planes) {
+function drawRouteOnMap(planes, agentPlanes) {
     routeSource.clear();
     planeSource.clear();
-    allPlanesData = planes;
-    planeFeatures = {};
+    agentRouteSource.clear();
+    agentPlaneSource.clear();
 
-    if (!planes || planes.length === 0) return;
+    allPlanesData = planes || [];
+    agentPlanesData = agentPlanes || [];
+    planeFeatures = {};
+    agentFeatures = {};
+
+    if (allPlanesData.length === 0 && agentPlanesData.length === 0) return;
 
     planes.forEach(plane => {
         const waypoints = plane.route_waypoints;
@@ -1002,20 +1046,55 @@ function drawRouteOnMap(planes) {
         });
 
         // Initialize Plane feature (hidden initially)
-        const planeFeature = new ol.Feature({
+        const pFeature = new ol.Feature({
             geometry: new ol.geom.Point([0, 0])
         });
-        planeFeature.setStyle(new ol.style.Style({})); // Тайная пустота
-        planeSource.addFeature(planeFeature);
-        planeFeatures[plane.plane_number] = planeFeature;
+        pFeature.setStyle(new ol.style.Style({})); // Тайная пустота
+        planeSource.addFeature(pFeature);
+        planeFeatures[plane.plane_number] = pFeature;
+    });
+
+    agentPlanesData.forEach(agent => {
+        const path = agent.path;
+        if (!path || path.length === 0) return;
+
+        const coords = path.map(p => ol.proj.fromLonLat([p.lon, p.lat]));
+
+        // Line
+        agentRouteSource.addFeature(new ol.Feature({
+            geometry: new ol.geom.LineString(coords),
+            type: 'line'
+        }));
+
+        // Points
+        path.forEach(p => {
+            agentRouteSource.addFeature(new ol.Feature({
+                geometry: new ol.geom.Point(ol.proj.fromLonLat([p.lon, p.lat])),
+                type: 'point'
+            }));
+        });
+
+        const aFeature = new ol.Feature({
+            geometry: new ol.geom.Point([0, 0])
+        });
+        aFeature.setStyle(new ol.style.Style({}));
+        agentPlaneSource.addFeature(aFeature);
+        agentFeatures[agent.plane_id] = aFeature;
     });
 
     // Setup Slider (Global Time t from min_t to max_t)
     let min_t = Infinity;
     let max_t = -Infinity;
 
-    planes.forEach(p => {
+    allPlanesData.forEach(p => {
         p.route_waypoints.forEach(pt => {
+            if (pt.t < min_t) min_t = pt.t;
+            if (pt.t > max_t) max_t = pt.t;
+        });
+    });
+
+    agentPlanesData.forEach(a => {
+        a.path.forEach(pt => {
             if (pt.t < min_t) min_t = pt.t;
             if (pt.t > max_t) max_t = pt.t;
         });
@@ -1031,8 +1110,13 @@ function drawRouteOnMap(planes) {
 
     updatePlanePosition(min_t);
 
-    // Zoom to route
-    map.getView().fit(routeSource.getExtent(), {
+    // Zoom and render
+    const fullExtent = routeSource.getExtent().slice();
+    if (agentRouteSource.getFeatures().length > 0) {
+        ol.extent.extend(fullExtent, agentRouteSource.getExtent());
+    }
+
+    map.getView().fit(fullExtent, {
         padding: [50, 50, 50, 50],
         duration: 1000
     });
@@ -1109,6 +1193,53 @@ function updatePlanePosition(globalT) {
                 font: '10px Inter',
                 fill: new ol.style.Fill({ color: '#0f172a' }),
                 offsetY: -15
+            })
+        }));
+    });
+
+    // Update Agent planes
+    agentPlanesData.forEach(agent => {
+        const feature = agentFeatures[agent.plane_id];
+        if (!feature) return;
+
+        const points = agent.path;
+        let p1 = null, p2 = null;
+
+        for (let i = 0; i < points.length; i++) {
+            if (points[i].t <= globalT) {
+                p1 = points[i];
+                if (i + 1 < points.length) p2 = points[i + 1];
+            } else break;
+        }
+
+        if (!p1 || (globalT > points[points.length - 1].t + 0.05)) {
+            feature.setStyle(new ol.style.Style({}));
+            return;
+        }
+
+        let currentPos, rotation = 0;
+        if (p2 && globalT <= p2.t) {
+            const ratio = (globalT - p1.t) / (p2.t - p1.t);
+            currentPos = ol.proj.fromLonLat([p1.lon + (p2.lon - p1.lon) * ratio, p1.lat + (p2.lat - p1.lat) * ratio]);
+            const c1 = ol.proj.fromLonLat([p1.lon, p1.lat]), c2 = ol.proj.fromLonLat([p2.lon, p2.lat]);
+            rotation = Math.atan2(c2[0] - c1[0], c2[1] - c1[1]);
+        } else {
+            currentPos = ol.proj.fromLonLat([p1.lon, p1.lat]);
+            const idx = points.indexOf(p1);
+            if (idx > 0) {
+                const prev = points[idx - 1], c1 = ol.proj.fromLonLat([prev.lon, prev.lat]), c2 = ol.proj.fromLonLat([p1.lon, p1.lat]);
+                rotation = Math.atan2(c2[0] - c1[0], c2[1] - c1[1]);
+            }
+        }
+
+        feature.getGeometry().setCoordinates(currentPos);
+        feature.setStyle(new ol.style.Style({
+            image: new ol.style.Icon({
+                src: agentPlaneIconUrl,
+                scale: 1.0,
+                anchor: [0.5, 0.5],
+                rotation: rotation,
+                rotateWithView: true
             })
         }));
     });
