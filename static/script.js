@@ -66,8 +66,8 @@ async function initApp() {
     };
 
     flightsData[2] = {
-        dep: 'LED',
-        arr: 'GDX',
+        dep: 'KUF',
+        arr: 'PKC',
         aircraft: 'Airbus A350-900',
         pax: 352,
         baggage: 8096,
@@ -385,10 +385,23 @@ const agentRouteLayer = new ol.layer.Vector({
     zIndex: 999,
     style: function (feature) {
         const type = feature.get('type');
+        const altLevel = feature.get('altitude_level') || 3;
+
+        // 5: темно-фиолетовый, 4: темно-синий, 3: обычный синий, 2: серо-синий, 1: голубой
+        const colors = {
+            5: '#581c87',
+            4: '#1e3a8a',
+            3: '#2563eb',
+            2: '#64748b',
+            1: '#38bdf8'
+        };
+        const exactColor = feature.get('exact_color');
+        const color = exactColor || colors[altLevel] || '#2563eb';
+
         if (type === 'line') {
             return new ol.style.Style({
                 stroke: new ol.style.Stroke({
-                    color: '#3b82f6',
+                    color: color,
                     width: 3
                 })
             });
@@ -396,7 +409,7 @@ const agentRouteLayer = new ol.layer.Vector({
             return new ol.style.Style({
                 image: new ol.style.Circle({
                     radius: 4,
-                    fill: new ol.style.Fill({ color: '#3b82f6' }),
+                    fill: new ol.style.Fill({ color: color }),
                     stroke: new ol.style.Stroke({ color: '#fff', width: 1.5 })
                 })
             });
@@ -627,7 +640,7 @@ let curWT = 1;            // current weather time step
 let activeWeatherParams = new Set(['wind_speed']); // active params
 let weatherTKeys = [];    // sorted time-step keys available in WEATHER_DATA, limited to trajectory length
 
-const FL_LABELS = { 1: 'FL100', 2: 'FL200', 3: 'FL300', 4: 'FL350', 5: 'FL400' };
+const FL_LABELS = { 1: 'FL1000', 2: 'FL2000', 3: 'FL3000', 4: 'FL400', 5: 'FL5000' };
 
 // Color helpers (same as weather_map.html)
 function lerpColor(c1, c2, t) {
@@ -1061,17 +1074,66 @@ function drawRouteOnMap(planes, agentPlanes) {
 
         const coords = path.map(p => ol.proj.fromLonLat([p.lon, p.lat]));
 
-        // Line
-        agentRouteSource.addFeature(new ol.Feature({
-            geometry: new ol.geom.LineString(coords),
-            type: 'line'
-        }));
+        const altColors = {
+            5: '#581c87',
+            4: '#1e3a8a',
+            3: '#2563eb',
+            2: '#64748b',
+            1: '#38bdf8'
+        };
+
+        // Setup line segments based on altitude_level
+        for (let i = 1; i < path.length; i++) {
+            const p1 = path[i - 1];
+            const p2 = path[i];
+            const alt1 = p1.altitude_level || 3;
+            const alt2 = p2.altitude_level || 3;
+
+            if (alt1 === alt2) {
+                // Uniform segment
+                agentRouteSource.addFeature(new ol.Feature({
+                    geometry: new ol.geom.LineString([
+                        ol.proj.fromLonLat([p1.lon, p1.lat]),
+                        ol.proj.fromLonLat([p2.lon, p2.lat])
+                    ]),
+                    type: 'line',
+                    exact_color: altColors[alt1]
+                }));
+            } else {
+                // Gradient transition segment
+                const steps = 15;
+                const c1 = altColors[alt1];
+                const c2 = altColors[alt2];
+                for (let j = 0; j < steps; j++) {
+                    const t1 = j / steps;
+                    const t2 = (j + 1) / steps;
+
+                    // Linear interpolation of coordinates
+                    const lat1 = p1.lat + (p2.lat - p1.lat) * t1;
+                    const lon1 = p1.lon + (p2.lon - p1.lon) * t1;
+                    const lat2 = p1.lat + (p2.lat - p1.lat) * t2;
+                    const lon2 = p1.lon + (p2.lon - p1.lon) * t2;
+
+                    const midColor = lerpColor(c1, c2, (t1 + t2) / 2);
+
+                    agentRouteSource.addFeature(new ol.Feature({
+                        geometry: new ol.geom.LineString([
+                            ol.proj.fromLonLat([lon1, lat1]),
+                            ol.proj.fromLonLat([lon2, lat2])
+                        ]),
+                        type: 'line',
+                        exact_color: midColor
+                    }));
+                }
+            }
+        }
 
         // Points
         path.forEach(p => {
             agentRouteSource.addFeature(new ol.Feature({
                 geometry: new ol.geom.Point(ol.proj.fromLonLat([p.lon, p.lat])),
-                type: 'point'
+                type: 'point',
+                altitude_level: p.altitude_level || 3
             }));
         });
 

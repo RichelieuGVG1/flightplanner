@@ -2602,3 +2602,101 @@ Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\importlib_resources\\_adapte
 2026-03-03 21:03:24,510 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 21:03:24] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
 2026-03-03 21:03:38,057 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 21:03:38] "POST /api/optimize HTTP/1.1" 200 -
 2026-03-03 21:03:38,068 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 21:03:38] "GET /weather/weather_data.json?t=1772561018065 HTTP/1.1" 200 -
+2026-03-03 21:41:37,785 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 21:41:37] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-03 21:41:37,819 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 21:41:37] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2026-03-03 21:46:04,992 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\agent\\the_two_planes.py', reloading
+2026-03-03 21:46:04,992 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\agent\\the_two_planes.py', reloading
+2026-03-03 21:46:06,079 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2026-03-03 21:46:06,584 - werkzeug - WARNING -  * Debugger is active!
+2026-03-03 21:46:06,596 - werkzeug - INFO -  * Debugger PIN: 133-895-586
+2026-03-03 21:50:40,634 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 21:50:40] "GET / HTTP/1.1" 200 -
+2026-03-03 21:50:40,896 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 21:50:40] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-03 21:50:40,973 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 21:50:40] "GET /static/script.js HTTP/1.1" 200 -
+2026-03-03 21:50:40,983 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 21:50:40] "[36mGET /airports/russian_civil_airports.json HTTP/1.1[0m" 304 -
+2026-03-03 21:50:41,288 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 21:50:41] "GET /api/aircraft_types HTTP/1.1" 200 -
+2026-03-03 21:50:41,302 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 21:50:41] "GET /api/waypoints HTTP/1.1" 200 -
+2026-03-03 21:50:41,318 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 21:50:41] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-03-03 21:50:50,207 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 21:50:50] "POST /api/optimize HTTP/1.1" 200 -
+2026-03-03 21:50:50,273 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 21:50:50] "GET /weather/weather_data.json?t=1772563850269 HTTP/1.1" 200 -
+2026-03-03 22:15:55,404 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\app.py', reloading
+2026-03-03 22:15:55,405 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\plane_simulation\\__init__.py', reloading
+2026-03-03 22:15:55,407 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\agent\\run_inference.py', reloading
+2026-03-03 22:15:55,408 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\airports\\parse_airports.py', reloading
+2026-03-03 22:15:55,409 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\deprecated first version\\backend.py', reloading
+2026-03-03 22:15:55,409 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\prohibited_zones\\state_borders.py', reloading
+2026-03-03 22:15:55,411 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\prohibited_zones\\filter_waypoints.py', reloading
+2026-03-03 22:15:55,411 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\plane_simulation\\plane_generator.py', reloading
+2026-03-03 22:15:55,412 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\prohibited_zones\\prohibited_zones.py', reloading
+2026-03-03 22:15:55,412 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\backend.py', reloading
+2026-03-03 22:15:55,413 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\plane_simulation\\plane_simulation.py', reloading
+2026-03-03 22:15:55,414 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\weather\\weather_generator — копия.py', reloading
+2026-03-03 22:15:55,415 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\altes_the_two_planes.py', reloading
+2026-03-03 22:15:55,416 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\agent\\the_two_planes_old.py', reloading
+2026-03-03 22:15:55,418 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\agent_simulation.py', reloading
+2026-03-03 22:15:55,421 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\weather\\weather_generator.py', reloading
+2026-03-03 22:15:55,478 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\__init__.py', reloading
+2026-03-03 22:15:55,484 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\app.py', reloading
+2026-03-03 22:15:55,491 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\blueprints.py', reloading
+2026-03-03 22:15:55,496 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\markupsafe\\__init__.py', reloading
+2026-03-03 22:15:55,498 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\json\\__init__.py', reloading
+2026-03-03 22:15:55,501 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\config.py', reloading
+2026-03-03 22:15:55,503 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\ctx.py', reloading
+2026-03-03 22:15:55,504 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\globals.py', reloading
+2026-03-03 22:15:55,506 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\helpers.py', reloading
+2026-03-03 22:15:55,507 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\signals.py', reloading
+2026-03-03 22:15:55,508 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\templating.py', reloading
+2026-03-03 22:15:55,514 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\click\\__init__.py', reloading
+2026-03-03 22:15:55,520 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\werkzeug\\exceptions.py', reloading
+2026-03-03 22:15:55,521 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\werkzeug\\routing\\__init__.py', reloading
+2026-03-03 22:15:55,524 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\werkzeug\\serving.py', reloading
+2026-03-03 22:15:55,526 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\werkzeug\\urls.py', reloading
+2026-03-03 22:15:55,528 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\werkzeug\\utils.py', reloading
+2026-03-03 22:15:55,529 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\werkzeug\\wrappers\\__init__.py', reloading
+2026-03-03 22:15:55,531 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\cli.py', reloading
+2026-03-03 22:15:55,534 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\typing.py', reloading
+2026-03-03 22:15:55,536 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\json\\provider.py', reloading
+2026-03-03 22:15:55,537 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\logging.py', reloading
+2026-03-03 22:15:55,538 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\scaffold.py', reloading
+2026-03-03 22:15:55,540 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\sessions.py', reloading
+2026-03-03 22:15:55,542 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\wrappers.py', reloading
+2026-03-03 22:15:55,544 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\testing.py', reloading
+2026-03-03 22:15:55,545 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\werkzeug\\routing\\rules.py', reloading
+2026-03-03 22:15:55,548 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\werkzeug\\routing\\map.py', reloading
+2026-03-03 22:15:55,550 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\click\\termui.py', reloading
+2026-03-03 22:15:55,553 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\werkzeug\\routing\\exceptions.py', reloading
+2026-03-03 22:15:55,555 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\flask\\debughelpers.py', reloading
+2026-03-03 22:15:55,557 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\asgiref\\sync.py', reloading
+2026-03-03 22:15:55,559 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\werkzeug\\wrappers\\response.py', reloading
+2026-03-03 22:15:55,571 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\jinja2\\__init__.py', reloading
+2026-03-03 22:15:55,572 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\urllib3\\__init__.py', reloading
+2026-03-03 22:15:55,577 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\jinja2\\loaders.py', reloading
+2026-03-03 22:15:55,577 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\urllib3\\fields.py', reloading
+2026-03-03 22:15:55,583 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\urllib3\\filepost.py', reloading
+2026-03-03 22:15:55,588 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\urllib3\\util\\__init__.py', reloading
+2026-03-03 22:15:55,593 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\urllib3\\response.py', reloading
+2026-03-03 22:15:56,653 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2026-03-03 22:15:57,254 - werkzeug - WARNING -  * Debugger is active!
+2026-03-03 22:15:57,275 - werkzeug - INFO -  * Debugger PIN: 133-895-586
+2026-03-03 22:19:58,266 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:19:58] "[36mGET / HTTP/1.1[0m" 304 -
+2026-03-03 22:19:58,509 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:19:58] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-03 22:19:58,617 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:19:58] "GET /static/script.js HTTP/1.1" 200 -
+2026-03-03 22:19:58,641 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:19:58] "GET /api/waypoints HTTP/1.1" 200 -
+2026-03-03 22:19:58,940 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:19:58] "GET /api/aircraft_types HTTP/1.1" 200 -
+2026-03-03 22:19:58,940 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:19:58] "[36mGET /airports/russian_civil_airports.json HTTP/1.1[0m" 304 -
+2026-03-03 22:19:58,986 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:19:58] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-03-03 22:20:05,304 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:20:05] "POST /api/optimize HTTP/1.1" 200 -
+2026-03-03 22:20:05,316 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:20:05] "GET /weather/weather_data.json?t=1772565605313 HTTP/1.1" 200 -
+2026-03-03 22:25:23,581 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:25:23] "[36mGET / HTTP/1.1[0m" 304 -
+2026-03-03 22:25:23,843 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:25:23] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-03 22:25:23,921 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:25:23] "GET /static/script.js HTTP/1.1" 200 -
+2026-03-03 22:25:23,944 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:25:23] "GET /api/waypoints HTTP/1.1" 200 -
+2026-03-03 22:25:24,246 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:25:24] "GET /api/aircraft_types HTTP/1.1" 200 -
+2026-03-03 22:25:24,247 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:25:24] "[36mGET /airports/russian_civil_airports.json HTTP/1.1[0m" 304 -
+2026-03-03 22:25:24,262 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:25:24] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-03-03 22:25:30,267 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:25:30] "POST /api/optimize HTTP/1.1" 200 -
+2026-03-03 22:25:30,282 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2026 22:25:30] "GET /weather/weather_data.json?t=1772565930277 HTTP/1.1" 200 -
+2026-03-03 22:27:39,546 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\agent\\the_two_planes.py', reloading
+2026-03-03 22:27:39,547 - werkzeug - INFO -  * Detected change in 'C:\\Users\\RichelieuGVG\\Desktop\\diploma\\flightplanner\\agent\\the_two_planes.py', reloading
+2026-03-03 22:27:40,601 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2026-03-03 22:27:41,139 - werkzeug - WARNING -  * Debugger is active!
+2026-03-03 22:27:41,154 - werkzeug - INFO -  * Debugger PIN: 133-895-586
