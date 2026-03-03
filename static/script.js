@@ -640,7 +640,7 @@ let curWT = 1;            // current weather time step
 let activeWeatherParams = new Set(['wind_speed']); // active params
 let weatherTKeys = [];    // sorted time-step keys available in WEATHER_DATA, limited to trajectory length
 
-const FL_LABELS = { 1: 'FL1000', 2: 'FL2000', 3: 'FL3000', 4: 'FL400', 5: 'FL5000' };
+const FL_LABELS = { 1: 'FL100.', 2: 'FL200.', 3: 'FL300.', 4: 'FL40.', 5: 'FL500.' };
 
 // Color helpers (same as weather_map.html)
 function lerpColor(c1, c2, t) {
