@@ -1171,6 +1171,11 @@ function drawRouteOnMap(planes, agentPlanes) {
     timeline.step = 0.1; // Для плавности
     timeline.value = min_t;
 
+    const timeLabels = document.querySelectorAll('.time-label');
+    if (timeLabels.length > 0) {
+        timeLabels[0].textContent = `T = ${min_t}`;
+    }
+
     updatePlanePosition(min_t);
 
     // Zoom and render
@@ -1185,8 +1190,31 @@ function drawRouteOnMap(planes, agentPlanes) {
     });
 }
 
+function updateRightTimeLabel(globalT) {
+    const depTimeInput = document.getElementById('departure-time').value;
+    if (!depTimeInput) return;
+
+    const depTime = new Date(depTimeInput);
+    if (isNaN(depTime.getTime())) return;
+
+    const t = parseFloat(globalT);
+    const timelineMin = parseFloat(document.getElementById('timeline').min) || 0;
+    const addedMinutes = Math.max(0, t - timelineMin) * 18.35;
+
+    const newTime = new Date(depTime.getTime() + addedMinutes * 60000);
+
+    const hh = String(newTime.getHours()).padStart(2, '0');
+    const mm = String(newTime.getMinutes()).padStart(2, '0');
+
+    const timeLabels = document.querySelectorAll('.time-label');
+    if (timeLabels.length > 1) {
+        timeLabels[1].textContent = `${hh}:${mm}`;
+    }
+}
+
 function updatePlanePosition(globalT) {
     globalT = parseFloat(globalT);
+    updateRightTimeLabel(globalT);
 
     allPlanesData.forEach(plane => {
         const feature = planeFeatures[plane.plane_number];
