@@ -198,7 +198,6 @@ AIRCRAFT_PRESETS: Dict[str, Dict] = {
 
 AIRCRAFT_TYPE_ALIAS: Dict[str, str] = {
     "Airbus A350-900":          "A350",
-    "Airbus A320-200":          "A350",
     "Boeing 737-800":           "B738",
     "Sukhoi Superjet 100-95B":  "SSJ100",
     "Airbus A321-200":          "A321",
