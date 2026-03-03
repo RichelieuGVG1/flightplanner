@@ -3,11 +3,115 @@ from flask_cors import CORS
 import json
 import os
 from datetime import datetime
+from typing import Dict
 from plane_simulation.plane_simulation import simulate
 from prohibited_zones.prohibited_zones import generate_zones
 
 app = Flask(__name__)
 CORS(app)
+
+AIRCRAFT_PRESETS: Dict[str, Dict] = {
+
+    # Airbus A350-900 | MTOW 280000 кг | OEW 142400 кг | топливо 127033 кг
+    "A350": {
+        "full_name":            "Airbus A350-900",
+        "max_passengers":       440,
+        "empty_mass_kg":        142400,
+        "max_payload_kg":       53000,
+        "max_fuel_kg":          127033,
+        "fuel_per_km_empty_kg": 6.98,
+        "fuel_climb_per_level": 480,
+        "cruise_speed_kmh":     903,
+        "min_runway_m":         2600,
+        "runway_class":         "Long",
+        "max_altitude_level":   5,
+    },
+
+    # Boeing 737-800 | MTOW 79016 кг | OEW 41413 кг | топливо 20810 кг
+    "B738": {
+        "full_name":            "Boeing 737-800",
+        "max_passengers":       189,
+        "empty_mass_kg":        41413,
+        "max_payload_kg":       20800,
+        "max_fuel_kg":          20810,
+        "fuel_per_km_empty_kg": 2.9,
+        "fuel_climb_per_level": 150,
+        "cruise_speed_kmh":     842,
+        "min_runway_m":         2090,
+        "runway_class":         "Long",
+        "max_altitude_level":   5,
+    },
+
+    # Sukhoi Superjet 100-95B | MTOW 49450 кг | OEW 29150 кг | топливо 11000 кг
+    "SSJ100": {
+        "full_name":            "Sukhoi Superjet 100-95B",
+        "max_passengers":       98,
+        "empty_mass_kg":        29150,
+        "max_payload_kg":       12245,
+        "max_fuel_kg":          11000,
+        "fuel_per_km_empty_kg": 2.2,
+        "fuel_climb_per_level": 100,
+        "cruise_speed_kmh":     787,
+        "min_runway_m":         1731,
+        "runway_class":         "Long",
+        "max_altitude_level":   5,
+    },
+
+    # Airbus A321-200 | MTOW 93500 кг | OEW 48500 кг | топливо 21385 кг
+    "A321": {
+        "full_name":            "Airbus A321-200",
+        "max_passengers":       220,
+        "empty_mass_kg":        48500,
+        "max_payload_kg":       23400,
+        "max_fuel_kg":          21385,
+        "fuel_per_km_empty_kg": 3.6,
+        "fuel_climb_per_level": 160,
+        "cruise_speed_kmh":     833,
+        "min_runway_m":         2200,
+        "runway_class":         "Long",
+        "max_altitude_level":   5,
+    },
+
+    # Boeing 777-300ER | MTOW 351500 кг | OEW 167829 кг | топливо 145027 кг
+    "B773ER": {
+        "full_name":            "Boeing 777-300ER",
+        "max_passengers":       396,
+        "empty_mass_kg":        167829,
+        "max_payload_kg":       69600,
+        "max_fuel_kg":          145027,
+        "fuel_per_km_empty_kg": 9.4,
+        "fuel_climb_per_level": 600,
+        "cruise_speed_kmh":     905,
+        "min_runway_m":         3050,
+        "runway_class":         "Long",
+        "max_altitude_level":   5,
+    },
+
+    # ATR 72-600 | MTOW 23000 кг | OEW 13010 кг | топливо 6370 кг
+    "ATR72": {
+        "full_name":            "ATR 72-600",
+        "max_passengers":       70,
+        "empty_mass_kg":        13010,
+        "max_payload_kg":       7500,
+        "max_fuel_kg":          6370,
+        "fuel_per_km_empty_kg": 0.85,
+        "fuel_climb_per_level": 50,
+        "cruise_speed_kmh":     510,
+        "min_runway_m":         1200,
+        "runway_class":         "Short",
+        "max_altitude_level":   5,
+    },
+}
+
+AIRCRAFT_TYPE_ALIAS: Dict[str, str] = {
+    "Airbus A350-900":          "A350",
+    "Boeing 737-800":           "B738",
+    "Sukhoi Superjet 100-95B":  "SSJ100",
+    "Airbus A321-200":          "A321",
+    "Boeing 777-300ER":         "B773ER",
+    "ATR 72-600":               "ATR72",
+    **{k: k for k in ["A350", "B738", "SSJ100", "A321", "B773ER", "ATR72"]},
+}
 
 # Файл для хранения точек
 DATA_FILE = 'map_points.json'
@@ -308,6 +412,17 @@ def get_waypoints():
     if waypoints is None:
         return jsonify({'error': 'russia_waypoints.json не найден'}), 404
     return jsonify(waypoints)
+
+@app.route('/api/aircraft_types', methods=['GET'])
+def get_aircraft_types():
+    """Вернуть список типов самолетов и их параметры для интерфейса"""
+    return jsonify([
+        {
+            "type": data["full_name"],
+            "max_passengers": data["max_passengers"]
+        }
+        for data in AIRCRAFT_PRESETS.values()
+    ])
 
 @app.route('/health', methods=['GET'])
 def health():

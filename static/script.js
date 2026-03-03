@@ -19,16 +19,10 @@ const appData = {
         { "name": "Yemelyanovo", "iata": "KJA", "city": "Красноярск", "coords": [56.1729, 92.4933] },
         { "name": "Kurumoch", "iata": "KUF", "city": "Самара", "coords": [53.5050, 50.1642] }
     ],
-    "aircraft_types": [
-        { "type": "Airbus A350-900", "max_passengers": 440 },
-        { "type": "Boeing 737-800", "max_passengers": 189 },
-        { "type": "Sukhoi Superjet 100-95B", "max_passengers": 98 },
-        { "type": "Airbus A321-200", "max_passengers": 220 },
-        { "type": "Boeing 777-300ER", "max_passengers": 396 }
-    ]
+    "aircraft_types": []
 };
 
-function initApp() {
+async function initApp() {
     document.getElementById('header-title').textContent = appData.header.title;
     document.getElementById('header-subtitle').textContent = appData.header.subtitle;
     document.getElementById('copyright').textContent = appData.header.copyright;
@@ -40,6 +34,16 @@ function initApp() {
         arr.add(new Option(`${a.city} (${a.iata})`, a.iata));
     });
     arr.selectedIndex = 1;
+
+    try {
+        const resp = await fetch('/api/aircraft_types');
+        if (resp.ok) {
+            appData.aircraft_types = await resp.json();
+        }
+    } catch (e) {
+        console.error('Failed to fetch aircraft types:', e);
+        // Fallback or handle error
+    }
 
     const ac = document.getElementById('aircraft-type');
     appData.aircraft_types.forEach(a => ac.add(new Option(a.type, a.type)));
