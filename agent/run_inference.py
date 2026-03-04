@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import builtins
+from pathlib import Path
 
 # Добавляем текущую директорию в path, чтобы импортировать the_two_planes
 sys.path.append(os.path.dirname(__file__))
@@ -17,7 +18,7 @@ def run_agent_inference(flights_data=None):
         pass # Skip printing to avoid encoding errors
     builtins.print = safe_print
     
-    base_dir = os.path.dirname(os.path.dirname(__file__))
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     agent_dir = os.path.join(base_dir, 'agent')
     
     # Пути к файлам данных
@@ -112,10 +113,36 @@ def run_agent_inference(flights_data=None):
     
     # Запускаем инференс
     try:
-        results = the_two_planes.inference(
-            save_dir=agent_dir, 
-            agent_routes=agent_routes, 
-            agent_aircraft=agent_aircraft
+        # Загружаем данные окружения (аэропорты, зоны, погоду и т.д.)
+        airports, prohibited, allowed_wp, weather_db, oncoming = the_two_planes.load_environment_data()
+        
+        routes = agent_routes if agent_routes is not None else the_two_planes.AGENT_ROUTES
+        aircrafts = agent_aircraft if agent_aircraft is not None else the_two_planes.AGENT_AIRCRAFT
+        
+        agents = []
+        for i in range(len(routes)):
+            # Загружаем конкретные файлы весов q_table_agent*.pkl
+            model_base = os.path.join(agent_dir, f"q_table_agent{i+1}.pkl")
+            
+            if os.path.exists(model_base):
+                pkl_path = model_base
+                original_print(f"Loading weights for agent {i+1}: {pkl_path}")
+            else:
+                raise FileNotFoundError(f"No weights found for agent {i+1} in {agent_dir}")
+                
+            agent = the_two_planes.QLearningAgent.from_file(pkl_path)
+            agents.append(agent)
+            
+        results = the_two_planes._run_greedy(
+            agents=agents,
+            airports=airports,
+            prohibited=prohibited,
+            allowed_wp=allowed_wp,
+            weather_db=weather_db,
+            oncoming=oncoming,
+            save=Path(agent_dir),
+            agent_routes=routes,
+            agent_aircraft=aircrafts
         )
         
         # Сохраняем результат в two_planes_route.json в корне проекта

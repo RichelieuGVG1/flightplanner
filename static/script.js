@@ -1128,6 +1128,7 @@ function drawRouteOnMap(planes, agentPlanes) {
             }
         }
 
+        /*
         // Points
         path.forEach(p => {
             agentRouteSource.addFeature(new ol.Feature({
@@ -1136,6 +1137,7 @@ function drawRouteOnMap(planes, agentPlanes) {
                 altitude_level: p.altitude_level || 3
             }));
         });
+        */
 
         const aFeature = new ol.Feature({
             geometry: new ol.geom.Point([0, 0])

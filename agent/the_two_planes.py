@@ -578,7 +578,7 @@ class FlightEnvironment:
         )
 
         if not candidates:
-            return self._obs(), -500.0, True
+            return self._obs(candidates), -500.0, True
 
         wp_idx  = min(wp_idx_a, len(candidates) - 1)
         next_wp = candidates[wp_idx]
@@ -595,7 +595,13 @@ class FlightEnvironment:
         if self.state.current_t >= MAX_T:
             done = True
 
-        return self._obs(), reward, done
+        new_candidates = self._get_candidates(
+            self.state.current_lat,
+            self.state.current_lon,
+            self.state.visited_wp,
+        )
+
+        return self._obs(new_candidates), reward, done
 
     # ──────────────────────────────────────────────────────────────────
     # Внутренние методы
@@ -636,15 +642,17 @@ class FlightEnvironment:
             }]
         )
 
-    def _obs(self) -> Tuple:
+    def _obs(self, candidates: List[Dict] = None) -> Tuple:
         """
-        (progress_bucket, altitude_level, heading_bucket, conflict, stagnation_bucket)
+        (progress_bucket, altitude_level, heading_bucket, conflict, stagnation_bucket, w1, w2, w3, w4, w5, w6, w7, w8)
 
         progress_bucket   — прогресс × 20 → 0..20
         altitude_level    — текущий эшелон 1..5
         heading_bucket    — отклонение курса от прямой к цели // 15 → 0..6
         conflict          — 0/1: нарушение 200 км между агентами
         stagnation_bucket — 0/1: агент засиделся на одном эшелоне
+        w1..w8            — агрегированная погодная опасность (0..4) на 3 шага вперед 
+                            для каждого из 8 кандидатов
         """
         progress = 1.0 - self.state.dist_to_goal_km / max(1.0, self.gc_dist)
         progress_bucket = max(0, min(20, int(progress * 20)))
@@ -673,8 +681,42 @@ class FlightEnvironment:
                     break
 
         stagnation = 1 if self.state.steps_at_current_alt > PENALTY_ALT_STAGNATION_STEPS else 0
+        
+        # --- Weather Forecast for 8 Candidates ---
+        if candidates is None:
+            candidates = self._get_candidates(
+                self.state.current_lat,
+                self.state.current_lon,
+                self.state.visited_wp,
+            )
+            
+        weather_buckets = []
+        step_weather_forward = 10 #3
+        #видимость погоды вперед для обучения агента
 
-        return (progress_bucket, alt_bucket, heading_bucket, conflict, stagnation)
+        for i in range(K_NEAREST_WAYPOINTS):
+            if i < len(candidates):
+                wp = candidates[i]
+                max_danger = 0
+                for dt in range(1, step_weather_forward + 1):
+                    future_t = self.state.current_t + dt
+                    w = self.weather_db.get(wp["lat"], wp["lon"], self.state.altitude_level, future_t)
+                    if w:
+                        w_speed = w.get("wind_speed", 0.0)
+                        w_turb  = w.get("turbulence", 0)
+                        w_ice   = w.get("ice", 0)
+                        w_storm = w.get("storm_power", 0.0)
+                        
+                        danger = (w_storm * 2) + w_turb + w_ice + (1 if w_speed > WIND_FREE_THRESHOLD_MS else 0)
+                        danger_bucket = min(4, int(danger))
+                        if danger_bucket > max_danger:
+                            max_danger = danger_bucket
+                
+                weather_buckets.append(max_danger)
+            else:
+                weather_buckets.append(0)  # Pad with 0 if fewer than 8 candidates
+
+        return (progress_bucket, alt_bucket, heading_bucket, conflict, stagnation, *weather_buckets)
 
     def _get_candidates(self, lat: float, lon: float,
                         visited: set) -> List[Dict]:
@@ -810,7 +852,7 @@ class FlightEnvironment:
             alt_fuel = self.aircraft.fuel_for_level_change(level_delta, s.current_mass_kg)
             alt_penalty = PENALTY_ALT_CHANGE_PER_LEVEL * level_delta * (1.5 if level_delta >= 2 else 1.0)
             penalty += alt_penalty
-            s.add_penalty(f"Смена эшелона FL{prev_alt*100}→FL{new_alt*100}", alt_penalty)
+            s.add_penalty(f"Смена эшелона FL{prev_alt*100}->FL{new_alt*100}", alt_penalty)
             # Топливо на манёвр
             s.current_mass_kg     = max(self.aircraft.preset["empty_mass_kg"], s.current_mass_kg - alt_fuel)
             s.fuel_remaining_kg   = max(0.0, s.fuel_remaining_kg - alt_fuel)
@@ -851,7 +893,7 @@ class FlightEnvironment:
             if weather_penalty > 0:
                 penalty += weather_penalty
                 if w_wind > 0:
-                    s.add_penalty(f"Ветер {w_speed:.1f} м/с (эффект ×{wind_eff:.2f})", w_wind)
+                    s.add_penalty(f"Ветер {w_speed:.1f} м/с (эффект x{wind_eff:.2f})", w_wind)
                 if w_storm > 0:
                     s.add_penalty(f"Гроза {w_storm:.2f}", PENALTY_WEATHER_STORM_PER_UNIT * w_storm)
                 if w_turb > 0:
@@ -1278,7 +1320,7 @@ def _run_greedy(agents, airports, prohibited, allowed_wp,
         results.append(res)
 
         status = "ПРИЛЕТЕЛ" if res["arrived"] else f"не долетел ({res['dist_to_goal_final_km']:.0f} км до цели)"
-        print(f"\n  [ВС #{res['plane_id']}] {res['departure']} → {res['arrival']}  [{status}]")
+        print(f"\n  [ВС #{res['plane_id']}] {res['departure']} -> {res['arrival']}  [{status}]")
         print(f"  Тип: {res['aircraft_type']} | "
               f"Пройдено: {res['total_distance_km']:.0f} км | "
               f"Шагов: {res['steps_taken']}")
