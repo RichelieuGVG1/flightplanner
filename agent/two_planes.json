@@ -9,7 +9,7 @@
     "total_fuel_burned_kg": 120368.0,
     "fuel_remaining_kg": 20953.5,
     "final_mass_kg": 221433.5,
-    "total_penalty": 47474.4,
+    "total_penalty": 363344.4,
     "steps_taken": 42,
     "dist_to_goal_final_km": 0.2,
     "penalties": [
@@ -133,6 +133,13 @@
         "lon": 49.23333
       },
       {
+        "reason": "Стагнация на FL100 (11 шагов)",
+        "value": 300,
+        "t": 12,
+        "lat": 61.1836,
+        "lon": 50.84807
+      },
+      {
         "reason": "Гроза 0.34",
         "value": 170.0,
         "t": 12,
@@ -154,8 +161,8 @@
         "lon": 50.84807
       },
       {
-        "reason": "Стагнация на FL100 (11 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (12 шагов)",
+        "value": 600,
         "t": 13,
         "lat": 61.01197,
         "lon": 54.30318
@@ -182,8 +189,8 @@
         "lon": 54.30318
       },
       {
-        "reason": "Стагнация на FL100 (12 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (13 шагов)",
+        "value": 900,
         "t": 14,
         "lat": 61.15701,
         "lon": 56.95491
@@ -217,8 +224,8 @@
         "lon": 56.95491
       },
       {
-        "reason": "Стагнация на FL100 (13 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (14 шагов)",
+        "value": 1200,
         "t": 15,
         "lat": 63.30333,
         "lon": 58.12167
@@ -259,8 +266,8 @@
         "lon": 58.12167
       },
       {
-        "reason": "Стагнация на FL100 (14 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (15 шагов)",
+        "value": 1500,
         "t": 16,
         "lat": 64.65379,
         "lon": 60.35148
@@ -294,8 +301,8 @@
         "lon": 60.35148
       },
       {
-        "reason": "Стагнация на FL100 (15 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (16 шагов)",
+        "value": 1800,
         "t": 17,
         "lat": 64.91553,
         "lon": 65.58166
@@ -322,8 +329,8 @@
         "lon": 65.58166
       },
       {
-        "reason": "Стагнация на FL100 (16 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (17 шагов)",
+        "value": 2100,
         "t": 18,
         "lat": 64.90055,
         "lon": 67.99842
@@ -350,8 +357,8 @@
         "lon": 67.99842
       },
       {
-        "reason": "Стагнация на FL100 (17 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (18 шагов)",
+        "value": 2400,
         "t": 19,
         "lat": 64.85891,
         "lon": 71.02522
@@ -385,8 +392,8 @@
         "lon": 71.02522
       },
       {
-        "reason": "Стагнация на FL100 (18 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (19 шагов)",
+        "value": 2700,
         "t": 20,
         "lat": 65.05894,
         "lon": 72.78528
@@ -413,8 +420,8 @@
         "lon": 72.78528
       },
       {
-        "reason": "Стагнация на FL100 (19 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (20 шагов)",
+        "value": 3000,
         "t": 21,
         "lat": 63.85061,
         "lon": 76.18215
@@ -434,8 +441,8 @@
         "lon": 76.18215
       },
       {
-        "reason": "Стагнация на FL100 (20 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (21 шагов)",
+        "value": 3300,
         "t": 22,
         "lat": 63.44727,
         "lon": 77.25721
@@ -462,8 +469,8 @@
         "lon": 77.25721
       },
       {
-        "reason": "Стагнация на FL100 (21 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (22 шагов)",
+        "value": 3600,
         "t": 23,
         "lat": 62.08167,
         "lon": 79.0
@@ -490,8 +497,8 @@
         "lon": 79.0
       },
       {
-        "reason": "Стагнация на FL100 (22 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (23 шагов)",
+        "value": 3900,
         "t": 24,
         "lat": 63.98399,
         "lon": 82.04907
@@ -518,8 +525,8 @@
         "lon": 82.04907
       },
       {
-        "reason": "Стагнация на FL100 (23 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (24 шагов)",
+        "value": 4200,
         "t": 25,
         "lat": 63.24399,
         "lon": 84.6392
@@ -546,8 +553,8 @@
         "lon": 84.6392
       },
       {
-        "reason": "Стагнация на FL100 (24 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (25 шагов)",
+        "value": 4500,
         "t": 26,
         "lat": 63.104,
         "lon": 89.32775
@@ -567,8 +574,8 @@
         "lon": 89.32775
       },
       {
-        "reason": "Стагнация на FL100 (25 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (26 шагов)",
+        "value": 4800,
         "t": 27,
         "lat": 62.75235,
         "lon": 94.33965
@@ -602,8 +609,8 @@
         "lon": 94.33965
       },
       {
-        "reason": "Стагнация на FL100 (26 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (27 шагов)",
+        "value": 5100,
         "t": 28,
         "lat": 61.57899,
         "lon": 98.09816
@@ -630,8 +637,8 @@
         "lon": 98.09816
       },
       {
-        "reason": "Стагнация на FL100 (27 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (28 шагов)",
+        "value": 5400,
         "t": 29,
         "lat": 61.07232,
         "lon": 100.79161
@@ -658,8 +665,8 @@
         "lon": 100.79161
       },
       {
-        "reason": "Стагнация на FL100 (28 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (29 шагов)",
+        "value": 5700,
         "t": 30,
         "lat": 59.97563,
         "lon": 105.3818
@@ -686,8 +693,8 @@
         "lon": 105.3818
       },
       {
-        "reason": "Стагнация на FL100 (29 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (30 шагов)",
+        "value": 6000,
         "t": 31,
         "lat": 57.77057,
         "lon": 108.06023
@@ -721,8 +728,8 @@
         "lon": 108.06023
       },
       {
-        "reason": "Стагнация на FL100 (30 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (31 шагов)",
+        "value": 6300,
         "t": 32,
         "lat": 58.66725,
         "lon": 111.51704
@@ -742,8 +749,8 @@
         "lon": 111.51704
       },
       {
-        "reason": "Стагнация на FL100 (31 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (32 шагов)",
+        "value": 6600,
         "t": 33,
         "lat": 58.81725,
         "lon": 112.13373
@@ -763,8 +770,8 @@
         "lon": 112.13373
       },
       {
-        "reason": "Стагнация на FL100 (32 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (33 шагов)",
+        "value": 6900,
         "t": 34,
         "lat": 60.36061,
         "lon": 115.97891
@@ -791,8 +798,8 @@
         "lon": 115.97891
       },
       {
-        "reason": "Стагнация на FL100 (33 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (34 шагов)",
+        "value": 7200,
         "t": 35,
         "lat": 60.38833,
         "lon": 120.47167
@@ -819,50 +826,50 @@
         "lon": 120.47167
       },
       {
-        "reason": "Стагнация на FL100 (34 шагов)",
-        "value": 15,
-        "t": 36,
-        "lat": 56.81382,
-        "lon": 123.13245
-      },
-      {
-        "reason": "Турбулентность ур.1",
-        "value": 150,
-        "t": 36,
-        "lat": 56.81382,
-        "lon": 123.13245
-      },
-      {
         "reason": "Стагнация на FL100 (35 шагов)",
-        "value": 15,
-        "t": 37,
-        "lat": 53.88874,
-        "lon": 125.58414
+        "value": 7500,
+        "t": 36,
+        "lat": 56.81382,
+        "lon": 123.13245
       },
       {
         "reason": "Турбулентность ур.1",
         "value": 150,
-        "t": 37,
-        "lat": 53.88874,
-        "lon": 125.58414
+        "t": 36,
+        "lat": 56.81382,
+        "lon": 123.13245
       },
       {
         "reason": "Стагнация на FL100 (36 шагов)",
-        "value": 15,
-        "t": 38,
-        "lat": 51.32533,
-        "lon": 127.66749
+        "value": 7800,
+        "t": 37,
+        "lat": 53.88874,
+        "lon": 125.58414
       },
       {
         "reason": "Турбулентность ур.1",
         "value": 150,
-        "t": 38,
-        "lat": 51.32533,
-        "lon": 127.66749
+        "t": 37,
+        "lat": 53.88874,
+        "lon": 125.58414
       },
       {
         "reason": "Стагнация на FL100 (37 шагов)",
-        "value": 15,
+        "value": 8100,
+        "t": 38,
+        "lat": 51.32533,
+        "lon": 127.66749
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 38,
+        "lat": 51.32533,
+        "lon": 127.66749
+      },
+      {
+        "reason": "Стагнация на FL100 (38 шагов)",
+        "value": 8400,
         "t": 39,
         "lat": 50.63365,
         "lon": 128.03415
@@ -875,8 +882,8 @@
         "lon": 128.03415
       },
       {
-        "reason": "Стагнация на FL100 (38 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (39 шагов)",
+        "value": 8700,
         "t": 40,
         "lat": 50.22197,
         "lon": 128.14582
@@ -903,8 +910,8 @@
         "lon": 128.14582
       },
       {
-        "reason": "Стагнация на FL100 (39 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (40 шагов)",
+        "value": 9000,
         "t": 41,
         "lat": 49.22859,
         "lon": 131.6509
@@ -931,8 +938,8 @@
         "lon": 131.6509
       },
       {
-        "reason": "Стагнация на FL100 (40 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (41 шагов)",
+        "value": 9300,
         "t": 42,
         "lat": 46.81851,
         "lon": 134.98928
@@ -959,8 +966,8 @@
         "lon": 134.98928
       },
       {
-        "reason": "Стагнация на FL100 (41 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (42 шагов)",
+        "value": 9600,
         "t": 43,
         "lat": 44.91681,
         "lon": 133.86755
@@ -1223,7 +1230,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 119223.5,
         "current_mass_kg": 319703.5,
-        "step_penalty": 423.5,
+        "step_penalty": 723.5,
         "dist_km": 186.64,
         "fuel_burned_step_kg": 3378.7,
         "wind_effect": 1.0,
@@ -1245,7 +1252,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 116715.4,
         "current_mass_kg": 317195.4,
-        "step_penalty": 705.0,
+        "step_penalty": 1290.0,
         "dist_km": 143.47,
         "fuel_burned_step_kg": 2508.1,
         "wind_effect": 0.976,
@@ -1267,7 +1274,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 112294.2,
         "current_mass_kg": 312774.2,
-        "step_penalty": 1069.2,
+        "step_penalty": 1954.2,
         "dist_km": 246.19,
         "fuel_burned_step_kg": 4421.2,
         "wind_effect": 1.011,
@@ -1289,7 +1296,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 108901.5,
         "current_mass_kg": 309381.5,
-        "step_penalty": 1157.1,
+        "step_penalty": 2342.1,
         "dist_km": 185.4,
         "fuel_burned_step_kg": 3392.7,
         "wind_effect": 1.045,
@@ -1311,7 +1318,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 104421.7,
         "current_mass_kg": 304901.7,
-        "step_penalty": 916.9,
+        "step_penalty": 2401.9,
         "dist_km": 249.39,
         "fuel_burned_step_kg": 4479.8,
         "wind_effect": 1.037,
@@ -1333,7 +1340,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 102456.2,
         "current_mass_kg": 302936.2,
-        "step_penalty": 1055.0,
+        "step_penalty": 2840.0,
         "dist_km": 113.97,
         "fuel_burned_step_kg": 1965.5,
         "wind_effect": 1.01,
@@ -1355,7 +1362,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 99998.5,
         "current_mass_kg": 300478.5,
-        "step_penalty": 1060.0,
+        "step_penalty": 3145.0,
         "dist_km": 142.94,
         "fuel_burned_step_kg": 2457.7,
         "wind_effect": 1.013,
@@ -1377,7 +1384,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 98552.9,
         "current_mass_kg": 299032.9,
-        "step_penalty": 1038.3,
+        "step_penalty": 3423.3,
         "dist_km": 85.77,
         "fuel_burned_step_kg": 1445.6,
         "wind_effect": 1.001,
@@ -1399,7 +1406,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 95017.9,
         "current_mass_kg": 295497.9,
-        "step_penalty": 607.0,
+        "step_penalty": 3292.0,
         "dist_km": 211.1,
         "fuel_burned_step_kg": 3535.1,
         "wind_effect": 1.0,
@@ -1421,7 +1428,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 93878.1,
         "current_mass_kg": 294358.1,
-        "step_penalty": 900.0,
+        "step_penalty": 3885.0,
         "dist_km": 69.47,
         "fuel_burned_step_kg": 1139.7,
         "wind_effect": 0.991,
@@ -1443,7 +1450,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 91013.2,
         "current_mass_kg": 291493.2,
-        "step_penalty": 940.5,
+        "step_penalty": 4225.5,
         "dist_km": 175.84,
         "fuel_burned_step_kg": 2865.0,
         "wind_effect": 0.988,
@@ -1465,7 +1472,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 86707.4,
         "current_mass_kg": 287187.4,
-        "step_penalty": 1203.2,
+        "step_penalty": 4788.2,
         "dist_km": 261.44,
         "fuel_burned_step_kg": 4305.8,
         "wind_effect": 1.009,
@@ -1487,7 +1494,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 84322.1,
         "current_mass_kg": 284802.1,
-        "step_penalty": 804.8,
+        "step_penalty": 4689.8,
         "dist_km": 152.15,
         "fuel_burned_step_kg": 2385.3,
         "wind_effect": 0.975,
@@ -1509,7 +1516,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 80566.5,
         "current_mass_kg": 281046.5,
-        "step_penalty": 987.2,
+        "step_penalty": 5172.2,
         "dist_km": 235.73,
         "fuel_burned_step_kg": 3755.6,
         "wind_effect": 0.999,
@@ -1531,7 +1538,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 76615.7,
         "current_mass_kg": 277095.7,
-        "step_penalty": 990.0,
+        "step_penalty": 5475.0,
         "dist_km": 256.56,
         "fuel_burned_step_kg": 3950.7,
         "wind_effect": 0.978,
@@ -1553,7 +1560,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 73431.2,
         "current_mass_kg": 273911.2,
-        "step_penalty": 1284.1,
+        "step_penalty": 6069.1,
         "dist_km": 234.68,
         "fuel_burned_step_kg": 3184.5,
         "wind_effect": 0.874,
@@ -1575,7 +1582,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 71132.5,
         "current_mass_kg": 271612.5,
-        "step_penalty": 932.6,
+        "step_penalty": 6017.6,
         "dist_km": 154.34,
         "fuel_burned_step_kg": 2298.8,
         "wind_effect": 0.971,
@@ -1597,7 +1604,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 66928.0,
         "current_mass_kg": 267408.0,
-        "step_penalty": 743.5,
+        "step_penalty": 6128.5,
         "dist_km": 279.11,
         "fuel_burned_step_kg": 4204.4,
         "wind_effect": 0.99,
@@ -1619,7 +1626,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 62482.2,
         "current_mass_kg": 262962.2,
-        "step_penalty": 574.6,
+        "step_penalty": 6259.6,
         "dist_km": 289.47,
         "fuel_burned_step_kg": 4445.9,
         "wind_effect": 1.025,
@@ -1641,7 +1648,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 59314.6,
         "current_mass_kg": 259794.6,
-        "step_penalty": 614.8,
+        "step_penalty": 6599.8,
         "dist_km": 225.63,
         "fuel_burned_step_kg": 3167.5,
         "wind_effect": 0.953,
@@ -1663,7 +1670,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 58776.4,
         "current_mass_kg": 259256.4,
-        "step_penalty": 356.5,
+        "step_penalty": 6641.5,
         "dist_km": 39.3,
         "fuel_burned_step_kg": 538.2,
         "wind_effect": 0.941,
@@ -1685,7 +1692,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 55046.3,
         "current_mass_kg": 255526.3,
-        "step_penalty": 368.8,
+        "step_penalty": 6953.8,
         "dist_km": 276.14,
         "fuel_burned_step_kg": 3730.1,
         "wind_effect": 0.93,
@@ -1707,7 +1714,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 51729.2,
         "current_mass_kg": 252209.2,
-        "step_penalty": 398.6,
+        "step_penalty": 7283.6,
         "dist_km": 246.92,
         "fuel_burned_step_kg": 3317.1,
         "wind_effect": 0.939,
@@ -1729,7 +1736,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 45871.9,
         "current_mass_kg": 246351.9,
-        "step_penalty": 473.8,
+        "step_penalty": 7658.8,
         "dist_km": 426.23,
         "fuel_burned_step_kg": 5857.4,
         "wind_effect": 0.973,
@@ -1751,7 +1758,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 40808.5,
         "current_mass_kg": 241288.5,
-        "step_penalty": 165.0,
+        "step_penalty": 7650.0,
         "dist_km": 360.24,
         "fuel_burned_step_kg": 5063.3,
         "wind_effect": 1.019,
@@ -1773,7 +1780,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 36587.6,
         "current_mass_kg": 237067.6,
-        "step_penalty": 165.0,
+        "step_penalty": 7950.0,
         "dist_km": 317.83,
         "fuel_burned_step_kg": 4221.0,
         "wind_effect": 0.983,
@@ -1795,7 +1802,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 35495.7,
         "current_mass_kg": 235975.7,
-        "step_penalty": 165.0,
+        "step_penalty": 8250.0,
         "dist_km": 81.08,
         "fuel_burned_step_kg": 1091.8,
         "wind_effect": 1.014,
@@ -1817,7 +1824,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 34873.5,
         "current_mass_kg": 235353.5,
-        "step_penalty": 165.0,
+        "step_penalty": 8550.0,
         "dist_km": 46.45,
         "fuel_burned_step_kg": 622.3,
         "wind_effect": 1.013,
@@ -1839,7 +1846,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 31223.5,
         "current_mass_kg": 231703.5,
-        "step_penalty": 357.1,
+        "step_penalty": 9042.1,
         "dist_km": 275.07,
         "fuel_burned_step_kg": 3649.9,
         "wind_effect": 1.007,
@@ -1861,7 +1868,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 26552.2,
         "current_mass_kg": 227032.2,
-        "step_penalty": 391.5,
+        "step_penalty": 9376.5,
         "dist_km": 365.25,
         "fuel_burned_step_kg": 4671.4,
         "wind_effect": 0.986,
@@ -1883,7 +1890,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 23643.3,
         "current_mass_kg": 224123.3,
-        "step_penalty": 399.5,
+        "step_penalty": 9684.5,
         "dist_km": 228.59,
         "fuel_burned_step_kg": 2908.9,
         "wind_effect": 1.001,
@@ -1905,7 +1912,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 20953.5,
         "current_mass_kg": 221433.5,
-        "step_penalty": 169.9,
+        "step_penalty": 9754.9,
         "dist_km": 217.55,
         "fuel_burned_step_kg": 2689.8,
         "wind_effect": 0.985,
@@ -1931,7 +1938,7 @@
     "total_fuel_burned_kg": 98249.4,
     "fuel_remaining_kg": 25692.4,
     "final_mass_kg": 204348.4,
-    "total_penalty": 26875.1,
+    "total_penalty": 323575.1,
     "steps_taken": 41,
     "dist_to_goal_final_km": 0.2,
     "penalties": [
@@ -2069,6 +2076,13 @@
         "lon": 52.09338
       },
       {
+        "reason": "Стагнация на FL100 (11 шагов)",
+        "value": 300,
+        "t": 12,
+        "lat": 56.11833,
+        "lon": 53.58667
+      },
+      {
         "reason": "Турбулентность ур.1",
         "value": 150,
         "t": 12,
@@ -2076,8 +2090,8 @@
         "lon": 53.58667
       },
       {
-        "reason": "Стагнация на FL100 (11 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (12 шагов)",
+        "value": 600,
         "t": 13,
         "lat": 56.86691,
         "lon": 55.38841
@@ -2097,8 +2111,8 @@
         "lon": 55.38841
       },
       {
-        "reason": "Стагнация на FL100 (12 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (13 шагов)",
+        "value": 900,
         "t": 14,
         "lat": 57.46194,
         "lon": 57.14343
@@ -2125,8 +2139,8 @@
         "lon": 57.14343
       },
       {
-        "reason": "Стагнация на FL100 (13 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (14 шагов)",
+        "value": 1200,
         "t": 15,
         "lat": 57.80363,
         "lon": 58.43512
@@ -2160,8 +2174,8 @@
         "lon": 58.43512
       },
       {
-        "reason": "Стагнация на FL100 (14 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (15 шагов)",
+        "value": 1500,
         "t": 16,
         "lat": 60.08868,
         "lon": 58.45835
@@ -2188,8 +2202,8 @@
         "lon": 58.45835
       },
       {
-        "reason": "Стагнация на FL100 (15 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (16 шагов)",
+        "value": 1800,
         "t": 17,
         "lat": 63.30333,
         "lon": 58.12167
@@ -2223,8 +2237,8 @@
         "lon": 58.12167
       },
       {
-        "reason": "Стагнация на FL100 (16 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (17 шагов)",
+        "value": 2100,
         "t": 18,
         "lat": 64.65379,
         "lon": 60.35148
@@ -2251,8 +2265,8 @@
         "lon": 60.35148
       },
       {
-        "reason": "Стагнация на FL100 (17 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (18 шагов)",
+        "value": 2400,
         "t": 19,
         "lat": 66.47667,
         "lon": 63.47
@@ -2279,8 +2293,8 @@
         "lon": 63.47
       },
       {
-        "reason": "Стагнация на FL100 (18 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (19 шагов)",
+        "value": 2700,
         "t": 20,
         "lat": 67.00723,
         "lon": 65.43151
@@ -2307,8 +2321,8 @@
         "lon": 65.43151
       },
       {
-        "reason": "Стагнация на FL100 (19 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (20 шагов)",
+        "value": 3000,
         "t": 21,
         "lat": 67.57563,
         "lon": 70.02501
@@ -2335,8 +2349,8 @@
         "lon": 70.02501
       },
       {
-        "reason": "Стагнация на FL100 (20 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (21 шагов)",
+        "value": 3300,
         "t": 22,
         "lat": 68.46667,
         "lon": 73.59667
@@ -2356,8 +2370,8 @@
         "lon": 73.59667
       },
       {
-        "reason": "Стагнация на FL100 (21 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (22 шагов)",
+        "value": 3600,
         "t": 23,
         "lat": 68.69167,
         "lon": 78.95333
@@ -2370,8 +2384,8 @@
         "lon": 78.95333
       },
       {
-        "reason": "Стагнация на FL100 (22 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (23 шагов)",
+        "value": 3900,
         "t": 24,
         "lat": 68.71574,
         "lon": 79.97043
@@ -2391,8 +2405,8 @@
         "lon": 79.97043
       },
       {
-        "reason": "Стагнация на FL100 (23 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (24 шагов)",
+        "value": 4200,
         "t": 25,
         "lat": 71.56915,
         "lon": 83.49379
@@ -2412,8 +2426,8 @@
         "lon": 83.49379
       },
       {
-        "reason": "Стагнация на FL100 (24 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (25 шагов)",
+        "value": 4500,
         "t": 26,
         "lat": 71.92,
         "lon": 88.84167
@@ -2426,8 +2440,8 @@
         "lon": 88.84167
       },
       {
-        "reason": "Стагнация на FL100 (25 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (26 шагов)",
+        "value": 4800,
         "t": 27,
         "lat": 72.27754,
         "lon": 91.89764
@@ -2447,8 +2461,8 @@
         "lon": 91.89764
       },
       {
-        "reason": "Стагнация на FL100 (26 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (27 шагов)",
+        "value": 5100,
         "t": 28,
         "lat": 69.39583,
         "lon": 99.47818
@@ -2475,8 +2489,8 @@
         "lon": 99.47818
       },
       {
-        "reason": "Стагнация на FL100 (27 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (28 шагов)",
+        "value": 5400,
         "t": 29,
         "lat": 69.25583,
         "lon": 103.11506
@@ -2496,8 +2510,8 @@
         "lon": 103.11506
       },
       {
-        "reason": "Стагнация на FL100 (28 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (29 шагов)",
+        "value": 5700,
         "t": 30,
         "lat": 69.04833,
         "lon": 106.54167
@@ -2517,8 +2531,8 @@
         "lon": 106.54167
       },
       {
-        "reason": "Стагнация на FL100 (29 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (30 шагов)",
+        "value": 6000,
         "t": 31,
         "lat": 68.51746,
         "lon": 112.46725
@@ -2531,36 +2545,36 @@
         "lon": 112.46725
       },
       {
-        "reason": "Стагнация на FL100 (30 шагов)",
-        "value": 15,
-        "t": 32,
-        "lat": 67.89,
-        "lon": 117.16
-      },
-      {
-        "reason": "Турбулентность ур.1",
-        "value": 150,
-        "t": 32,
-        "lat": 67.89,
-        "lon": 117.16
-      },
-      {
         "reason": "Стагнация на FL100 (31 шагов)",
-        "value": 15,
-        "t": 33,
-        "lat": 66.78404,
-        "lon": 123.36776
+        "value": 6300,
+        "t": 32,
+        "lat": 67.89,
+        "lon": 117.16
       },
       {
         "reason": "Турбулентность ур.1",
         "value": 150,
-        "t": 33,
-        "lat": 66.78404,
-        "lon": 123.36776
+        "t": 32,
+        "lat": 67.89,
+        "lon": 117.16
       },
       {
         "reason": "Стагнация на FL100 (32 шагов)",
-        "value": 15,
+        "value": 6600,
+        "t": 33,
+        "lat": 66.78404,
+        "lon": 123.36776
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 33,
+        "lat": 66.78404,
+        "lon": 123.36776
+      },
+      {
+        "reason": "Стагнация на FL100 (33 шагов)",
+        "value": 6900,
         "t": 34,
         "lat": 66.285,
         "lon": 127.77667
@@ -2580,8 +2594,8 @@
         "lon": 127.77667
       },
       {
-        "reason": "Стагнация на FL100 (33 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (34 шагов)",
+        "value": 7200,
         "t": 35,
         "lat": 65.30227,
         "lon": 131.70141
@@ -2601,8 +2615,8 @@
         "lon": 131.70141
       },
       {
-        "reason": "Стагнация на FL100 (34 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (35 шагов)",
+        "value": 7500,
         "t": 36,
         "lat": 64.74,
         "lon": 137.11333
@@ -2622,64 +2636,64 @@
         "lon": 137.11333
       },
       {
-        "reason": "Стагнация на FL100 (35 шагов)",
-        "value": 15,
-        "t": 37,
-        "lat": 62.00875,
-        "lon": 143.14833
-      },
-      {
-        "reason": "Турбулентность ур.1",
-        "value": 150,
-        "t": 37,
-        "lat": 62.00875,
-        "lon": 143.14833
-      },
-      {
         "reason": "Стагнация на FL100 (36 шагов)",
-        "value": 15,
-        "t": 38,
-        "lat": 60.30701,
-        "lon": 145.94
+        "value": 7800,
+        "t": 37,
+        "lat": 62.00875,
+        "lon": 143.14833
       },
       {
         "reason": "Турбулентность ур.1",
         "value": 150,
-        "t": 38,
-        "lat": 60.30701,
-        "lon": 145.94
+        "t": 37,
+        "lat": 62.00875,
+        "lon": 143.14833
       },
       {
         "reason": "Стагнация на FL100 (37 шагов)",
-        "value": 15,
-        "t": 39,
-        "lat": 57.99667,
-        "lon": 149.32667
+        "value": 8100,
+        "t": 38,
+        "lat": 60.30701,
+        "lon": 145.94
       },
       {
         "reason": "Турбулентность ур.1",
         "value": 150,
-        "t": 39,
-        "lat": 57.99667,
-        "lon": 149.32667
+        "t": 38,
+        "lat": 60.30701,
+        "lon": 145.94
       },
       {
         "reason": "Стагнация на FL100 (38 шагов)",
-        "value": 15,
-        "t": 40,
-        "lat": 57.22022,
-        "lon": 150.87499
+        "value": 8400,
+        "t": 39,
+        "lat": 57.99667,
+        "lon": 149.32667
       },
       {
         "reason": "Турбулентность ур.1",
         "value": 150,
-        "t": 40,
-        "lat": 57.22022,
-        "lon": 150.87499
+        "t": 39,
+        "lat": 57.99667,
+        "lon": 149.32667
       },
       {
         "reason": "Стагнация на FL100 (39 шагов)",
-        "value": 15,
+        "value": 8700,
+        "t": 40,
+        "lat": 57.22022,
+        "lon": 150.87499
+      },
+      {
+        "reason": "Турбулентность ур.1",
+        "value": 150,
+        "t": 40,
+        "lat": 57.22022,
+        "lon": 150.87499
+      },
+      {
+        "reason": "Стагнация на FL100 (40 шагов)",
+        "value": 9000,
         "t": 41,
         "lat": 56.32185,
         "lon": 152.54666
@@ -2692,8 +2706,8 @@
         "lon": 152.54666
       },
       {
-        "reason": "Стагнация на FL100 (40 шагов)",
-        "value": 15,
+        "reason": "Стагнация на FL100 (41 шагов)",
+        "value": 9300,
         "t": 42,
         "lat": 54.93345,
         "lon": 155.23499
@@ -2949,7 +2963,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 102125.3,
         "current_mass_kg": 280781.3,
-        "step_penalty": 150.0,
+        "step_penalty": 450.0,
         "dist_km": 138.41,
         "fuel_burned_step_kg": 1890.7,
         "wind_effect": 0.986,
@@ -2971,7 +2985,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 100459.1,
         "current_mass_kg": 279115.1,
-        "step_penalty": 390.0,
+        "step_penalty": 975.0,
         "dist_km": 124.79,
         "fuel_burned_step_kg": 1666.2,
         "wind_effect": 0.97,
@@ -2993,7 +3007,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 99360.6,
         "current_mass_kg": 278016.6,
-        "step_penalty": 481.5,
+        "step_penalty": 1366.5,
         "dist_km": 85.76,
         "fuel_burned_step_kg": 1098.5,
         "wind_effect": 0.936,
@@ -3015,7 +3029,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 95989.3,
         "current_mass_kg": 274645.3,
-        "step_penalty": 652.9,
+        "step_penalty": 1837.9,
         "dist_km": 254.09,
         "fuel_burned_step_kg": 3371.4,
         "wind_effect": 0.974,
@@ -3037,7 +3051,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 91282.0,
         "current_mass_kg": 269938.0,
-        "step_penalty": 940.0,
+        "step_penalty": 2425.0,
         "dist_km": 357.89,
         "fuel_burned_step_kg": 4707.2,
         "wind_effect": 0.977,
@@ -3059,7 +3073,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 88725.4,
         "current_mass_kg": 267381.4,
-        "step_penalty": 912.1,
+        "step_penalty": 2697.1,
         "dist_km": 185.4,
         "fuel_burned_step_kg": 2556.6,
         "wind_effect": 1.042,
@@ -3081,7 +3095,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 85627.0,
         "current_mass_kg": 264283.0,
-        "step_penalty": 817.0,
+        "step_penalty": 2902.0,
         "dist_km": 248.25,
         "fuel_burned_step_kg": 3098.5,
         "wind_effect": 0.952,
@@ -3103,7 +3117,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 84316.1,
         "current_mass_kg": 262972.1,
-        "step_penalty": 574.5,
+        "step_penalty": 2959.5,
         "dist_km": 104.39,
         "fuel_burned_step_kg": 1310.9,
         "wind_effect": 0.969,
@@ -3125,7 +3139,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 81633.6,
         "current_mass_kg": 260289.6,
-        "step_penalty": 506.1,
+        "step_penalty": 3191.1,
         "dist_km": 207.01,
         "fuel_burned_step_kg": 2682.5,
         "wind_effect": 1.005,
@@ -3147,7 +3161,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 79302.5,
         "current_mass_kg": 257958.5,
-        "step_penalty": 436.1,
+        "step_penalty": 3421.1,
         "dist_km": 178.59,
         "fuel_burned_step_kg": 2331.1,
         "wind_effect": 1.023,
@@ -3169,7 +3183,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 76539.8,
         "current_mass_kg": 255195.8,
-        "step_penalty": 193.2,
+        "step_penalty": 3478.2,
         "dist_km": 218.9,
         "fuel_burned_step_kg": 2762.7,
         "wind_effect": 0.998,
@@ -3191,7 +3205,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 76027.4,
         "current_mass_kg": 254683.4,
-        "step_penalty": 165.0,
+        "step_penalty": 3750.0,
         "dist_km": 41.16,
         "fuel_burned_step_kg": 512.4,
         "wind_effect": 0.995,
@@ -3213,7 +3227,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 71689.3,
         "current_mass_kg": 250345.3,
-        "step_penalty": 289.2,
+        "step_penalty": 4174.2,
         "dist_km": 343.93,
         "fuel_burned_step_kg": 4338.1,
         "wind_effect": 1.01,
@@ -3235,7 +3249,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 69384.9,
         "current_mass_kg": 248040.9,
-        "step_penalty": 263.8,
+        "step_penalty": 4448.8,
         "dist_km": 190.25,
         "fuel_burned_step_kg": 2304.3,
         "wind_effect": 0.987,
@@ -3257,7 +3271,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 68046.0,
         "current_mass_kg": 246702.0,
-        "step_penalty": 165.0,
+        "step_penalty": 4650.0,
         "dist_km": 111.74,
         "fuel_burned_step_kg": 1339.0,
         "wind_effect": 0.986,
@@ -3279,7 +3293,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 62960.3,
         "current_mass_kg": 241616.3,
-        "step_penalty": 297.1,
+        "step_penalty": 5082.1,
         "dist_km": 422.75,
         "fuel_burned_step_kg": 5085.7,
         "wind_effect": 0.995,
@@ -3301,7 +3315,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 61315.8,
         "current_mass_kg": 239971.8,
-        "step_penalty": 384.1,
+        "step_penalty": 5469.1,
         "dist_km": 143.6,
         "fuel_burned_step_kg": 1644.5,
         "wind_effect": 0.967,
@@ -3323,7 +3337,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 59753.7,
         "current_mass_kg": 238409.7,
-        "step_penalty": 340.2,
+        "step_penalty": 5725.2,
         "dist_km": 137.53,
         "fuel_burned_step_kg": 1562.1,
         "wind_effect": 0.966,
@@ -3345,7 +3359,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 57007.6,
         "current_mass_kg": 235663.6,
-        "step_penalty": 355.0,
+        "step_penalty": 6040.0,
         "dist_km": 245.55,
         "fuel_burned_step_kg": 2746.1,
         "wind_effect": 0.957,
@@ -3367,7 +3381,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 54696.6,
         "current_mass_kg": 233352.6,
-        "step_penalty": 315.0,
+        "step_penalty": 6300.0,
         "dist_km": 205.87,
         "fuel_burned_step_kg": 2311.0,
         "wind_effect": 0.972,
@@ -3389,7 +3403,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 51419.7,
         "current_mass_kg": 230075.7,
-        "step_penalty": 165.0,
+        "step_penalty": 6450.0,
         "dist_km": 292.85,
         "fuel_burned_step_kg": 3277.0,
         "wind_effect": 0.978,
@@ -3411,7 +3425,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 49161.8,
         "current_mass_kg": 227817.8,
-        "step_penalty": 165.0,
+        "step_penalty": 6750.0,
         "dist_km": 202.9,
         "fuel_burned_step_kg": 2257.9,
         "wind_effect": 0.987,
@@ -3433,7 +3447,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 46814.3,
         "current_mass_kg": 225470.3,
-        "step_penalty": 166.9,
+        "step_penalty": 7051.9,
         "dist_km": 209.61,
         "fuel_burned_step_kg": 2347.5,
         "wind_effect": 1.003,
@@ -3455,7 +3469,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 43927.7,
         "current_mass_kg": 222583.7,
-        "step_penalty": 173.1,
+        "step_penalty": 7358.1,
         "dist_km": 261.61,
         "fuel_burned_step_kg": 2886.6,
         "wind_effect": 0.998,
@@ -3477,7 +3491,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 39361.0,
         "current_mass_kg": 218017.0,
-        "step_penalty": 205.5,
+        "step_penalty": 7690.5,
         "dist_km": 427.07,
         "fuel_burned_step_kg": 4566.7,
         "wind_effect": 0.98,
@@ -3499,7 +3513,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 36833.5,
         "current_mass_kg": 215489.5,
-        "step_penalty": 165.0,
+        "step_penalty": 7950.0,
         "dist_km": 241.26,
         "fuel_burned_step_kg": 2527.5,
         "wind_effect": 0.98,
@@ -3521,7 +3535,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 33489.5,
         "current_mass_kg": 212145.5,
-        "step_penalty": 165.0,
+        "step_penalty": 8250.0,
         "dist_km": 321.29,
         "fuel_burned_step_kg": 3343.9,
         "wind_effect": 0.985,
@@ -3543,7 +3557,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 32216.9,
         "current_mass_kg": 210872.9,
-        "step_penalty": 165.0,
+        "step_penalty": 8550.0,
         "dist_km": 126.33,
         "fuel_burned_step_kg": 1272.6,
         "wind_effect": 0.969,
@@ -3565,7 +3579,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 30781.1,
         "current_mass_kg": 209437.1,
-        "step_penalty": 165.0,
+        "step_penalty": 8850.0,
         "dist_km": 142.66,
         "fuel_burned_step_kg": 1435.8,
         "wind_effect": 0.974,
@@ -3587,7 +3601,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 28535.7,
         "current_mass_kg": 207191.7,
-        "step_penalty": 165.0,
+        "step_penalty": 9150.0,
         "dist_km": 228.7,
         "fuel_burned_step_kg": 2245.4,
         "wind_effect": 0.956,
@@ -3609,7 +3623,7 @@
         "altitude_level": 1,
         "fuel_remaining_kg": 25692.4,
         "current_mass_kg": 204348.4,
-        "step_penalty": 165.0,
+        "step_penalty": 9450.0,
         "dist_km": 287.32,
         "fuel_burned_step_kg": 2843.3,
         "wind_effect": 0.974,

@@ -1,0 +1,1361 @@
+[
+    {
+        "name": "Yamburg Airport",
+        "icao": "RU-0050",
+        "iata": "",
+        "lat": 67.986664,
+        "lon": 75.099998,
+        "max_runway_m": 2435.0,
+        "class": "Short"
+    },
+    {
+        "name": "Kostomuksha Airfield",
+        "icao": "RU-0189",
+        "iata": "",
+        "lat": 64.617996,
+        "lon": 30.687,
+        "max_runway_m": 600.5,
+        "class": "Short"
+    },
+    {
+        "name": "Motygino Airport",
+        "icao": "RU-0470",
+        "iata": "MJY",
+        "lat": 58.180921,
+        "lon": 94.745272,
+        "max_runway_m": 1303.0,
+        "class": "Short"
+    },
+    {
+        "name": "Yeysk Airport",
+        "icao": "RU-10077",
+        "iata": "EIK",
+        "lat": 46.68,
+        "lon": 38.21,
+        "max_runway_m": 3599.7,
+        "class": "Long"
+    },
+    {
+        "name": "Platon Oyunsky Yakutsk International Airport",
+        "icao": "UEEE",
+        "iata": "YKS",
+        "lat": 62.0933,
+        "lon": 129.770996,
+        "max_runway_m": 3400.0,
+        "class": "Long"
+    },
+    {
+        "name": "Chulman Airport",
+        "icao": "UELL",
+        "iata": "NER",
+        "lat": 56.913898468018,
+        "lon": 124.91400146484,
+        "max_runway_m": 3600.0,
+        "class": "Long"
+    },
+    {
+        "name": "Moma Airport",
+        "icao": "UEMA",
+        "iata": "MQJ",
+        "lat": 66.450861,
+        "lon": 143.261551,
+        "max_runway_m": 1800.1,
+        "class": "Short"
+    },
+    {
+        "name": "Olyokminsk Airport",
+        "icao": "UEMO",
+        "iata": "OLZ",
+        "lat": 60.401833,
+        "lon": 120.476094,
+        "max_runway_m": 1300.0,
+        "class": "Short"
+    },
+    {
+        "name": "Ust-Nera Airport",
+        "icao": "UEMT",
+        "iata": "USR",
+        "lat": 64.550003,
+        "lon": 143.115005,
+        "max_runway_m": 1530.1,
+        "class": "Short"
+    },
+    {
+        "name": "Verkhnevilyuisk Airport",
+        "icao": "UENI",
+        "iata": "VHV",
+        "lat": 63.458057403564,
+        "lon": 120.26916503906,
+        "max_runway_m": 1399.9,
+        "class": "Short"
+    },
+    {
+        "name": "Suntar Airport",
+        "icao": "UENS",
+        "iata": "SUY",
+        "lat": 62.185001373291,
+        "lon": 117.63500213623,
+        "max_runway_m": 1800.1,
+        "class": "Short"
+    },
+    {
+        "name": "Vilyuisk Airport",
+        "icao": "UENW",
+        "iata": "VYI",
+        "lat": 63.756668,
+        "lon": 121.693336,
+        "max_runway_m": 1599.9,
+        "class": "Short"
+    },
+    {
+        "name": "Lensk Airport",
+        "icao": "UERL",
+        "iata": "ULK",
+        "lat": 60.7206001282,
+        "lon": 114.825996399,
+        "max_runway_m": 2000.1,
+        "class": "Short"
+    },
+    {
+        "name": "Polyarny Airport",
+        "icao": "UERP",
+        "iata": "PYJ",
+        "lat": 66.400398,
+        "lon": 112.029999,
+        "max_runway_m": 3099.8,
+        "class": "Long"
+    },
+    {
+        "name": "Mirny Airport",
+        "icao": "UERR",
+        "iata": "MJZ",
+        "lat": 62.534698486328125,
+        "lon": 114.03900146484375,
+        "max_runway_m": 2800.2,
+        "class": "Short"
+    },
+    {
+        "name": "Srednekolymsk Airport",
+        "icao": "UESK",
+        "iata": "SEK",
+        "lat": 67.4805,
+        "lon": 153.7364,
+        "max_runway_m": 1800.1,
+        "class": "Short"
+    },
+    {
+        "name": "Chokurdakh Airport",
+        "icao": "UESO",
+        "iata": "CKH",
+        "lat": 70.6231,
+        "lon": 147.901993,
+        "max_runway_m": 1899.8,
+        "class": "Short"
+    },
+    {
+        "name": "Cherskiy Airport",
+        "icao": "UESS",
+        "iata": "CYX",
+        "lat": 68.7406005859375,
+        "lon": 161.33799743652344,
+        "max_runway_m": 1699.9,
+        "class": "Short"
+    },
+    {
+        "name": "Tiksi Airport",
+        "icao": "UEST",
+        "iata": "IKS",
+        "lat": 71.697700500488,
+        "lon": 128.90299987793,
+        "max_runway_m": 3000.8,
+        "class": "Long"
+    },
+    {
+        "name": "Ignatyevo Airport",
+        "icao": "UHBB",
+        "iata": "BQS",
+        "lat": 50.42539978027344,
+        "lon": 127.41200256347656,
+        "max_runway_m": 2821.2,
+        "class": "Short"
+    },
+    {
+        "name": "Khabarovsk Novy Airport",
+        "icao": "UHHH",
+        "iata": "KHV",
+        "lat": 48.528338,
+        "lon": 135.188588,
+        "max_runway_m": 4000.2,
+        "class": "Long"
+    },
+    {
+        "name": "Dzemgi Airport",
+        "icao": "UHKD",
+        "iata": "",
+        "lat": 50.605598,
+        "lon": 137.080994,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Komsomolsk-on-Amur Airport",
+        "icao": "UHKK",
+        "iata": "KXK",
+        "lat": 50.409000396728516,
+        "lon": 136.9340057373047,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Ugolny Yuri Ryktheu Airport",
+        "icao": "UHMA",
+        "iata": "DYR",
+        "lat": 64.734902,
+        "lon": 177.740997,
+        "max_runway_m": 3500.0,
+        "class": "Long"
+    },
+    {
+        "name": "Chaybukha Airport",
+        "icao": "UHMG",
+        "iata": "",
+        "lat": 61.834999,
+        "lon": 160.548004,
+        "max_runway_m": 1999.8,
+        "class": "Short"
+    },
+    {
+        "name": "Keperveem Airport",
+        "icao": "UHMK",
+        "iata": "KPW",
+        "lat": 67.845001,
+        "lon": 166.139999,
+        "max_runway_m": 3499.7,
+        "class": "Long"
+    },
+    {
+        "name": "Sokol Airport",
+        "icao": "UHMM",
+        "iata": "GDX",
+        "lat": 59.9109992980957,
+        "lon": 150.72000122070312,
+        "max_runway_m": 3452.2,
+        "class": "Long"
+    },
+    {
+        "name": "Markovo Airport",
+        "icao": "UHMO",
+        "iata": "KVM",
+        "lat": 64.665446,
+        "lon": 170.417626,
+        "max_runway_m": 2400.0,
+        "class": "Short"
+    },
+    {
+        "name": "Pevek Airport",
+        "icao": "UHMP",
+        "iata": "PWE",
+        "lat": 69.783302,
+        "lon": 170.597,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Bogorodskoye Airport",
+        "icao": "UHNB",
+        "iata": "BQG",
+        "lat": 52.381041,
+        "lon": 140.449378,
+        "max_runway_m": 1399.9,
+        "class": "Short"
+    },
+    {
+        "name": "Nikolayevsk-na-Amure Airport",
+        "icao": "UHNN",
+        "iata": "NLI",
+        "lat": 53.154999,
+        "lon": 140.649994,
+        "max_runway_m": 1899.8,
+        "class": "Short"
+    },
+    {
+        "name": "Okhotsk Airport",
+        "icao": "UHOO",
+        "iata": "OHO",
+        "lat": 59.410065,
+        "lon": 143.056503,
+        "max_runway_m": 2000.1,
+        "class": "Short"
+    },
+    {
+        "name": "Ust'-Kamchatsk Airport",
+        "icao": "UHPK",
+        "iata": "",
+        "lat": 56.238854,
+        "lon": 162.689989,
+        "max_runway_m": 1249.7,
+        "class": "Short"
+    },
+    {
+        "name": "Yelizovo Airport",
+        "icao": "UHPP",
+        "iata": "PKC",
+        "lat": 53.168716,
+        "lon": 158.451068,
+        "max_runway_m": 3400.0,
+        "class": "Long"
+    },
+    {
+        "name": "Iturup Airport",
+        "icao": "UHSI",
+        "iata": "ITU",
+        "lat": 45.256389,
+        "lon": 147.95549,
+        "max_runway_m": 2300.0,
+        "class": "Short"
+    },
+    {
+        "name": "Shakhtyorsk Airport",
+        "icao": "UHSK",
+        "iata": "EKS",
+        "lat": 49.1903,
+        "lon": 142.082993,
+        "max_runway_m": 1599.9,
+        "class": "Short"
+    },
+    {
+        "name": "Nogliki Airport",
+        "icao": "UHSN",
+        "iata": "NGK",
+        "lat": 51.783955,
+        "lon": 143.141785,
+        "max_runway_m": 1749.9,
+        "class": "Short"
+    },
+    {
+        "name": "Yuzhno-Sakhalinsk International Airport",
+        "icao": "UHSS",
+        "iata": "UUS",
+        "lat": 46.885461,
+        "lon": 142.717466,
+        "max_runway_m": 3400.0,
+        "class": "Long"
+    },
+    {
+        "name": "Plastun Airport",
+        "icao": "UHWP",
+        "iata": "TLY",
+        "lat": 44.814999,
+        "lon": 136.292007,
+        "max_runway_m": 1599.9,
+        "class": "Short"
+    },
+    {
+        "name": "Vladivostok International Airport",
+        "icao": "UHWW",
+        "iata": "VVO",
+        "lat": 43.396256,
+        "lon": 132.148155,
+        "max_runway_m": 3500.0,
+        "class": "Long"
+    },
+    {
+        "name": "Chita-Kadala International Airport",
+        "icao": "UIAA",
+        "iata": "HTA",
+        "lat": 52.024841,
+        "lon": 113.305839,
+        "max_runway_m": 2874.3,
+        "class": "Short"
+    },
+    {
+        "name": "Bratsk Airport",
+        "icao": "UIBB",
+        "iata": "BTK",
+        "lat": 56.3696,
+        "lon": 101.701822,
+        "max_runway_m": 3160.2,
+        "class": "Long"
+    },
+    {
+        "name": "Irkutsk International Airport",
+        "icao": "UIII",
+        "iata": "IKT",
+        "lat": 52.266707,
+        "lon": 104.395563,
+        "max_runway_m": 3564.9,
+        "class": "Long"
+    },
+    {
+        "name": "Bodaybo Airport",
+        "icao": "UIKB",
+        "iata": "ODO",
+        "lat": 57.866100311299995,
+        "lon": 114.242996216,
+        "max_runway_m": 1656.9,
+        "class": "Short"
+    },
+    {
+        "name": "Ust-Kut Airport",
+        "icao": "UITT",
+        "iata": "UKX",
+        "lat": 56.856701,
+        "lon": 105.730003,
+        "max_runway_m": 1999.8,
+        "class": "Short"
+    },
+    {
+        "name": "Nizhneangarsk International Airport",
+        "icao": "UIUN",
+        "iata": "NZG",
+        "lat": 55.8008,
+        "lon": 109.595001,
+        "max_runway_m": 1599.9,
+        "class": "Short"
+    },
+    {
+        "name": "Baikal International Airport",
+        "icao": "UIUU",
+        "iata": "UUD",
+        "lat": 51.808614,
+        "lon": 107.439652,
+        "max_runway_m": 3400.0,
+        "class": "Long"
+    },
+    {
+        "name": "Talagi Airport",
+        "icao": "ULAA",
+        "iata": "ARH",
+        "lat": 64.60030364990234,
+        "lon": 40.71670150756836,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Leshukonskoye Airport",
+        "icao": "ULAL",
+        "iata": "LDG",
+        "lat": 64.8960037231,
+        "lon": 45.7229995728,
+        "max_runway_m": 1595.9,
+        "class": "Short"
+    },
+    {
+        "name": "Naryan Mar Airport",
+        "icao": "ULAM",
+        "iata": "NNM",
+        "lat": 67.639999,
+        "lon": 53.121899,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Solovki Airport",
+        "icao": "ULAS",
+        "iata": "CSH",
+        "lat": 65.029999,
+        "lon": 35.733334,
+        "max_runway_m": 1499.6,
+        "class": "Short"
+    },
+    {
+        "name": "Kotlas Airport",
+        "icao": "ULKK",
+        "iata": "KSZ",
+        "lat": 61.235801696777344,
+        "lon": 46.6974983215332,
+        "max_runway_m": 1449.9,
+        "class": "Short"
+    },
+    {
+        "name": "Pulkovo Airport",
+        "icao": "ULLI",
+        "iata": "LED",
+        "lat": 59.800301,
+        "lon": 30.262501,
+        "max_runway_m": 3780.1,
+        "class": "Long"
+    },
+    {
+        "name": "Emperor Nicholas II Murmansk Airport",
+        "icao": "ULMM",
+        "iata": "MMK",
+        "lat": 68.7817,
+        "lon": 32.750801,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Princess Olga Pskov International Airport",
+        "icao": "ULOO",
+        "iata": "PKV",
+        "lat": 57.781316,
+        "lon": 28.39384,
+        "max_runway_m": 2524.0,
+        "class": "Short"
+    },
+    {
+        "name": "Petrozavodsk Airport",
+        "icao": "ULPB",
+        "iata": "PES",
+        "lat": 61.885201,
+        "lon": 34.154701,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Cherepovets Airport",
+        "icao": "ULWC",
+        "iata": "CEE",
+        "lat": 59.273601532,
+        "lon": 38.015800476100004,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Velikiy Ustyug Airport",
+        "icao": "ULWU",
+        "iata": "VUS",
+        "lat": 60.7883,
+        "lon": 46.259998,
+        "max_runway_m": 1545.0,
+        "class": "Short"
+    },
+    {
+        "name": "Khrabrovo Airport",
+        "icao": "UMKK",
+        "iata": "KGD",
+        "lat": 54.889882,
+        "lon": 20.598216,
+        "max_runway_m": 3350.1,
+        "class": "Long"
+    },
+    {
+        "name": "Abakan International Airport",
+        "icao": "UNAA",
+        "iata": "ABA",
+        "lat": 53.740002,
+        "lon": 91.385002,
+        "max_runway_m": 3250.1,
+        "class": "Long"
+    },
+    {
+        "name": "Shushenskoye Airport",
+        "icao": "UNAU",
+        "iata": "",
+        "lat": 53.385176,
+        "lon": 92.044718,
+        "max_runway_m": 1800.1,
+        "class": "Short"
+    },
+    {
+        "name": "Barnaul Gherman Titov International Airport",
+        "icao": "UNBB",
+        "iata": "BAX",
+        "lat": 53.361285,
+        "lon": 83.539701,
+        "max_runway_m": 2849.9,
+        "class": "Short"
+    },
+    {
+        "name": "Alexei Leonov Kemerovo International Airport",
+        "icao": "UNEE",
+        "iata": "KEJ",
+        "lat": 55.2701,
+        "lon": 86.107201,
+        "max_runway_m": 3200.1,
+        "class": "Long"
+    },
+    {
+        "name": "Yeniseysk Airport",
+        "icao": "UNII",
+        "iata": "EIE",
+        "lat": 58.474201,
+        "lon": 92.112503,
+        "max_runway_m": 2199.7,
+        "class": "Short"
+    },
+    {
+        "name": "Severo-Yeniseysk Airport",
+        "icao": "UNIS",
+        "iata": "VEO",
+        "lat": 60.373299,
+        "lon": 93.011703,
+        "max_runway_m": 1499.6,
+        "class": "Short"
+    },
+    {
+        "name": "Tura Mountain Airport",
+        "icao": "UNIT",
+        "iata": "GOY",
+        "lat": 64.333511,
+        "lon": 100.432892,
+        "max_runway_m": 1399.9,
+        "class": "Short"
+    },
+    {
+        "name": "Vanavara Airport",
+        "icao": "UNIW",
+        "iata": "VAQ",
+        "lat": 60.356229,
+        "lon": 102.309641,
+        "max_runway_m": 1399.6,
+        "class": "Short"
+    },
+    {
+        "name": "Krasnoyarsk International Airport",
+        "icao": "UNKL",
+        "iata": "KJA",
+        "lat": 56.175743,
+        "lon": 92.485788,
+        "max_runway_m": 3700.0,
+        "class": "Long"
+    },
+    {
+        "name": "Krasnoyarsk Cheremshanka Airport",
+        "icao": "UNKM",
+        "iata": "KCY",
+        "lat": 56.177584,
+        "lon": 92.545881,
+        "max_runway_m": 1799.8,
+        "class": "Short"
+    },
+    {
+        "name": "Kyzyl Airport",
+        "icao": "UNKY",
+        "iata": "KYZ",
+        "lat": 51.669399,
+        "lon": 94.400597,
+        "max_runway_m": 2699.9,
+        "class": "Short"
+    },
+    {
+        "name": "Novosibirsk Tolmachevo Airport",
+        "icao": "UNNT",
+        "iata": "OVB",
+        "lat": 55.019756,
+        "lon": 82.618675,
+        "max_runway_m": 3602.1,
+        "class": "Long"
+    },
+    {
+        "name": "Omsk Central Airport",
+        "icao": "UNOO",
+        "iata": "OMS",
+        "lat": 54.963124,
+        "lon": 73.312418,
+        "max_runway_m": 2875.8,
+        "class": "Short"
+    },
+    {
+        "name": "Tomsk Kamov Airport",
+        "icao": "UNTT",
+        "iata": "TOF",
+        "lat": 56.380299,
+        "lon": 85.208298,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Spichenkovo Airport",
+        "icao": "UNWW",
+        "iata": "NOZ",
+        "lat": 53.811401,
+        "lon": 86.877197,
+        "max_runway_m": 2678.9,
+        "class": "Short"
+    },
+    {
+        "name": "Khatanga Airport",
+        "icao": "UOHH",
+        "iata": "HTG",
+        "lat": 71.97810363769531,
+        "lon": 102.49099731445312,
+        "max_runway_m": 2704.2,
+        "class": "Short"
+    },
+    {
+        "name": "Igarka Airport",
+        "icao": "UOII",
+        "iata": "IAA",
+        "lat": 67.437202,
+        "lon": 86.621902,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Alykel International Airport",
+        "icao": "UOOO",
+        "iata": "NSK",
+        "lat": 69.307951,
+        "lon": 87.325906,
+        "max_runway_m": 3430.2,
+        "class": "Long"
+    },
+    {
+        "name": "Turukhansk Airport",
+        "icao": "UOTT",
+        "iata": "THX",
+        "lat": 65.797203,
+        "lon": 87.935303,
+        "max_runway_m": 1799.8,
+        "class": "Short"
+    },
+    {
+        "name": "Anapa Vityazevo Airport",
+        "icao": "URKA",
+        "iata": "AAQ",
+        "lat": 45.002102,
+        "lon": 37.347301,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Gelendzhik Airport",
+        "icao": "URKG",
+        "iata": "GDZ",
+        "lat": 44.5820926295,
+        "lon": 38.0124807358,
+        "max_runway_m": 3100.1,
+        "class": "Long"
+    },
+    {
+        "name": "Krasnodar Pashkovsky International Airport",
+        "icao": "URKK",
+        "iata": "KRR",
+        "lat": 45.034465,
+        "lon": 39.174215,
+        "max_runway_m": 2997.7,
+        "class": "Short"
+    },
+    {
+        "name": "Akhmat Kadyrov Grozny International Airport",
+        "icao": "URMG",
+        "iata": "GRV",
+        "lat": 43.388106,
+        "lon": 45.699772,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Makhachkala Uytash International Airport",
+        "icao": "URML",
+        "iata": "MCX",
+        "lat": 42.816799,
+        "lon": 47.652302,
+        "max_runway_m": 2648.1,
+        "class": "Short"
+    },
+    {
+        "name": "Mineralnye Vody Airport",
+        "icao": "URMM",
+        "iata": "MRV",
+        "lat": 44.225101,
+        "lon": 43.081902,
+        "max_runway_m": 3899.9,
+        "class": "Long"
+    },
+    {
+        "name": "Nalchik Airport",
+        "icao": "URMN",
+        "iata": "NAL",
+        "lat": 43.512901,
+        "lon": 43.6366,
+        "max_runway_m": 2200.0,
+        "class": "Short"
+    },
+    {
+        "name": "Vladikavkaz Beslan International Airport",
+        "icao": "URMO",
+        "iata": "OGZ",
+        "lat": 43.205101,
+        "lon": 44.606602,
+        "max_runway_m": 3000.1,
+        "class": "Long"
+    },
+    {
+        "name": "Magas Airport",
+        "icao": "URMS",
+        "iata": "IGT",
+        "lat": 43.323268,
+        "lon": 45.012568,
+        "max_runway_m": 2999.8,
+        "class": "Short"
+    },
+    {
+        "name": "Stavropol Shpakovskoye Airport",
+        "icao": "URMT",
+        "iata": "STW",
+        "lat": 45.10919952392578,
+        "lon": 42.11280059814453,
+        "max_runway_m": 2599.9,
+        "class": "Short"
+    },
+    {
+        "name": "Platov International Airport",
+        "icao": "URRP",
+        "iata": "ROV",
+        "lat": 47.493888,
+        "lon": 39.924722,
+        "max_runway_m": 3600.0,
+        "class": "Long"
+    },
+    {
+        "name": "Taganrog Yuzhny Airport",
+        "icao": "URRT",
+        "iata": "TGK",
+        "lat": 47.1983333,
+        "lon": 38.8491667,
+        "max_runway_m": 2759.0,
+        "class": "Short"
+    },
+    {
+        "name": "Sochi International Airport",
+        "icao": "URSS",
+        "iata": "AER",
+        "lat": 43.449902,
+        "lon": 39.9566,
+        "max_runway_m": 2895.0,
+        "class": "Short"
+    },
+    {
+        "name": "Astrakhan Narimanovo Boris M. Kustodiev International Airport",
+        "icao": "URWA",
+        "iata": "ASF",
+        "lat": 46.282843,
+        "lon": 48.010511,
+        "max_runway_m": 3200.1,
+        "class": "Long"
+    },
+    {
+        "name": "Elista Airport",
+        "icao": "URWI",
+        "iata": "ESL",
+        "lat": 46.3739013671875,
+        "lon": 44.33089828491211,
+        "max_runway_m": 3200.1,
+        "class": "Long"
+    },
+    {
+        "name": "Volgograd International Airport",
+        "icao": "URWW",
+        "iata": "VOG",
+        "lat": 48.78134,
+        "lon": 44.339194,
+        "max_runway_m": 2799.9,
+        "class": "Short"
+    },
+    {
+        "name": "Kurchatov Chelyabinsk International Airport",
+        "icao": "USCC",
+        "iata": "CEK",
+        "lat": 55.303141,
+        "lon": 61.504927,
+        "max_runway_m": 3200.1,
+        "class": "Long"
+    },
+    {
+        "name": "Magnitogorsk International Airport",
+        "icao": "USCM",
+        "iata": "MQF",
+        "lat": 53.391991,
+        "lon": 58.755235,
+        "max_runway_m": 3250.1,
+        "class": "Long"
+    },
+    {
+        "name": "Sabetta International Airport",
+        "icao": "USDA",
+        "iata": "SBT",
+        "lat": 71.219167,
+        "lon": 72.052222,
+        "max_runway_m": 2699.9,
+        "class": "Short"
+    },
+    {
+        "name": "Bovanenkovo Airport",
+        "icao": "USDB",
+        "iata": "BVJ",
+        "lat": 70.315278,
+        "lon": 68.333611,
+        "max_runway_m": 2651.2,
+        "class": "Short"
+    },
+    {
+        "name": "Salekhard Airport",
+        "icao": "USDD",
+        "iata": "SLY",
+        "lat": 66.5907974243164,
+        "lon": 66.61100006103516,
+        "max_runway_m": 2717.9,
+        "class": "Short"
+    },
+    {
+        "name": "Khanty Mansiysk Airport",
+        "icao": "USHH",
+        "iata": "HMA",
+        "lat": 61.0285,
+        "lon": 69.086098,
+        "max_runway_m": 2798.1,
+        "class": "Short"
+    },
+    {
+        "name": "Nyagan Airport",
+        "icao": "USHN",
+        "iata": "NYA",
+        "lat": 62.110001,
+        "lon": 65.614998,
+        "max_runway_m": 2532.0,
+        "class": "Short"
+    },
+    {
+        "name": "Beloyarskiy Airport",
+        "icao": "USHQ",
+        "iata": "EYK",
+        "lat": 63.686901,
+        "lon": 66.698601,
+        "max_runway_m": 2142.1,
+        "class": "Short"
+    },
+    {
+        "name": "Sovetskiy Airport",
+        "icao": "USHS",
+        "iata": "OVS",
+        "lat": 61.326622009277344,
+        "lon": 63.60191345214844,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Uray Airport",
+        "icao": "USHU",
+        "iata": "URJ",
+        "lat": 60.103298,
+        "lon": 64.826698,
+        "max_runway_m": 2200.0,
+        "class": "Short"
+    },
+    {
+        "name": "Izhevsk Airport",
+        "icao": "USII",
+        "iata": "IJK",
+        "lat": 56.834524,
+        "lon": 53.462172,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Pobedilovo Airport",
+        "icao": "USKK",
+        "iata": "KVX",
+        "lat": 58.503883,
+        "lon": 49.347831,
+        "max_runway_m": 2203.7,
+        "class": "Short"
+    },
+    {
+        "name": "Nadym Airport",
+        "icao": "USMM",
+        "iata": "NYM",
+        "lat": 65.48090362548828,
+        "lon": 72.69889831542969,
+        "max_runway_m": 2548.1,
+        "class": "Short"
+    },
+    {
+        "name": "Novy Urengoy Airport",
+        "icao": "USMU",
+        "iata": "NUX",
+        "lat": 66.06939697265625,
+        "lon": 76.52030181884766,
+        "max_runway_m": 2550.0,
+        "class": "Short"
+    },
+    {
+        "name": "Nizhnevartovsk Airport",
+        "icao": "USNN",
+        "iata": "NJC",
+        "lat": 60.949299,
+        "lon": 76.483597,
+        "max_runway_m": 3200.1,
+        "class": "Long"
+    },
+    {
+        "name": "Perm International Airport",
+        "icao": "USPP",
+        "iata": "PEE",
+        "lat": 57.914501,
+        "lon": 56.021198,
+        "max_runway_m": 3206.5,
+        "class": "Long"
+    },
+    {
+        "name": "Kogalym International Airport",
+        "icao": "USRK",
+        "iata": "KGP",
+        "lat": 62.190399169921875,
+        "lon": 74.53379821777344,
+        "max_runway_m": 2507.0,
+        "class": "Short"
+    },
+    {
+        "name": "Nefteyugansk Airport",
+        "icao": "USRN",
+        "iata": "NFG",
+        "lat": 61.108299,
+        "lon": 72.650002,
+        "max_runway_m": 2699.9,
+        "class": "Short"
+    },
+    {
+        "name": "Noyabrsk Airport",
+        "icao": "USRO",
+        "iata": "NOJ",
+        "lat": 63.18330001831055,
+        "lon": 75.2699966430664,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Surgut International Airport",
+        "icao": "USRR",
+        "iata": "SGC",
+        "lat": 61.340501,
+        "lon": 73.405782,
+        "max_runway_m": 2790.1,
+        "class": "Short"
+    },
+    {
+        "name": "Koltsovo Airport",
+        "icao": "USSS",
+        "iata": "SVX",
+        "lat": 56.743099212646,
+        "lon": 60.802700042725,
+        "max_runway_m": 3025.1,
+        "class": "Long"
+    },
+    {
+        "name": "Tobolsk Remezov Airport",
+        "icao": "USTJ",
+        "iata": "RMZ",
+        "lat": 58.059712,
+        "lon": 68.347997,
+        "max_runway_m": 2400.3,
+        "class": "Short"
+    },
+    {
+        "name": "Roshchino International Airport",
+        "icao": "USTR",
+        "iata": "TJM",
+        "lat": 57.178984,
+        "lon": 65.327696,
+        "max_runway_m": 3002.9,
+        "class": "Long"
+    },
+    {
+        "name": "Kurgan Airport",
+        "icao": "USUU",
+        "iata": "KRO",
+        "lat": 55.4753,
+        "lon": 65.415604,
+        "max_runway_m": 2599.9,
+        "class": "Short"
+    },
+    {
+        "name": "Kostroma Sokerkino Airport",
+        "icao": "UUBA",
+        "iata": "KMW",
+        "lat": 57.796902,
+        "lon": 41.019402,
+        "max_runway_m": 1699.9,
+        "class": "Short"
+    },
+    {
+        "name": "Ivanovo South Airport",
+        "icao": "UUBI",
+        "iata": "IWA",
+        "lat": 56.93939971923828,
+        "lon": 40.940799713134766,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Staroselye Airport",
+        "icao": "UUBK",
+        "iata": "RYB",
+        "lat": 58.104198,
+        "lon": 38.929401,
+        "max_runway_m": 1000.4,
+        "class": "Short"
+    },
+    {
+        "name": "Bryansk International Airport",
+        "icao": "UUBP",
+        "iata": "BZK",
+        "lat": 53.214199,
+        "lon": 34.176399,
+        "max_runway_m": 2400.0,
+        "class": "Short"
+    },
+    {
+        "name": "Zhukovsky International Airport",
+        "icao": "UUBW",
+        "iata": "ZIA",
+        "lat": 55.553299,
+        "lon": 38.150002,
+        "max_runway_m": 4600.0,
+        "class": "Long"
+    },
+    {
+        "name": "Domodedovo International Airport",
+        "icao": "UUDD",
+        "iata": "DME",
+        "lat": 55.408798,
+        "lon": 37.9063,
+        "max_runway_m": 3794.2,
+        "class": "Long"
+    },
+    {
+        "name": "Golden Ring Yaroslavl International Airport",
+        "icao": "UUDL",
+        "iata": "IAR",
+        "lat": 57.560699,
+        "lon": 40.157398,
+        "max_runway_m": 3008.4,
+        "class": "Long"
+    },
+    {
+        "name": "Sheremetyevo International Airport",
+        "icao": "UUEE",
+        "iata": "SVO",
+        "lat": 55.976858,
+        "lon": 37.41121,
+        "max_runway_m": 3700.0,
+        "class": "Long"
+    },
+    {
+        "name": "Belgorod International Airport",
+        "icao": "UUOB",
+        "iata": "EGO",
+        "lat": 50.643798828125,
+        "lon": 36.5900993347168,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Kursk East Airport",
+        "icao": "UUOK",
+        "iata": "URS",
+        "lat": 51.7505989074707,
+        "lon": 36.29560089111328,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Lipetsk Airport",
+        "icao": "UUOL",
+        "iata": "LPK",
+        "lat": 52.70280075073242,
+        "lon": 39.53779983520508,
+        "max_runway_m": 2300.0,
+        "class": "Short"
+    },
+    {
+        "name": "Voronezh International Airport",
+        "icao": "UUOO",
+        "iata": "VOZ",
+        "lat": 51.813683,
+        "lon": 39.231711,
+        "max_runway_m": 2300.0,
+        "class": "Short"
+    },
+    {
+        "name": "Vnukovo International Airport",
+        "icao": "UUWW",
+        "iata": "VKO",
+        "lat": 55.591499,
+        "lon": 37.261501,
+        "max_runway_m": 3500.0,
+        "class": "Long"
+    },
+    {
+        "name": "Ukhta Airport",
+        "icao": "UUYH",
+        "iata": "UCT",
+        "lat": 63.566898,
+        "lon": 53.804699,
+        "max_runway_m": 2649.0,
+        "class": "Short"
+    },
+    {
+        "name": "Pechora Airport",
+        "icao": "UUYP",
+        "iata": "PEX",
+        "lat": 65.121101,
+        "lon": 57.130798,
+        "max_runway_m": 1799.8,
+        "class": "Short"
+    },
+    {
+        "name": "Usinsk Airport",
+        "icao": "UUYS",
+        "iata": "USK",
+        "lat": 66.0047,
+        "lon": 57.367199,
+        "max_runway_m": 2500.0,
+        "class": "Short"
+    },
+    {
+        "name": "Vorkuta Airport",
+        "icao": "UUYW",
+        "iata": "VKT",
+        "lat": 67.488602,
+        "lon": 63.993099,
+        "max_runway_m": 2200.0,
+        "class": "Short"
+    },
+    {
+        "name": "Syktyvkar Airport",
+        "icao": "UUYY",
+        "iata": "SCW",
+        "lat": 61.64699935913086,
+        "lon": 50.84510040283203,
+        "max_runway_m": 2500.3,
+        "class": "Short"
+    },
+    {
+        "name": "Nizhny Novgorod / Strigino International Airport",
+        "icao": "UWGG",
+        "iata": "GOJ",
+        "lat": 56.227351,
+        "lon": 43.785152,
+        "max_runway_m": 3000.1,
+        "class": "Long"
+    },
+    {
+        "name": "Bugulma Airport",
+        "icao": "UWKB",
+        "iata": "UUA",
+        "lat": 54.641184,
+        "lon": 52.800229,
+        "max_runway_m": 1999.8,
+        "class": "Short"
+    },
+    {
+        "name": "Kazan International Airport",
+        "icao": "UWKD",
+        "iata": "KZN",
+        "lat": 55.606201,
+        "lon": 49.278702,
+        "max_runway_m": 3750.0,
+        "class": "Long"
+    },
+    {
+        "name": "Begishevo Airport",
+        "icao": "UWKE",
+        "iata": "NBC",
+        "lat": 55.564701,
+        "lon": 52.092499,
+        "max_runway_m": 2502.1,
+        "class": "Short"
+    },
+    {
+        "name": "Cheboksary Airport",
+        "icao": "UWKS",
+        "iata": "CSY",
+        "lat": 56.090302,
+        "lon": 47.347301,
+        "max_runway_m": 2511.9,
+        "class": "Short"
+    },
+    {
+        "name": "Ulyanovsk Baratayevka Airport",
+        "icao": "UWLL",
+        "iata": "ULV",
+        "lat": 54.268299,
+        "lon": 48.2267,
+        "max_runway_m": 3820.1,
+        "class": "Long"
+    },
+    {
+        "name": "Ulyanovsk Vostochny Airport",
+        "icao": "UWLW",
+        "iata": "ULY",
+        "lat": 54.401001,
+        "lon": 48.8027,
+        "max_runway_m": 4999.9,
+        "class": "Long"
+    },
+    {
+        "name": "Orenburg Central Airport",
+        "icao": "UWOO",
+        "iata": "REN",
+        "lat": 51.792668,
+        "lon": 55.457229,
+        "max_runway_m": 2503.0,
+        "class": "Short"
+    },
+    {
+        "name": "Orsk Airport",
+        "icao": "UWOR",
+        "iata": "OSW",
+        "lat": 51.072498,
+        "lon": 58.5956,
+        "max_runway_m": 2899.9,
+        "class": "Short"
+    },
+    {
+        "name": "Penza Airport",
+        "icao": "UWPP",
+        "iata": "PEZ",
+        "lat": 53.110599517822266,
+        "lon": 45.02109909057617,
+        "max_runway_m": 2790.4,
+        "class": "Short"
+    },
+    {
+        "name": "Saransk International Airport",
+        "icao": "UWPS",
+        "iata": "SKX",
+        "lat": 54.12513,
+        "lon": 45.212257,
+        "max_runway_m": 2799.9,
+        "class": "Short"
+    },
+    {
+        "name": "Balakovo Airport",
+        "icao": "UWSB",
+        "iata": "BWO",
+        "lat": 51.858299,
+        "lon": 47.745602,
+        "max_runway_m": 2350.0,
+        "class": "Short"
+    },
+    {
+        "name": "Gagarin International Airport",
+        "icao": "UWSG",
+        "iata": "GSV",
+        "lat": 51.712778,
+        "lon": 46.171111,
+        "max_runway_m": 3000.1,
+        "class": "Long"
+    },
+    {
+        "name": "Ufa International Airport",
+        "icao": "UWUU",
+        "iata": "UFA",
+        "lat": 54.557498931885,
+        "lon": 55.874401092529,
+        "max_runway_m": 3760.9,
+        "class": "Long"
+    },
+    {
+        "name": "Kurumoch International Airport",
+        "icao": "UWWW",
+        "iata": "KUF",
+        "lat": 53.504902,
+        "lon": 50.164299,
+        "max_runway_m": 3001.1,
+        "class": "Long"
+    }
+]

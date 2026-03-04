@@ -93,7 +93,7 @@ PENALTY_CONFLICT_LATERAL         = 200
 PENALTY_ALT_CHANGE_PER_LEVEL     = 50    # за каждый уровень изменения (разовый)
 REWARD_ALT_CHANGE                = 30    # небольшое поощрение за смену эшелона
 PENALTY_ALT_STAGNATION_STEPS    = 10    # начинать штрафовать после N шагов на одном эшелоне
-PENALTY_ALT_STAGNATION_PER_STEP = 15    # штраф за каждый шаг сверх лимита
+PENALTY_ALT_STAGNATION_PER_STEP = 300   # базовый штраф за каждый шаг сверх лимита (будет нарастать)
 
 # ── Курс и прогресс ───────────────────────────────────────────────────────
 PENALTY_PER_DEG_HEADING_CHANGE   = 2.5
@@ -624,7 +624,7 @@ class FlightEnvironment:
             current_mass_kg=start_mass,
             dist_to_goal_km=d0,
             prev_azimuth=init_az,
-            steps_at_current_alt=0,
+            steps_at_current_alt=1,
             visited_wp={dep["name"]},
             path=[{
                 "name":                dep["name"],
@@ -858,12 +858,14 @@ class FlightEnvironment:
             s.fuel_remaining_kg   = max(0.0, s.fuel_remaining_kg - alt_fuel)
             # Поощрение за смену эшелона (стимулирует исследование)
             reward_bonus += REWARD_ALT_CHANGE
-            s.steps_at_current_alt = 0
+            s.steps_at_current_alt = 1
         else:
             s.steps_at_current_alt += 1
             # Штраф за долгое засиживание на одном эшелоне
             if s.steps_at_current_alt > PENALTY_ALT_STAGNATION_STEPS:
-                stag_p = PENALTY_ALT_STAGNATION_PER_STEP
+                # Нарастающий штраф: 300 за первый лишний шаг, 600 за второй и т.д.
+                overstay = s.steps_at_current_alt - PENALTY_ALT_STAGNATION_STEPS
+                stag_p = PENALTY_ALT_STAGNATION_PER_STEP * overstay
                 penalty += stag_p
                 s.add_penalty(f"Стагнация на FL{new_alt*100} ({s.steps_at_current_alt} шагов)", stag_p)
 
