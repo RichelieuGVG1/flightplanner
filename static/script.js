@@ -163,7 +163,7 @@ function toggleFullLoad() {
     const cb = document.getElementById('full-load');
     const slider = document.getElementById('baggage-slider');
     slider.disabled = cb.checked;
-    if (cb.checked) slider.value = 1000;
+    if (cb.checked) slider.value = 25000;
     updateBaggageValue();
 }
 
