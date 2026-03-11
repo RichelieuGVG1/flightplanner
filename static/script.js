@@ -119,11 +119,16 @@ function loadFlightData(flightNo) {
     paxSlider.value = data.pax;
 
     const bagSlider = document.getElementById('baggage-slider');
+    const maxBaggage = aircraft.max_passengers * 25;
+    bagSlider.max = maxBaggage;
     bagSlider.value = data.baggage;
 
     const fullLoadCb = document.getElementById('full-load');
     fullLoadCb.checked = data.fullLoad;
     bagSlider.disabled = data.fullLoad;
+    if (data.fullLoad) {
+        bagSlider.value = maxBaggage;
+    }
 
     document.getElementById('fuel-reserve').value = data.fuel;
     document.getElementById('departure-time').value = data.depTime;
@@ -145,10 +150,23 @@ function switchFlight(flightNo) {
 function updateAircraftConstraints() {
     const selected = document.getElementById('aircraft-type').value;
     const aircraft = appData.aircraft_types.find(a => a.type === selected);
+    
     const slider = document.getElementById('pax-slider');
     slider.max = aircraft.max_passengers;
     if (parseInt(slider.value) > aircraft.max_passengers) slider.value = aircraft.max_passengers;
+    
+    const bagSlider = document.getElementById('baggage-slider');
+    const maxBaggage = aircraft.max_passengers * 25;
+    bagSlider.max = maxBaggage;
+    if (parseInt(bagSlider.value) > maxBaggage) bagSlider.value = maxBaggage;
+    
+    const fullLoadCb = document.getElementById('full-load');
+    if (fullLoadCb.checked) {
+        bagSlider.value = maxBaggage;
+    }
+    
     updatePaxValue();
+    updateBaggageValue();
 }
 
 function updatePaxValue() {
@@ -163,7 +181,7 @@ function toggleFullLoad() {
     const cb = document.getElementById('full-load');
     const slider = document.getElementById('baggage-slider');
     slider.disabled = cb.checked;
-    if (cb.checked) slider.value = 25000;
+    if (cb.checked) slider.value = slider.max;
     updateBaggageValue();
 }
 
