@@ -3728,3 +3728,26 @@ Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\importlib_resources\\_adapte
 2026-03-12 13:25:14,935 - werkzeug - INFO - 127.0.0.1 - - [12/Mar/2026 13:25:14] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
 2026-03-12 13:25:37,227 - werkzeug - INFO - 127.0.0.1 - - [12/Mar/2026 13:25:37] "POST /api/optimize HTTP/1.1" 200 -
 2026-03-12 13:25:37,237 - werkzeug - INFO - 127.0.0.1 - - [12/Mar/2026 13:25:37] "GET /weather/weather_data.json?t=1773311137235 HTTP/1.1" 200 -
+2026-03-16 11:52:29,472 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.12.56.232:5001
+2026-03-16 11:52:29,473 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-16 11:52:29,497 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2026-03-16 11:52:29,983 - werkzeug - WARNING -  * Debugger is active!
+2026-03-16 11:52:29,999 - werkzeug - INFO -  * Debugger PIN: 133-895-586
+2026-03-16 11:52:35,458 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:35] "GET / HTTP/1.1" 200 -
+2026-03-16 11:52:35,710 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:35] "GET /static/styles.css HTTP/1.1" 200 -
+2026-03-16 11:52:35,789 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:35] "GET /static/script.js HTTP/1.1" 200 -
+2026-03-16 11:52:36,316 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:36] "GET /api/waypoints HTTP/1.1" 200 -
+2026-03-16 11:52:36,609 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:36] "GET /api/aircraft_types HTTP/1.1" 200 -
+2026-03-16 11:52:36,610 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:36] "GET /airports/russian_civil_airports.json HTTP/1.1" 200 -
+2026-03-16 11:52:39,780 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:39] "[36mGET / HTTP/1.1[0m" 304 -
+2026-03-16 11:52:40,046 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:40] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2026-03-16 11:52:40,111 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:40] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2026-03-16 11:52:40,132 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:40] "GET /api/waypoints HTTP/1.1" 200 -
+2026-03-16 11:52:40,430 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:40] "GET /api/aircraft_types HTTP/1.1" 200 -
+2026-03-16 11:52:40,431 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:40] "[36mGET /airports/russian_civil_airports.json HTTP/1.1[0m" 304 -
+2026-03-16 11:52:40,473 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:40] "GET /static/favicon.ico HTTP/1.1" 200 -
+2026-03-16 11:52:55,603 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:55] "POST /api/optimize HTTP/1.1" 200 -
+2026-03-16 11:52:55,616 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:55] "GET /weather/weather_data.json?t=1773651175613 HTTP/1.1" 200 -
