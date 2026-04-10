@@ -3751,3 +3751,20 @@ Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\importlib_resources\\_adapte
 2026-03-16 11:52:40,473 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:40] "GET /static/favicon.ico HTTP/1.1" 200 -
 2026-03-16 11:52:55,603 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:55] "POST /api/optimize HTTP/1.1" 200 -
 2026-03-16 11:52:55,616 - werkzeug - INFO - 127.0.0.1 - - [16/Mar/2026 11:52:55] "GET /weather/weather_data.json?t=1773651175613 HTTP/1.1" 200 -
+2026-04-10 14:40:01,897 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.37.78.128:5001
+2026-04-10 14:40:01,898 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-04-10 14:40:01,899 - werkzeug - INFO -  * Restarting with stat
+2026-04-10 14:40:02,051 - werkzeug - WARNING -  * Debugger is active!
+2026-04-10 14:40:02,146 - werkzeug - INFO -  * Debugger PIN: 104-302-224
+2026-04-10 14:40:16,124 - werkzeug - INFO - 127.0.0.1 - - [10/Apr/2026 14:40:16] "GET / HTTP/1.1" 200 -
+2026-04-10 14:40:16,133 - werkzeug - INFO - 127.0.0.1 - - [10/Apr/2026 14:40:16] "GET /static/styles.css HTTP/1.1" 200 -
+2026-04-10 14:40:16,133 - werkzeug - INFO - 127.0.0.1 - - [10/Apr/2026 14:40:16] "GET /static/script.js HTTP/1.1" 200 -
+2026-04-10 14:40:16,456 - werkzeug - INFO - 127.0.0.1 - - [10/Apr/2026 14:40:16] "GET /api/aircraft_types HTTP/1.1" 200 -
+2026-04-10 14:40:16,487 - werkzeug - INFO - 127.0.0.1 - - [10/Apr/2026 14:40:16] "GET /api/waypoints HTTP/1.1" 200 -
+2026-04-10 14:40:16,488 - werkzeug - INFO - 127.0.0.1 - - [10/Apr/2026 14:40:16] "GET /airports/russian_civil_airports.json HTTP/1.1" 200 -
+2026-04-10 14:40:16,613 - werkzeug - INFO - 127.0.0.1 - - [10/Apr/2026 14:40:16] "GET /static/favicon.ico HTTP/1.1" 200 -
+2026-04-10 14:40:23,771 - werkzeug - INFO - 127.0.0.1 - - [10/Apr/2026 14:40:23] "POST /api/optimize HTTP/1.1" 200 -
+2026-04-10 14:40:23,784 - werkzeug - INFO - 127.0.0.1 - - [10/Apr/2026 14:40:23] "[33mGET /weather/weather_data.json?t=1775821223778 HTTP/1.1[0m" 404 -
