@@ -4020,3 +4020,17 @@ Users\\RichelieuGVG\\anaconda3\\Lib\\site-packages\\importlib_resources\\_adapte
 2026-06-15 18:00:19,754 - werkzeug - INFO - 127.0.0.1 - - [15/Jun/2026 18:00:19] "GET /static/favicon.ico HTTP/1.1" 200 -
 2026-06-15 18:00:26,223 - werkzeug - INFO - 127.0.0.1 - - [15/Jun/2026 18:00:26] "POST /api/optimize HTTP/1.1" 200 -
 2026-06-15 18:00:26,241 - werkzeug - INFO - 127.0.0.1 - - [15/Jun/2026 18:00:26] "GET /weather/weather_data.json?t=1781535626235 HTTP/1.1" 200 -
+2026-06-22 11:46:32,509 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.37.78.128:5001
+2026-06-22 11:46:32,509 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-22 11:46:32,509 - werkzeug - INFO -  * Restarting with stat
+2026-06-22 11:46:32,641 - werkzeug - WARNING -  * Debugger is active!
+2026-06-22 11:46:32,661 - werkzeug - INFO -  * Debugger PIN: 104-302-224
+2026-06-22 11:46:34,346 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2026 11:46:34] "GET / HTTP/1.1" 200 -
+2026-06-22 11:46:34,357 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2026 11:46:34] "GET /static/styles.css HTTP/1.1" 200 -
+2026-06-22 11:46:34,358 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2026 11:46:34] "GET /static/script.js HTTP/1.1" 200 -
+2026-06-22 11:46:34,998 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2026 11:46:34] "GET /airports/russian_civil_airports.json HTTP/1.1" 200 -
+2026-06-22 11:46:34,999 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2026 11:46:34] "GET /api/aircraft_types HTTP/1.1" 200 -
+2026-06-22 11:46:35,021 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2026 11:46:35] "GET /api/waypoints HTTP/1.1" 200 -
